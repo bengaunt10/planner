@@ -1,0 +1,67 @@
+
+body {
+  /* margin: 0; */
+  /* display: flex; */
+  /* background-color: rgb(14, 52, 56); */
+  /* background-color: rgba(115, 178, 180, 0.52); */
+  background: linear-gradient(191deg, #0E3438 20.63%, #102D31 26.84%, #15151C 49.56%, #181A31 72.73%, #171A38 73.06%, #202028 85.87%);
+  color: white;
+  
+}
+.custom-nav{
+  width: 100vw;
+}
+
+
+header {
+  background-color: rgb(24, 24, 24);
+  width: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px 2vw;
+  background: #2F2F2F;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.HomeBoxTop{
+  text-align: center;
+  padding: 40px;
+  margin: auto;
+  margin-top: 4vh;
+  width: 1093.874px;
+  height: 107.454px;
+  border-radius: 14px 14px 0px 0px;
+  background: rgba(55, 122, 82, 0.8);
+  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+}
+.HomeBox{
+  margin: auto;
+  width: 1094px;
+  height: 700px;
+  flex-shrink: 0;
+  background: rgba(143, 143, 143, 0.40);
+  
+}
+
+.custom-nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 2vw;
+  font-size: 25px;
+  
+}
+
+.navbar-toggler {
+  background-color: transparent !important;
+  border: none;
+}
+
+
+.custom-nav a:hover {
+  color: rgb(18, 86, 78) !important;
+  font-style: italic;
+  transition: 0.3s ease;
+}
+
