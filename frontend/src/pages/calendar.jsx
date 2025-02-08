@@ -9,7 +9,7 @@ function calendar() {
   }
   return (
     <>
-    
+
     <FullCalendar 
       plugins={[ dayGridPlugin,  interactionPlugin ]}
       dateClick={handleDateClick}
@@ -23,7 +23,7 @@ function calendar() {
         { title: 'event 2', date: '2025-02-07' }
       ]}
     />
-    
+
     </>
   )
 }
