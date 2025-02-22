@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import Calendar from './pages/calendar'
+import Calendar from './pages/Calendar'
 import Navbar from './components/Navbar'
 
 import './App.css'

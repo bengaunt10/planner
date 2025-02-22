@@ -5,22 +5,16 @@ class Task(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=300)
     duration = models.IntegerField()    
-    created = models.DateTimeField(auto_now_add=True)
+    # created = models.DateTimeField(auto_now_add=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    fixed = models.BooleanField() 
+    repeat = models.CharField(max_length=10,choices={
+        "none": "none",
+        "daily": "daily", 
+        "weekly":"weekly",
+        "duplicate": "duplicate"
+    })
+    repeat_id = models.IntegerField(default=0) #Make sure doesn't delete other users repeating tasks with the same repeat id. Shouldn't if ur selecting the user specific task in first place tho.
 
-    # startTime = models.DateTimeField()
-    # endTime = models.DateTimeField()
 
-    # def __str__(self):
-    #     return f"{self.name}"
-    
-    # def as_dict(self):
-    #     """A dictionary representation of the Task table"""
-    #     return {
-    #         'id': self.id,
-    #         'name':self.name,
-    #         'description':self.description,
-    #         'startTime':self.startTime,
-    #         'duration':self.duration,
-    #         'endTime':self.endTime,
-    #     }
-# Create your models here.
