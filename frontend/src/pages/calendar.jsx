@@ -14,26 +14,20 @@ function Calendar() {
   const [newStartTime, setNewStartTime] = useState("");
   const [newEndTime, setNewEndTime] = useState("");
   const [openAddModal, setOpenAddModal] = useState(false);
- 
+  const [openTaskModal, setOpenTaskModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false); //make a delete modal. option to delete all repeating tasks. send option through request body. if option is yes, delete all with same repeating_id. Gonna want to change the view aswell so that the first task created takes the same repeating_id as the rest of the tasks created.default = id? 
+  // const [openEditModal, setOpenEditModal] = useState(false);
+  const [deleteRepeat, setDeleteRepeat] = useState(false);
+  const [eventSelect, setEventSelect] = useState(null);
+
+
   const [newFixed, setNewFixed] = useState(false);
   const [newRepeat, setNewRepeat] = useState("none");
 
+
   const baseUrl="http://127.0.0.1:8000/api";
 
-  // const deleteTask = async(taskID) => {
-  //   try{
-  //     const response = await fetch(`${baseUrl}/drftest/delete/${taskID}/`, {
-  //       method: "DELETE",
-  //     })
-  //     if (response.ok){
-  //       console.log("task deleted")
-  //     }else{
-  //       console.error("Failed to delete task")
-  //     }
-  //   }catch(error){
-  //     console.error("error: ", error)
-  //   }
-  //   }
+
   const fetchTasks = async () =>{
     try {
       const response = await fetch(`${baseUrl}/drftest`, {
@@ -49,6 +43,31 @@ function Calendar() {
        console.error("error fetching tasks", error)
      }
   }
+
+
+
+  const deleteTask = async() => {
+    try{
+      const response = await fetch(`${baseUrl}/drftest/delete/${eventSelect.id}/`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({deleteRepeat})
+      })
+      if (response.ok){
+        console.log("task deleted")
+        setOpenDeleteModal(false)
+        setOpenTaskModal(false)
+        setEventSelect(null)
+        fetchTasks()
+      }else{
+        console.error("Failed to delete task")
+      }
+    }catch(error){
+      console.error("error: ", error)
+    }
+    }
 
     useEffect(() => {
       fetchTasks();
@@ -104,9 +123,16 @@ function Calendar() {
   const handleDateClick = (arg) => {
     alert(arg.dateStr)
   }
+
+  const onEventClick = (info) => {
+
+    setEventSelect(Tasks.find(task => String(task.id) === String(info.event.id)))
+
+    setOpenTaskModal(true)
+  }
+
   return (
     <>
-
     <FullCalendar 
       plugins={[ dayGridPlugin,  interactionPlugin ]}
       dateClick={handleDateClick}
@@ -116,9 +142,10 @@ function Calendar() {
       weekends={true}
       //here I will get it to loop through my events in my database and display all. handleevent change function when i drop it down. does a PUT to backend. reload the state change.
       events={Tasks.map(task => ({
-        title: task.name, date: task.start_time
+        id: task.id, title: task.name, date: task.start_time
       }))
       }
+      eventClick={onEventClick}
     />
 
 
@@ -190,6 +217,46 @@ function Calendar() {
                 <button type="submit">POST</button>              
               </form> 
             </Modal>
+          )}
+ 
+      {openTaskModal && (
+            <Modal onClose={() => {setOpenTaskModal(false); setEventSelect(null)}}>
+              <h2>Task</h2>
+                <div>
+                  <label>Task Name: {eventSelect.name}</label>
+
+                  <label>Description: {eventSelect.description}</label>
+
+                  <label>Duration: {eventSelect.duration}</label>
+
+                  <label>Start Time: {eventSelect.start_time}</label>
+
+
+                  <label>End Time: {eventSelect.end_time}</label>
+                </div>
+
+                <button className="btn btn-danger" onClick={() => {setOpenDeleteModal(true)}}> X</button>
+              <button className="btn btn-primary" onClick={() => {setOpenTaskModal(false); setEventSelect(null)}}> Close</button>
+            </Modal>
+          )}
+          {openDeleteModal && eventSelect && (
+            <Modal onClose={() => setOpenDeleteModal(false)}>
+              <h2>Are you sure you want to delete this task?</h2>
+              {eventSelect.repeat !== "none" && (
+                <div>
+                  <label>Do you want to delete all tasks with the same repeating_id?</label>
+                  <input
+                    type="checkbox"
+                    value={deleteRepeat}
+                    onChange={(e) => setDeleteRepeat(e.target.checked)}
+                  />
+                </div>
+              )}
+              <button className="btn btn-danger" onClick={() => deleteTask()}> Yes</button>
+              <button className="btn btn-primary" onClick={() => {setOpenDeleteModal(false)}}> No</button>
+            </Modal>
+
+            //add edit modal here
           )}
 
     </>

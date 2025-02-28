@@ -19,6 +19,9 @@ function Home() {
   const [deleteRepeat, setDeleteRepeat] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
 
+  const [newFixed, setNewFixed] = useState(false);
+  const [newRepeat, setNewRepeat] = useState("none");
+
   const baseUrl="http://127.0.0.1:8000/api";
 
 
@@ -64,7 +67,7 @@ function Home() {
     fetchTasks();
    }, []);    
 
-  const addTask = async (e) => {
+   const addTask = async (e) => {
 
     e.preventDefault();
     setOpenAddModal(false)
@@ -74,6 +77,9 @@ function Home() {
       duration: newDuration,
       start_time: newStartTime,
       end_time: newEndTime,
+      fixed: newFixed,
+      repeat: newRepeat
+
     }
     try {
       const response = await fetch(`${baseUrl}/drftest/add/`, {
@@ -89,8 +95,12 @@ function Home() {
         setNewDuration(0)
         setNewStartTime("")
         setNewEndTime("")
+        setNewRepeat("")
+        setNewFixed(false)
         console.log('task added successfully');
-        fetchTasks()
+        fetchTasks();
+        setOpenAddModal(false);
+        
       }else{
         console.error('Error: failed to add new task');
       }
@@ -172,7 +182,23 @@ function Home() {
                 onChange={(e) => setNewEndTime(e.target.value)}
                 required
                 />
+                <label>Fixed?</label> 
+                <input
+                type="checkbox"
+                value={newFixed}
+                onChange={(e) => setNewEndTime(e.target.value)}
+                />
+                <label>Repeat: </label> 
+                <select 
+                  value = {newRepeat}
+                  onChange={(e) => setNewRepeat(e.target.value)}
 
+                >
+                  <option value = "none">No</option>
+                  <option value = "daily">Daily</option>
+                  <option value = "weekly">Weekly</option>
+                </select>
+                
                 <button type="submit">POST</button>              
               </form> 
             </Modal>

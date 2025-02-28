@@ -1,13 +1,13 @@
 from django.db import models
 from django.utils import timezone
 
-class Task(models.Model):
+class Task(models.Model): #add this as a foreign key to user model later
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=300)
     duration = models.IntegerField()    
     # created = models.DateTimeField(auto_now_add=True)
     start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    end_time = models.DateTimeField() # Remove end time - calculate end time based on start time + duration
     fixed = models.BooleanField() 
     repeat = models.CharField(max_length=10,choices={
         "none": "none",

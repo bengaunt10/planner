@@ -7,7 +7,8 @@ from rest_framework.decorators import api_view
 from .serializers import TaskSerializer
 from datetime import timedelta
 
-@api_view(["GET"])
+@api_view(["GET"]) #sends back endtime varialbe still but it is calculated using start time and duration
+#either from selected start time or after my algorithm has been used
 def getData(request):
     tasks = Task.objects.all()
     serializer = TaskSerializer(tasks, many=True)
