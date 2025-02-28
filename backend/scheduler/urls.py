@@ -7,4 +7,6 @@ urlpatterns = [
     path("drftest/", getData),
     path("drftest/add/", addNote),
     path("drftest/delete/<int:taskID>/", deleteTask, name="delete_task"),
+    path("drftest/edit/<int:taskID>/", deleteTask, name="delete_task"),
+
 ]

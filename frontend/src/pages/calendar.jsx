@@ -4,6 +4,7 @@ import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import { useState, useEffect } from 'react'
 import Modal from '../components/Modal';
 
+
 function Calendar() {
   const[Tasks, setTasks] = useState([]);
   // const[OpenModal, SetOpenModal] = useState(false);
@@ -16,7 +17,7 @@ function Calendar() {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openTaskModal, setOpenTaskModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false); //make a delete modal. option to delete all repeating tasks. send option through request body. if option is yes, delete all with same repeating_id. Gonna want to change the view aswell so that the first task created takes the same repeating_id as the rest of the tasks created.default = id? 
-  // const [openEditModal, setOpenEditModal] = useState(false);
+   const [openEditModal, setOpenEditModal] = useState(false);
   const [deleteRepeat, setDeleteRepeat] = useState(false);
   const [eventSelect, setEventSelect] = useState(null);
 
@@ -116,6 +117,44 @@ function Calendar() {
     }
   }
 
+  const editTask = async (e) =>{
+
+    e.preventDefault();
+    setOpenEditModal(false)
+    const editedTask = {
+      name: eventSelect.name,
+      description: eventSelect.description,
+      duration: eventSelect.duration,
+      start_time: eventSelect.start_time,
+      end_time: eventSelect.end_time,
+      fixed: eventSelect.fixed,
+    }
+    try {
+      const response = await fetch(`${baseUrl}/drftest/edit/${eventSelect.id}/`, {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedTask)
+      });
+      if(response.ok){
+        setNewDescription("")
+        setNewName("")
+        setNewDuration(0)
+        setNewStartTime("")
+        setNewEndTime("")
+        setNewRepeat("")
+        setNewFixed(false)
+        fetchTasks();
+        setOpenEditModal(false);
+        
+      }else{
+        console.error('Error: failed to edit task');
+      }
+    }catch (error) {
+      console.error("Error editing task:", error);
+    }
+  }
 
 
 
@@ -133,6 +172,7 @@ function Calendar() {
 
   return (
     <>
+
     <FullCalendar 
       plugins={[ dayGridPlugin,  interactionPlugin ]}
       dateClick={handleDateClick}
@@ -158,7 +198,7 @@ function Calendar() {
           </button> */}
 
           {openAddModal && (
-            <Modal onClose={() => setOpenAddModal(false)}>
+            <Modal onClose={() => setOpenAddModal(false)} title="Add Task">
               {/* My adding new task form - Children to be passed into component   */}
               <h2> Add a new task</h2>
               <form onSubmit={addTask}>
@@ -220,7 +260,7 @@ function Calendar() {
           )}
  
       {openTaskModal && (
-            <Modal onClose={() => {setOpenTaskModal(false); setEventSelect(null)}}>
+            <Modal onClose={() => {setOpenTaskModal(false); setEventSelect(null)}} title = "Task Details">
               <h2>Task</h2>
                 <div>
                   <label>Task Name: {eventSelect.name}</label>
@@ -231,17 +271,16 @@ function Calendar() {
 
                   <label>Start Time: {eventSelect.start_time}</label>
 
-
                   <label>End Time: {eventSelect.end_time}</label>
                 </div>
 
-                <button className="btn btn-danger" onClick={() => {setOpenDeleteModal(true)}}> X</button>
-              <button className="btn btn-primary" onClick={() => {setOpenTaskModal(false); setEventSelect(null)}}> Close</button>
+              <button className="btn btn-danger position-absolute start-0 " onClick={() => {setOpenEditModal(true)}}> Edit</button>
+              <button className="btn btn-primary position-absolute end-50" onClick={() => {setOpenTaskModal(false); setEventSelect(null)}}> Close</button>
+              <button className="btn btn-danger position-absolute end-0" onClick={() => {setOpenDeleteModal(true)}}> Delete</button>
             </Modal>
           )}
           {openDeleteModal && eventSelect && (
-            <Modal onClose={() => setOpenDeleteModal(false)}>
-              <h2>Are you sure you want to delete this task?</h2>
+            <Modal onClose={() => setOpenDeleteModal(false)} title="Delete Task?">
               {eventSelect.repeat !== "none" && (
                 <div>
                   <label>Do you want to delete all tasks with the same repeating_id?</label>
@@ -254,6 +293,60 @@ function Calendar() {
               )}
               <button className="btn btn-danger" onClick={() => deleteTask()}> Yes</button>
               <button className="btn btn-primary" onClick={() => {setOpenDeleteModal(false)}}> No</button>
+            </Modal>
+
+            //add edit modal here
+          )}
+          {openEditModal && eventSelect && (
+            <Modal onClose={() => setOpenDeleteModal(false)} title="Edit Task">
+                <div>
+                <form onSubmit={editTask}>
+                <label> Task Name: </label>
+                <input
+                  type="text"
+                  value={eventSelect.name}
+                  onChange={(e) => setNewName(e.target.value)}
+                  required
+                />
+                <label> Description: </label>
+                <input
+                  type="text"
+                  value={eventSelect.description}
+                  onChange={(e) => setNewDescription(e.target.value)}
+                  required
+                />
+                <label> duration:</label> 
+                <input
+                type="number"
+                value={eventSelect.duration}
+                onChange={(e) => setNewDuration(e.target.value)}
+                required
+                />
+                <label> Start Time:</label> 
+                <input
+                type="datetime-local"
+                value={(eventSelect.start_time).toString().substring(0, 16)}
+                onChange={(e) => setNewStartTime(e.target.value)}
+                required
+                />
+                <label> End Time:</label> 
+                <input
+                type="datetime-local"
+                value={(eventSelect.end_time).toString().substring(0, 16)}
+                onChange={(e) => setNewEndTime(e.target.value)}
+                required
+                />
+                <label>Fixed?</label> 
+                <input
+                type="checkbox"
+                checked={eventSelect.fixed}
+                onChange={(e) => setNewEndTime(e.target.value)}
+                />
+
+                <button className="btn btn-danger" type="submit">Update</button>              
+              </form> 
+                </div>
+              <button className="btn btn-primary" onClick={() => {setOpenEditModal(false)}}> Close</button>
             </Modal>
 
             //add edit modal here
