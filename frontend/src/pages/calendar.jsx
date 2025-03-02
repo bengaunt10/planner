@@ -76,7 +76,15 @@ function Calendar() {
 
 
   const addTask = async (e) => {
-
+    const currentTime = new Date().toISOString().substring(0, 16)
+    if(newStartTime < currentTime){
+      alert("Start time cannot be before current time")
+      return
+    }
+    if(newEndTime < newStartTime){
+      alert("End time cannot be before start time")
+      return
+    }
     e.preventDefault();
     setOpenAddModal(false)
     const newTask = {
@@ -118,7 +126,15 @@ function Calendar() {
   }
 
   const editTask = async (e) =>{
-
+    const currentTime = new Date().toISOString().substring(0, 16)
+    if(eventSelect.start_time < currentTime){
+      alert("Start time cannot be before current time")
+      return
+    }
+    if(eventSelect.end_time < eventSelect.start_time){
+      alert("End time cannot be before start time")
+      return
+    }
     e.preventDefault();
     setOpenEditModal(false)
     const editedTask = {
@@ -128,6 +144,7 @@ function Calendar() {
       start_time: eventSelect.start_time,
       end_time: eventSelect.end_time,
       fixed: eventSelect.fixed,
+      repeat: eventSelect.repeat,
     }
     try {
       const response = await fetch(`${baseUrl}/drftest/edit/${eventSelect.id}/`, {
@@ -138,13 +155,6 @@ function Calendar() {
         body: JSON.stringify(editedTask)
       });
       if(response.ok){
-        setNewDescription("")
-        setNewName("")
-        setNewDuration(0)
-        setNewStartTime("")
-        setNewEndTime("")
-        setNewRepeat("")
-        setNewFixed(false)
         fetchTasks();
         setOpenEditModal(false);
         
@@ -221,6 +231,7 @@ function Calendar() {
                 type="number"
                 value={newDuration}
                 onChange={(e) => setNewDuration(e.target.value)}
+                min="0"
                 required
                 />
                 <label> Start Time:</label> 
@@ -240,8 +251,8 @@ function Calendar() {
                 <label>Fixed?</label> 
                 <input
                 type="checkbox"
-                value={newFixed}
-                onChange={(e) => setNewEndTime(e.target.value)}
+                checked={newFixed}
+                onChange={(e) => setNewFixed(e.target.checked)}
                 />
                 <label>Repeat: </label> 
                 <select 
@@ -298,49 +309,50 @@ function Calendar() {
             //add edit modal here
           )}
           {openEditModal && eventSelect && (
-            <Modal onClose={() => setOpenDeleteModal(false)} title="Edit Task">
+            <Modal onClose={() => setOpenEditModal(false)} title="Edit Task">
                 <div>
                 <form onSubmit={editTask}>
                 <label> Task Name: </label>
                 <input
                   type="text"
                   value={eventSelect.name}
-                  onChange={(e) => setNewName(e.target.value)}
+                  onChange={(e) => setEventSelect({...eventSelect, name: e.target.value})}
                   required
                 />
                 <label> Description: </label>
                 <input
                   type="text"
                   value={eventSelect.description}
-                  onChange={(e) => setNewDescription(e.target.value)}
+                  onChange={(e) => setEventSelect({...eventSelect, description: e.target.value})}
                   required
                 />
                 <label> duration:</label> 
                 <input
                 type="number"
                 value={eventSelect.duration}
-                onChange={(e) => setNewDuration(e.target.value)}
+                onChange={(e) => setEventSelect({...eventSelect, duration: e.target.value})}
+                min="0"
                 required
                 />
                 <label> Start Time:</label> 
                 <input
                 type="datetime-local"
                 value={(eventSelect.start_time).toString().substring(0, 16)}
-                onChange={(e) => setNewStartTime(e.target.value)}
+                onChange={(e) => setEventSelect({...eventSelect, start_time: e.target.value})}
                 required
                 />
                 <label> End Time:</label> 
                 <input
                 type="datetime-local"
                 value={(eventSelect.end_time).toString().substring(0, 16)}
-                onChange={(e) => setNewEndTime(e.target.value)}
+                onChange={(e) => setEventSelect({...eventSelect, end_time: e.target.value})}
                 required
                 />
                 <label>Fixed?</label> 
                 <input
                 type="checkbox"
                 checked={eventSelect.fixed}
-                onChange={(e) => setNewEndTime(e.target.value)}
+                onChange={(e) => setEventSelect({...eventSelect, fixed: e.target.checked})}
                 />
 
                 <button className="btn btn-danger" type="submit">Update</button>              

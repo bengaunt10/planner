@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import TaskSerializer
 from datetime import timedelta
+from rest_framework import status
 
 @api_view(["GET"]) #sends back endtime varialbe still but it is calculated using start time and duration
 #either from selected start time or after my algorithm has been used
@@ -66,6 +67,17 @@ def deleteTask(request, taskID):
     except:
         return Response({"Backend: Can't delete task"})
 
+@api_view(["PUT"])
+def editTask(request, taskID):
+    try: 
+        task = Task.objects.get(id=taskID)
+    except Task.DoesNotExist:
+        return Response({"Backend: Task not found"}, status=404)
+    serializer = TaskSerializer(task, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def api(request):

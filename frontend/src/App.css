@@ -4,7 +4,8 @@ body {
   /* display: flex; */
   /* background-color: rgb(14, 52, 56); */
   /* background-color: rgba(115, 178, 180, 0.52); */
-  background: linear-gradient(191deg, #0E3438 20.63%, #102D31 26.84%, #15151C 49.56%, #181A31 72.73%, #171A38 73.06%, #202028 85.87%);
+  background-color: #2F2F2F;
+  /* background: linear-gradient(191deg, #0E3438 20.63%, #102D31 26.84%, #15151C 49.56%, #181A31 72.73%, #171A38 73.06%, #202028 85.87%); */
   color: white;
   
   

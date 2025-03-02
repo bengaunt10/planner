@@ -68,7 +68,15 @@ function Home() {
    }, []);    
 
    const addTask = async (e) => {
-
+    const currentTime = new Date().toISOString().substring(0, 16)
+    if(newStartTime < currentTime){
+      alert("Start time cannot be before current time")
+      return
+    }
+    if(newEndTime < newStartTime){
+      alert("End time cannot be before start time")
+      return
+    }
     e.preventDefault();
     setOpenAddModal(false)
     const newTask = {
@@ -166,6 +174,7 @@ function Home() {
                 type="number"
                 value={newDuration}
                 onChange={(e) => setNewDuration(e.target.value)}
+                min="0"
                 required
                 />
                 <label> Start Time:</label> 
@@ -185,8 +194,8 @@ function Home() {
                 <label>Fixed?</label> 
                 <input
                 type="checkbox"
-                value={newFixed}
-                onChange={(e) => setNewEndTime(e.target.value)}
+                checked={newFixed}
+                onChange={(e) => setNewFixed(e.target.checked)}
                 />
                 <label>Repeat: </label> 
                 <select 
@@ -198,7 +207,7 @@ function Home() {
                   <option value = "daily">Daily</option>
                   <option value = "weekly">Weekly</option>
                 </select>
-                
+
                 <button type="submit">POST</button>              
               </form> 
             </Modal>
