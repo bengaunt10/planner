@@ -8,6 +8,11 @@ from .serializers import TaskSerializer
 from datetime import timedelta
 from rest_framework import status
 
+#overlapping funtion in helper.py and add to post and put methods
+#check if task overlaps with any other tasks
+#Calculate end time based off duration added to start time
+
+
 @api_view(["GET"]) #sends back endtime varialbe still but it is calculated using start time and duration
 #either from selected start time or after my algorithm has been used
 def getData(request):
@@ -53,6 +58,7 @@ def addNote(request):
     else:
         print(f"Serializer errors: {serializer.errors}")
         return Response(serializer.errors, status=400)
+    
     # return Response(serializer.data)
 
 @api_view(["DELETE"])
