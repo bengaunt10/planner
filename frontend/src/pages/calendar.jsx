@@ -1,5 +1,6 @@
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import { useState, useEffect } from 'react'
 import Modal from '../components/Modal';
@@ -184,15 +185,20 @@ function Calendar() {
     <>
 
     <FullCalendar 
-      plugins={[ dayGridPlugin,  interactionPlugin ]}
+      plugins={[ timeGridPlugin,  interactionPlugin, dayGridPlugin ]}
       dateClick={handleDateClick}
-      initialView="dayGridMonth"
+      initialView="timeGridWeek"
       editable={true} // Enables drag-and-drop functionality
       droppable={true} // Enables the ability to drag events
       weekends={true}
+      headerToolbar = {{
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth, timeGridWeek,timeGridDay'
+      }}
       //here I will get it to loop through my events in my database and display all. handleevent change function when i drop it down. does a PUT to backend. reload the state change.
       events={Tasks.map(task => ({
-        id: task.id, title: task.name, date: task.start_time
+        id: task.id, title: task.name, date: task.start_time, end: task.end_time
       }))
       }
       eventClick={onEventClick}
