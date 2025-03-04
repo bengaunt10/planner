@@ -126,29 +126,33 @@ function Calendar() {
     }
   }
 
-  const editTask = async (e) =>{
+  const editTask = async (e, task = null) =>{
+  if (e) {
+    e.preventDefault(); // Only call preventDefault if e exists
+  }
+    const taskToUpdate = task || eventSelect;
     const currentTime = new Date().toISOString().substring(0, 16)
-    if(eventSelect.start_time < currentTime){
+    if(taskToUpdate.start_time < currentTime){
       alert("Start time cannot be before current time")
-      return
+      return;
     }
-    if(eventSelect.end_time < eventSelect.start_time){
+    if(taskToUpdate.end_time < taskToUpdate.start_time){
       alert("End time cannot be before start time")
-      return
+      return;
     }
-    e.preventDefault();
+
     setOpenEditModal(false)
     const editedTask = {
-      name: eventSelect.name,
-      description: eventSelect.description,
-      duration: eventSelect.duration,
-      start_time: eventSelect.start_time,
-      end_time: eventSelect.end_time,
-      fixed: eventSelect.fixed,
-      repeat: eventSelect.repeat,
+      name: taskToUpdate.name,
+      description: taskToUpdate.description,
+      duration: taskToUpdate.duration,
+      start_time: taskToUpdate.start_time,
+      end_time: taskToUpdate.end_time,
+      fixed: taskToUpdate.fixed,
+      repeat: taskToUpdate.repeat,
     }
     try {
-      const response = await fetch(`${baseUrl}/drftest/edit/${eventSelect.id}/`, {
+      const response = await fetch(`${baseUrl}/drftest/edit/${taskToUpdate.id}/`, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',
@@ -157,6 +161,7 @@ function Calendar() {
       });
       if(response.ok){
         fetchTasks();
+        setEventSelect(null)
         setOpenEditModal(false);
         
       }else{
@@ -181,6 +186,29 @@ function Calendar() {
     setOpenTaskModal(true)
   }
 
+
+  const dropDate = async (info) => {
+    const eventMovedId = info.event.id;
+    const eventMovedStart = info.event.start.toISOString();
+    const eventMovedEnd = info.event.end.toISOString();
+    const eventMoved = Tasks.find(task => String(task.id) === String(eventMovedId))
+    const currentTime = new Date().toISOString().substring(0, 16);
+    // Validate the new start time
+    if (eventMovedStart < currentTime) {
+      alert("Start time cannot be before current time");
+      info.revert(); // Revert the event to its original position
+      return;
+    }
+    const edittedTask = {
+      ...eventMoved,
+      start_time: eventMovedStart,
+      end_time: eventMovedEnd
+  }
+    await editTask(null, edittedTask)
+  }
+
+
+
   return (
     <>
 
@@ -202,6 +230,7 @@ function Calendar() {
       }))
       }
       eventClick={onEventClick}
+      eventDrop={dropDate}
     />
 
 
