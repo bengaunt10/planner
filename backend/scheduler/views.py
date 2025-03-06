@@ -36,7 +36,6 @@ def addNote(request):
                     description = taskSaving.description,
                     duration = taskSaving.duration,
                     start_time = taskSaving.start_time + addition,
-                    end_time = taskSaving.end_time + addition,
                     fixed = taskSaving.fixed,
                     repeat = "duplicate",
                     repeat_id = taskSaving.id
@@ -49,7 +48,6 @@ def addNote(request):
                     description = taskSaving.description,
                     duration = taskSaving.duration,
                     start_time = taskSaving.start_time + addition,
-                    end_time = taskSaving.end_time + addition,
                     fixed = taskSaving.fixed,
                     repeat = "duplicate",
                     repeat_id = taskSaving.id

@@ -14,7 +14,7 @@ function Calendar() {
   const [newDescription, setNewDescription] = useState("");
   const [newDuration, setNewDuration] = useState(0);
   const [newStartTime, setNewStartTime] = useState("");
-  const [newEndTime, setNewEndTime] = useState("");
+  // const [newEndTime, setNewEndTime] = useState("");
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openTaskModal, setOpenTaskModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false); //make a delete modal. option to delete all repeating tasks. send option through request body. if option is yes, delete all with same repeating_id. Gonna want to change the view aswell so that the first task created takes the same repeating_id as the rest of the tasks created.default = id? 
@@ -82,10 +82,10 @@ function Calendar() {
       alert("Start time cannot be before current time")
       return
     }
-    if(newEndTime < newStartTime){
-      alert("End time cannot be before start time")
-      return
-    }
+    // if(newEndTime < newStartTime){
+    //   alert("End time cannot be before start time")
+    //   return
+    // }
     e.preventDefault();
     setOpenAddModal(false)
     const newTask = {
@@ -93,7 +93,7 @@ function Calendar() {
       description: newDescription,
       duration: newDuration,
       start_time: newStartTime,
-      end_time: newEndTime,
+      // end_time: newEndTime,
       fixed: newFixed,
       repeat: newRepeat
 
@@ -111,7 +111,7 @@ function Calendar() {
         setNewName("")
         setNewDuration(0)
         setNewStartTime("")
-        setNewEndTime("")
+        // setNewEndTime("")
         setNewRepeat("")
         setNewFixed(false)
         console.log('task added successfully');
@@ -136,10 +136,10 @@ function Calendar() {
       alert("Start time cannot be before current time")
       return;
     }
-    if(taskToUpdate.end_time < taskToUpdate.start_time){
-      alert("End time cannot be before start time")
-      return;
-    }
+    // if(taskToUpdate.end_time < taskToUpdate.start_time){
+    //   alert("End time cannot be before start time")
+    //   return;
+    // }
 
     setOpenEditModal(false)
     const editedTask = {
@@ -147,7 +147,6 @@ function Calendar() {
       description: taskToUpdate.description,
       duration: taskToUpdate.duration,
       start_time: taskToUpdate.start_time,
-      end_time: taskToUpdate.end_time,
       fixed: taskToUpdate.fixed,
       repeat: taskToUpdate.repeat,
     }
@@ -161,7 +160,7 @@ function Calendar() {
       });
       if(response.ok){
         fetchTasks();
-        setEventSelect(null)
+
         setOpenEditModal(false);
         
       }else{
@@ -190,7 +189,7 @@ function Calendar() {
   const dropDate = async (info) => {
     const eventMovedId = info.event.id;
     const eventMovedStart = info.event.start.toISOString();
-    const eventMovedEnd = info.event.end.toISOString();
+    // const eventMovedEnd = info.event.end.toISOString();
     const eventMoved = Tasks.find(task => String(task.id) === String(eventMovedId))
     const currentTime = new Date().toISOString().substring(0, 16);
     // Validate the new start time
@@ -202,7 +201,7 @@ function Calendar() {
     const edittedTask = {
       ...eventMoved,
       start_time: eventMovedStart,
-      end_time: eventMovedEnd
+      // end_time: eventMovedEnd
   }
     await editTask(null, edittedTask)
   }
@@ -226,7 +225,8 @@ function Calendar() {
       }}
       //here I will get it to loop through my events in my database and display all. handleevent change function when i drop it down. does a PUT to backend. reload the state change.
       events={Tasks.map(task => ({
-        id: task.id, title: task.name, date: task.start_time, end: task.end_time
+        id: task.id, title: task.name, date: task.start_time, end: task.end_time,
+        // end: task.end_time --> make this end: tasl.start_time + task.duration
       }))
       }
       eventClick={onEventClick}
@@ -277,12 +277,13 @@ function Calendar() {
                 required
                 />
                 <label> End Time:</label> 
-                <input
+                {/* <input
                 type="datetime-local"
                 value={newEndTime}
                 onChange={(e) => setNewEndTime(e.target.value)}
                 required
-                />
+                /> */}
+                {/* remove end time. onky duration...calculate end time based on duration */}
                 <label>Fixed?</label> 
                 <input
                 type="checkbox"
@@ -374,13 +375,6 @@ function Calendar() {
                 type="datetime-local"
                 value={(eventSelect.start_time).toString().substring(0, 16)}
                 onChange={(e) => setEventSelect({...eventSelect, start_time: e.target.value})}
-                required
-                />
-                <label> End Time:</label> 
-                <input
-                type="datetime-local"
-                value={(eventSelect.end_time).toString().substring(0, 16)}
-                onChange={(e) => setEventSelect({...eventSelect, end_time: e.target.value})}
                 required
                 />
                 <label>Fixed?</label> 
