@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view
 from .serializers import TaskSerializer
 from datetime import timedelta
 from rest_framework import status
-from .helper import overlap_checker
+from .helper import overlap_checker, calculate
 
 #overlapping funtion in helper.py and add to post and put methods
 #check if task overlaps with any other tasks
@@ -26,8 +26,12 @@ def addTask(request):
     serializer = TaskSerializer(data=request.data)
     if serializer.is_valid():
         taskStartTime = serializer.validated_data['start_time']
-        taskEndTime = serializer.validated_data['duration']
-        if overlap_checker(taskStartTime, taskEndTime):
+        taskDuration = serializer.validated_data['duration']
+        runScheduler = request.data.get("schedule")
+        if runScheduler:
+            taskStartTime = calculate()
+
+        if overlap_checker(taskStartTime, taskDuration):
             return Response({"OVERLAP": "This task will overlap with an existing task. Please choose a different time."}, status=400)
 
         taskSaving = serializer.save()
@@ -92,7 +96,7 @@ def editTask(request, taskID):
     if serializer.is_valid():
         taskStartTime = serializer.validated_data['start_time']
         taskEndTime = serializer.validated_data['duration']
-        if overlap_checker(taskStartTime, taskEndTime):
+        if overlap_checker(taskStartTime, taskEndTime, taskID):
             return Response({"OVERLAP": "This task will overlap with an existing task. Please choose a different time."}, status=400)
         serializer.save()
         return Response(serializer.data)

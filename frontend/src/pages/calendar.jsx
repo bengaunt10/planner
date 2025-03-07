@@ -18,10 +18,10 @@ function Calendar() {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openTaskModal, setOpenTaskModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false); //make a delete modal. option to delete all repeating tasks. send option through request body. if option is yes, delete all with same repeating_id. Gonna want to change the view aswell so that the first task created takes the same repeating_id as the rest of the tasks created.default = id? 
-   const [openEditModal, setOpenEditModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [deleteRepeat, setDeleteRepeat] = useState(false);
   const [eventSelect, setEventSelect] = useState(null);
-
+  const [scheduleForMe, setScheduleForMe] = useState(false);
 
   const [newFixed, setNewFixed] = useState(false);
   const [newRepeat, setNewRepeat] = useState("none");
@@ -78,7 +78,7 @@ function Calendar() {
 
   const addTask = async (e) => {
     const currentTime = new Date().toISOString().substring(0, 16)
-    if(newStartTime < currentTime){
+    if(!scheduleForMe && newStartTime < currentTime){
       alert("Start time cannot be before current time")
       return
     }
@@ -92,10 +92,11 @@ function Calendar() {
       name: newName,
       description: newDescription,
       duration: newDuration,
-      start_time: newStartTime,
+      start_time: scheduleForMe ? "" : newStartTime,
       // end_time: newEndTime,
       fixed: newFixed,
-      repeat: newRepeat || "none" 
+      repeat: newRepeat || "none",
+      schedule: scheduleForMe, 
 
     }
     try {
@@ -115,6 +116,7 @@ function Calendar() {
         setNewRepeat("none")
         setNewFixed(false)
         console.log('task added successfully');
+        setScheduleForMe(false)
         fetchTasks();
         setOpenAddModal(false);
       
@@ -293,21 +295,17 @@ function Calendar() {
                 min="0"
                 required
                 />
-                <label> Start Time:</label> 
-                <input
-                type="datetime-local"
-                value={newStartTime}
-                onChange={(e) => setNewStartTime(e.target.value)}
-                required
-                />
-                <label> End Time:</label> 
-                {/* <input
-                type="datetime-local"
-                value={newEndTime}
-                onChange={(e) => setNewEndTime(e.target.value)}
-                required
-                /> */}
-                {/* remove end time. onky duration...calculate end time based on duration */}
+                {!scheduleForMe && (
+                  <>
+                  <label> Start Time:</label> 
+                  <input
+                  type="datetime-local"
+                  value={newStartTime}
+                  onChange={(e) => setNewStartTime(e.target.value)}
+                  required
+                  />
+                  </>
+                )}
                 <label>Fixed?</label> 
                 <input
                 type="checkbox"
@@ -318,13 +316,18 @@ function Calendar() {
                 <select 
                   value = {newRepeat}
                   onChange={(e) => setNewRepeat(e.target.value)}
-
                 >
                   <option value = "none">No</option>
                   <option value = "daily">Daily</option>
                   <option value = "weekly">Weekly</option>
                 </select>
 
+                <label>Schedule for me?</label> 
+                <input
+                type="checkbox"
+                checked={scheduleForMe}
+                onChange={(e) => setScheduleForMe(e.target.checked)}
+                />
                 <button type="submit">POST</button>              
               </form> 
             </Modal>
