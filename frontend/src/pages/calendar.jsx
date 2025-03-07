@@ -32,7 +32,7 @@ function Calendar() {
 
   const fetchTasks = async () =>{
     try {
-      const response = await fetch(`${baseUrl}/drftest`, {
+      const response = await fetch(`${baseUrl}/retrieve`, {
         method: "GET",
       });
       if(response.ok){
@@ -50,7 +50,7 @@ function Calendar() {
 
   const deleteTask = async() => {
     try{
-      const response = await fetch(`${baseUrl}/drftest/delete/${eventSelect.id}/`, {
+      const response = await fetch(`${baseUrl}/delete/${eventSelect.id}/`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -95,11 +95,11 @@ function Calendar() {
       start_time: newStartTime,
       // end_time: newEndTime,
       fixed: newFixed,
-      repeat: newRepeat
+      repeat: newRepeat || "none" 
 
     }
     try {
-      const response = await fetch(`${baseUrl}/drftest/add/`, {
+      const response = await fetch(`${baseUrl}/add/`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -112,14 +112,18 @@ function Calendar() {
         setNewDuration(0)
         setNewStartTime("")
         // setNewEndTime("")
-        setNewRepeat("")
+        setNewRepeat("none")
         setNewFixed(false)
         console.log('task added successfully');
         fetchTasks();
         setOpenAddModal(false);
-        
-      }else{
-        console.error('Error: failed to add new task');
+      
+      }
+      else{
+        const data = await response.json();
+        if (data.OVERLAP) {
+          alert(data.OVERLAP);  // Show the overlap alert
+        }
       }
     }catch (error) {
       console.error("Error posting task:", error);
@@ -151,7 +155,7 @@ function Calendar() {
       repeat: taskToUpdate.repeat,
     }
     try {
-      const response = await fetch(`${baseUrl}/drftest/edit/${taskToUpdate.id}/`, {
+      const response = await fetch(`${baseUrl}/edit/${taskToUpdate.id}/`, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',
@@ -164,7 +168,12 @@ function Calendar() {
         setOpenEditModal(false);
         
       }else{
-        console.error('Error: failed to edit task');
+        fetchTasks();
+        const data = await response.json();
+        if (data.OVERLAP) {
+          alert(data.OVERLAP);  // Show the overlap alert
+        }
+        fetchTasks();
       }
     }catch (error) {
       console.error("Error editing task:", error);
@@ -173,6 +182,8 @@ function Calendar() {
 
 
 
+
+  //camoooooon
 
   const handleDateClick = (arg) => {
     alert(arg.dateStr)
@@ -189,7 +200,6 @@ function Calendar() {
   const dropDate = async (info) => {
     const eventMovedId = info.event.id;
     const eventMovedStart = info.event.start.toISOString();
-    // const eventMovedEnd = info.event.end.toISOString();
     const eventMoved = Tasks.find(task => String(task.id) === String(eventMovedId))
     const currentTime = new Date().toISOString().substring(0, 16);
     // Validate the new start time
@@ -206,7 +216,20 @@ function Calendar() {
     await editTask(null, edittedTask)
   }
 
-
+  const onResize = async (info) => {
+    const eventResizedId = info.event.id;
+    const newStartTime = info.event.start;
+    const newEndTime = info.event.end;
+  
+    const duration = (newEndTime - newStartTime) / 3600000; 
+    const eventResized = Tasks.find(task => String(task.id) === String(eventResizedId))
+    const resizedTask = {
+      ...eventResized,
+      duration: duration,
+      // end_time: eventMovedEnd
+  }
+    await editTask(null, resizedTask)
+  }
 
   return (
     <>
@@ -229,6 +252,7 @@ function Calendar() {
         // end: task.end_time --> make this end: tasl.start_time + task.duration
       }))
       }
+      eventResize={onResize}
       eventClick={onEventClick}
       eventDrop={dropDate}
     />

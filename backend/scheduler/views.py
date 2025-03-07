@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from .serializers import TaskSerializer
 from datetime import timedelta
 from rest_framework import status
+from .helper import overlap_checker
 
 #overlapping funtion in helper.py and add to post and put methods
 #check if task overlaps with any other tasks
@@ -21,37 +22,47 @@ def getData(request):
     return Response(serializer.data)
 
 @api_view(["POST"])
-def addNote(request):
+def addTask(request):
     serializer = TaskSerializer(data=request.data)
     if serializer.is_valid():
+        taskStartTime = serializer.validated_data['start_time']
+        taskEndTime = serializer.validated_data['duration']
+        if overlap_checker(taskStartTime, taskEndTime):
+            return Response({"OVERLAP": "This task will overlap with an existing task. Please choose a different time."}, status=400)
+
         taskSaving = serializer.save()
         taskSaving.repeat_id = taskSaving.id
+        
         taskSaving.save()
         print(f"Task saved: {taskSaving}")
         if taskSaving.repeat == "daily":
             for i in range(1, 360):
                 addition = timedelta(days=i)
-                Task.objects.create(
-                    name = taskSaving.name,
-                    description = taskSaving.description,
-                    duration = taskSaving.duration,
-                    start_time = taskSaving.start_time + addition,
-                    fixed = taskSaving.fixed,
-                    repeat = "duplicate",
-                    repeat_id = taskSaving.id
-                )
+                nextObjectStartTime = taskSaving.start_time + addition
+                if overlap_checker(nextObjectStartTime) == False: 
+                    Task.objects.create(
+                        name = taskSaving.name,
+                        description = taskSaving.description,
+                        duration = taskSaving.duration,
+                        start_time = nextObjectStartTime,
+                        fixed = taskSaving.fixed,
+                        repeat = "duplicate",
+                        repeat_id = taskSaving.id
+                    )
         if taskSaving.repeat == "weekly":
             for i in range(1, 52):
                 addition = timedelta(weeks=i)
-                Task.objects.create(
-                    name = taskSaving.name,
-                    description = taskSaving.description,
-                    duration = taskSaving.duration,
-                    start_time = taskSaving.start_time + addition,
-                    fixed = taskSaving.fixed,
-                    repeat = "duplicate",
-                    repeat_id = taskSaving.id
-                )
+                nextObjectStartTime = taskSaving.start_time + addition
+                if overlap_checker(nextObjectStartTime) == False: 
+                    Task.objects.create(
+                        name = taskSaving.name,
+                        description = taskSaving.description,
+                        duration = taskSaving.duration,
+                        start_time = nextObjectStartTime,
+                        fixed = taskSaving.fixed,
+                        repeat = "duplicate",
+                        repeat_id = taskSaving.id
+                    )
         return Response(serializer.data)
     else:
         print(f"Serializer errors: {serializer.errors}")
@@ -79,21 +90,14 @@ def editTask(request, taskID):
         return Response({"Backend: Task not found"}, status=404)
     serializer = TaskSerializer(task, data=request.data)
     if serializer.is_valid():
+        taskStartTime = serializer.validated_data['start_time']
+        taskEndTime = serializer.validated_data['duration']
+        if overlap_checker(taskStartTime, taskEndTime):
+            return Response({"OVERLAP": "This task will overlap with an existing task. Please choose a different time."}, status=400)
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def api(request):
-    return JsonResponse({"message" : "yes"})
-
-
-def task_api(request):
-    return JsonResponse({
-        "Tasks": [
-            task.as_dict()
-            for task in Task.objects.all() 
-        ],
-    })
 
 # Create your views here.

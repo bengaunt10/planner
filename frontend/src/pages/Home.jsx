@@ -12,7 +12,6 @@ function Home() {
   const [newDescription, setNewDescription] = useState("");
   const [newDuration, setNewDuration] = useState(0);
   const [newStartTime, setNewStartTime] = useState("");
-  const [newEndTime, setNewEndTime] = useState("");
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false); //make a delete modal. option to delete all repeating tasks. send option through request body. if option is yes, delete all with same repeating_id. Gonna want to change the view aswell so that the first task created takes the same repeating_id as the rest of the tasks created.default = id? 
   // const [openEditModal, setOpenEditModal] = useState(false);
@@ -28,7 +27,7 @@ function Home() {
 
   const fetchTasks = async () =>{
     try {
-      const response = await fetch(`${baseUrl}/drftest`, {
+      const response = await fetch(`${baseUrl}/retrieve`, {
         method: "GET",
       });
       if(response.ok){
@@ -44,7 +43,7 @@ function Home() {
 
   const deleteTask = async() => {
     try{
-      const response = await fetch(`${baseUrl}/drftest/delete/${taskToDelete.id}/`, {
+      const response = await fetch(`${baseUrl}/delete/${taskToDelete.id}/`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -73,10 +72,6 @@ function Home() {
       alert("Start time cannot be before current time")
       return
     }
-    if(newEndTime < newStartTime){
-      alert("End time cannot be before start time")
-      return
-    }
     e.preventDefault();
     setOpenAddModal(false)
     const newTask = {
@@ -84,13 +79,12 @@ function Home() {
       description: newDescription,
       duration: newDuration,
       start_time: newStartTime,
-      end_time: newEndTime,
       fixed: newFixed,
       repeat: newRepeat
 
     }
     try {
-      const response = await fetch(`${baseUrl}/drftest/add/`, {
+      const response = await fetch(`${baseUrl}/add/`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +96,6 @@ function Home() {
         setNewName("")
         setNewDuration(0)
         setNewStartTime("")
-        setNewEndTime("")
         setNewRepeat("")
         setNewFixed(false)
         console.log('task added successfully');
@@ -183,13 +176,6 @@ function Home() {
                 type="datetime-local"
                 value={newStartTime}
                 onChange={(e) => setNewStartTime(e.target.value)}
-                required
-                />
-                <label> End Time:</label> 
-                <input
-                type="datetime-local"
-                value={newEndTime}
-                onChange={(e) => setNewEndTime(e.target.value)}
                 required
                 />
                 <label>Fixed?</label> 
