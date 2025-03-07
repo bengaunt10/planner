@@ -22,6 +22,7 @@ function Calendar() {
   const [deleteRepeat, setDeleteRepeat] = useState(false);
   const [eventSelect, setEventSelect] = useState(null);
   const [scheduleForMe, setScheduleForMe] = useState(false);
+  const [dueDate, setDueDate] = useState("");
 
   const [newFixed, setNewFixed] = useState(false);
   const [newRepeat, setNewRepeat] = useState("none");
@@ -96,7 +97,8 @@ function Calendar() {
       // end_time: newEndTime,
       fixed: newFixed,
       repeat: newRepeat || "none",
-      schedule: scheduleForMe, 
+      // schedule: scheduleForMe, 
+      // dueDate: !scheduleForMe ? "" : dueDate
 
     }
     try {
@@ -117,6 +119,7 @@ function Calendar() {
         setNewFixed(false)
         console.log('task added successfully');
         setScheduleForMe(false)
+        setDueDate("")
         fetchTasks();
         setOpenAddModal(false);
       
@@ -328,6 +331,18 @@ function Calendar() {
                 checked={scheduleForMe}
                 onChange={(e) => setScheduleForMe(e.target.checked)}
                 />
+
+                {scheduleForMe && (
+                  <>
+                  <label>dueDate</label> 
+                  <input
+                  type="datetime-local"
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                  />
+                  </>
+                )}
+              
                 <button type="submit">POST</button>              
               </form> 
             </Modal>

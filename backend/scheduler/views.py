@@ -27,9 +27,13 @@ def addTask(request):
     if serializer.is_valid():
         taskStartTime = serializer.validated_data['start_time']
         taskDuration = serializer.validated_data['duration']
-        runScheduler = request.data.get("schedule")
-        if runScheduler:
-            taskStartTime = calculate()
+        # runScheduler = request.data.get("schedule")
+        # dueDate = request.data.get("dueDate")
+
+        #// run calcualor with test attributes and print result. This way can test calculator without affecting my add task or app.  
+
+        # if runScheduler:
+        #     taskStartTime = calculate(taskDuration, dueDate)
 
         if overlap_checker(taskStartTime, taskDuration):
             return Response({"OVERLAP": "This task will overlap with an existing task. Please choose a different time."}, status=400)
@@ -43,7 +47,7 @@ def addTask(request):
             for i in range(1, 360):
                 addition = timedelta(days=i)
                 nextObjectStartTime = taskSaving.start_time + addition
-                if overlap_checker(nextObjectStartTime) == False: 
+                if overlap_checker(nextObjectStartTime, taskSaving.duration) == False: 
                     Task.objects.create(
                         name = taskSaving.name,
                         description = taskSaving.description,
@@ -57,7 +61,7 @@ def addTask(request):
             for i in range(1, 52):
                 addition = timedelta(weeks=i)
                 nextObjectStartTime = taskSaving.start_time + addition
-                if overlap_checker(nextObjectStartTime) == False: 
+                if overlap_checker(nextObjectStartTime, taskSaving.duration) == False: 
                     Task.objects.create(
                         name = taskSaving.name,
                         description = taskSaving.description,
