@@ -12,7 +12,14 @@ body {
 }
 
 
+/* .cal{
+  margin: auto;
+  margin-top: 4vh;
+  width: 80vw;
+  background: rgba(132, 127, 188, 0.4);
 
+  max-width: 90vw;
+} */
 .anim-circle {
   text-align: center;
   padding: 2vw;

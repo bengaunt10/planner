@@ -238,29 +238,32 @@ function Calendar() {
 
   return (
     <>
-
-    <FullCalendar 
-      plugins={[ timeGridPlugin,  interactionPlugin, dayGridPlugin ]}
-      dateClick={handleDateClick}
-      initialView="timeGridWeek"
-      editable={true} // Enables drag-and-drop functionality
-      droppable={true} // Enables the ability to drag events
-      weekends={true}
-      headerToolbar = {{
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth, timeGridWeek,timeGridDay'
-      }}
-      //here I will get it to loop through my events in my database and display all. handleevent change function when i drop it down. does a PUT to backend. reload the state change.
-      events={Tasks.map(task => ({
-        id: task.id, title: task.name, date: task.start_time, end: task.end_time,
-        // end: task.end_time --> make this end: tasl.start_time + task.duration
-      }))
-      }
-      eventResize={onResize}
-      eventClick={onEventClick}
-      eventDrop={dropDate}
-    />
+    <div className="cal">
+      <FullCalendar
+        plugins={[ timeGridPlugin,  interactionPlugin, dayGridPlugin ]}
+        dateClick={handleDateClick}
+        initialView="timeGridWeek"
+        editable={true} // Enables drag-and-drop functionality
+        droppable={true} // Enables the ability to drag events
+        weekends={true}
+        auto = {true}
+        height = {850}
+        headerToolbar = {{
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth, timeGridWeek,timeGridDay'
+        }}
+        //here I will get it to loop through my events in my database and display all. handleevent change function when i drop it down. does a PUT to backend. reload the state change.
+        events={Tasks.map(task => ({
+          id: task.id, title: task.name, date: task.start_time, end: task.end_time,
+          // end: task.end_time --> make this end: tasl.start_time + task.duration
+        }))
+        }
+        eventResize={onResize}
+        eventClick={onEventClick}
+        eventDrop={dropDate}
+      />
+    </div>
 
 
 

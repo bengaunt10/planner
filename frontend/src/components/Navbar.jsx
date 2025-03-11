@@ -21,6 +21,9 @@ function Navbar() {
                 <li className="nav-item">
                     <Link className="nav-link" to="/breathing">Breathing</Link>
                 </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to="/mentalhealth">Mental Health</Link>
+                </li>
             </ul>
         </div>
         </nav>
