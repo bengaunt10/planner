@@ -1,7 +1,11 @@
 
+import Navbar from '../components/Navbar'
 function Breathing() {
   return (
-    <p className='anim-circle'>Breathe</p>
+    <>
+      <Navbar />
+      <p className='anim-circle'>Breathe</p>
+    </>
   )
 }
 

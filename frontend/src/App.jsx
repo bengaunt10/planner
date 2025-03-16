@@ -1,27 +1,41 @@
 
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Calendar from './pages/Calendar'
-import Navbar from './components/Navbar'
+
 import Breathing from './pages/Breathing'
 import MentalHealth from './pages/MentalHealth'
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import UnFound from './pages/UnFound'
+import ProtectRoute from './components/ProtectRoute'
 
 import './App.css'
 // this is where / route will go so the initial... could do login here? then a redirect
 //when they head back to / when they already logged in ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ?
-function App() {
-  // const [count, setCount] = useState(0)
+function Logout() {
+  localStorage.clear()
+  return <Navigate to="/login" />
+}
 
+function RegisterAndLogout(){
+  localStorage.clear()
+  return <Register />
+}
+
+function App() {
   
   return (
-
     <>
-      <Navbar />
         <Routes>
-          <Route path = "/home" element = {<Home />} />
-          <Route path = "/calendar" element ={<Calendar />} />
-          <Route path = "/breathing" element = {<Breathing/>} />
-          <Route path = "/mentalhealth" element = {<MentalHealth/>} />
+          <Route path = "/" element = {<ProtectRoute> <Home /> </ProtectRoute>} /> {/*Can't accesss home component unless have access token and it's valid .. cos this is only for those authenticated  */}
+          <Route path = "/login" element = {<Login />} />
+          <Route path = "/register" element = {<RegisterAndLogout />} />
+          <Route path = "/logout" element = {<Logout />} />
+          <Route path = "/calendar" element ={<ProtectRoute><Calendar /></ProtectRoute>} />
+          <Route path = "/breathing" element = {<ProtectRoute><Breathing/></ProtectRoute>} />
+          <Route path = "/mentalhealth" element = {<ProtectRoute><MentalHealth/></ProtectRoute>} />
+          <Route path ="*" element = {<UnFound />} />
         </Routes>
  
         {/* <button onClick={() => setCount((count) => count + 1)}>

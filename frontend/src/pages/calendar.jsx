@@ -4,7 +4,7 @@ import timeGridPlugin from '@fullcalendar/timegrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import { useState, useEffect } from 'react'
 import Modal from '../components/Modal';
-
+import Navbar from '../components/Navbar'
 
 function Calendar() {
   const[Tasks, setTasks] = useState([]);
@@ -28,12 +28,15 @@ function Calendar() {
   const [newRepeat, setNewRepeat] = useState("none");
 
 
-  const baseUrl="http://127.0.0.1:8000/api";
-
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const Token = localStorage.getItem('access');
 
   const fetchTasks = async () =>{
     try {
       const response = await fetch(`${baseUrl}/retrieve`, {
+        headers: {
+          'Authorization': `Bearer ${Token}`
+        },
         method: "GET",
       });
       if(response.ok){
@@ -55,6 +58,7 @@ function Calendar() {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${Token}`
         },
         body: JSON.stringify({deleteRepeat})
       })
@@ -106,6 +110,7 @@ function Calendar() {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${Token}`
         },
         body: JSON.stringify(newTask)
       });
@@ -164,6 +169,7 @@ function Calendar() {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${Token}`
         },
         body: JSON.stringify(editedTask)
       });
@@ -238,8 +244,10 @@ function Calendar() {
 
   return (
     <>
+    <Navbar />
     <div className="cal">
       <FullCalendar
+      //bootstrap theming
         plugins={[ timeGridPlugin,  interactionPlugin, dayGridPlugin ]}
         dateClick={handleDateClick}
         initialView="timeGridWeek"

@@ -11,17 +11,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-# import os
-# from dotenv import load_dotenv
+from datetime import timedelta
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-
-# load_dotenv(BASE_DIR / ".env")
-# SUPABASE_URL = os.getenv("SUPABASE_URL")
-# SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 
 
@@ -34,8 +31,21 @@ SECRET_KEY = 'django-insecure-%#!^lv8z+xpw+)_0qjk@0hzye@mg^2pbg3jbvkvc1ha9(qd8w8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
+}
 
 # Application definition
 
@@ -45,10 +55,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles', 
     'rest_framework', #i added
     'corsheaders',
     "scheduler",
+
 ]
 
 MIDDLEWARE = [
@@ -61,10 +72,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  #My local react frontend
+#My local react frontend
     # Add my production frontend URL when i deploy
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -139,3 +150,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CORS_ALLOWS_CREDENTIALS = True

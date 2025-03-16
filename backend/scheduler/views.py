@@ -3,24 +3,38 @@ from django.utils import timezone
 from django.http import JsonResponse
 from .models import Task
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .serializers import TaskSerializer
+from rest_framework.decorators import api_view, permission_classes
+from .serializers import TaskSerializer, UserSerializer
 from datetime import timedelta
-from rest_framework import status
-from .helper import overlap_checker, calculate
+from rest_framework import status, generics
+from .helper import overlap_checker
+from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 #overlapping funtion in helper.py and add to post and put methods
 #check if task overlaps with any other tasks
 #Calculate end time based off duration added to start time
 
+@api_view(["POST"])
+@permission_classes([AllowAny]) #anyone..even if not authenticated can call this function - as it is to create a new user 
+def user_create(request):
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 @api_view(["GET"]) #sends back endtime varialbe still but it is calculated using start time and duration
 #either from selected start time or after my algorithm has been used
 def getData(request):
-    tasks = Task.objects.all()
+    user = request.user
+    tasks = Task.objects.filter(user=user)
     serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)
 
+@permission_classes([IsAuthenticated])
 @api_view(["POST"])
 def addTask(request):
     serializer = TaskSerializer(data=request.data)
@@ -29,26 +43,26 @@ def addTask(request):
         taskDuration = serializer.validated_data['duration']
         # runScheduler = request.data.get("schedule")
         # dueDate = request.data.get("dueDate")
-
-        #// run calcualor with test attributes and print result. This way can test calculator without affecting my add task or app.  
+        
+        #// run calculator with test attributes and print result. This way can test calculator without affecting my add task or app.  
 
         # if runScheduler:
         #     taskStartTime = calculate(taskDuration, dueDate)
 
-        if overlap_checker(taskStartTime, taskDuration):
+        if overlap_checker(taskStartTime, taskDuration, user=request.user):
             return Response({"OVERLAP": "This task will overlap with an existing task. Please choose a different time."}, status=400)
 
-        taskSaving = serializer.save()
+        taskSaving = serializer.save(user=request.user)
         taskSaving.repeat_id = taskSaving.id
-        
         taskSaving.save()
         print(f"Task saved: {taskSaving}")
         if taskSaving.repeat == "daily":
             for i in range(1, 360):
                 addition = timedelta(days=i)
                 nextObjectStartTime = taskSaving.start_time + addition
-                if overlap_checker(nextObjectStartTime, taskSaving.duration) == False: 
+                if overlap_checker(nextObjectStartTime, taskSaving.duration, user=request.user) == False: 
                     Task.objects.create(
+                        user = taskSaving.user,
                         name = taskSaving.name,
                         description = taskSaving.description,
                         duration = taskSaving.duration,
@@ -61,8 +75,9 @@ def addTask(request):
             for i in range(1, 52):
                 addition = timedelta(weeks=i)
                 nextObjectStartTime = taskSaving.start_time + addition
-                if overlap_checker(nextObjectStartTime, taskSaving.duration) == False: 
+                if overlap_checker(nextObjectStartTime, taskSaving.duration, user=request.user) == False: 
                     Task.objects.create(
+                        user = taskSaving.user,
                         name = taskSaving.name,
                         description = taskSaving.description,
                         duration = taskSaving.duration,
@@ -78,29 +93,31 @@ def addTask(request):
     
     # return Response(serializer.data)
 
+@permission_classes([IsAuthenticated])
 @api_view(["DELETE"])
 def deleteTask(request, taskID):
     try: 
-        taskToDelete = Task.objects.get(id=taskID)
+        taskToDelete = Task.objects.get(id=taskID, user=request.user)
         deleteRepeat = request.data.get("deleteRepeat") in ["true", "True", True]
         if deleteRepeat and taskToDelete.repeat != "none":
-            Task.objects.filter(repeat_id=taskToDelete.repeat_id).delete()
+            Task.objects.filter(repeat_id=taskToDelete.repeat_id, user=request.user).delete()
         taskToDelete.delete()
         return Response({"Backend: Task deleted"})
     except:
         return Response({"Backend: Can't delete task"})
 
+@permission_classes([IsAuthenticated])
 @api_view(["PUT"])
 def editTask(request, taskID):
     try: 
-        task = Task.objects.get(id=taskID)
+        task = Task.objects.get(id=taskID, user=request.user)
     except Task.DoesNotExist:
         return Response({"Backend: Task not found"}, status=404)
     serializer = TaskSerializer(task, data=request.data)
     if serializer.is_valid():
         taskStartTime = serializer.validated_data['start_time']
         taskEndTime = serializer.validated_data['duration']
-        if overlap_checker(taskStartTime, taskEndTime, taskID):
+        if overlap_checker(taskStartTime, taskEndTime, taskID, user=request.user):
             return Response({"OVERLAP": "This task will overlap with an existing task. Please choose a different time."}, status=400)
         serializer.save()
         return Response(serializer.data)

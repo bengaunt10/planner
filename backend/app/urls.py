@@ -1,23 +1,14 @@
-"""
-URL configuration for app project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, pathd
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import include, path
-
+from scheduler.views import user_create
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/", include('scheduler.urls'))
+    path("", include('scheduler.urls')), # used to be /api..
+    path("user/create/", user_create, name="user_create"),
+    path('token/', TokenObtainPairView.as_view(), name='obtain_token'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='refresh_token'),
+    path('user-auth/', include('rest_framework.urls')),
 ]
