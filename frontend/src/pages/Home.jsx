@@ -22,6 +22,7 @@ function Home() {
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const Token = localStorage.getItem("access");
+  const username = localStorage.getItem("username") || "Guest";
 
   const fetchTasks = async () => {
     try {
@@ -138,10 +139,11 @@ function Home() {
   return (
     <>
       <Navbar />
-      <h1>Homepage</h1>
+      <h1>{username}s Dashboard</h1>
 
       <div className="HomeBoxTop">
         <h4>Tasks</h4>
+        
       </div>
       <div className="HomeBox">
         <ul>{TaskList}</ul>

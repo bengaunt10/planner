@@ -1,12 +1,20 @@
-import Form from "../components/Form"
+import Form from "../components/Form";
 
 function Login() {
-    const baseUrl = import.meta.env.VITE_BASE_URL;
-    return (
-        // <div className="registerContainer">
-            <Form route={`${baseUrl}/token/`} result="login" />
-        // </div>
-    );
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  return (
+    // <div className="registerContainer">
+    <>
+      <h1 className="title">CALENDAR THINGY</h1>
+      <div className="lines">
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+      </div>
+      <Form route={`${baseUrl}/token/`} result="login" />
+    </>
+    // </div>
+  );
 }
 
 export default Login;

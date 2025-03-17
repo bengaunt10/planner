@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <>
     <header>    
-        <Link className="nav-link" to="/home"><h1>DayCalmWeb</h1></Link>   
+        <Link className="nav-link" to="/"><h1>DayCalmWeb</h1></Link>   
         <nav className="custom-nav navbar navbar-expand-lg navbar-dark ">
         <button className="navbar-toggler toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -24,6 +24,7 @@ function Navbar() {
                 <li className="nav-item">
                     <Link className="nav-link" to="/mentalhealth">Mental Health</Link>
                 </li>
+                <button type="button" className="btn btn-danger"><Link className="nav-link" to="/logout">Logout</Link></button>
             </ul>
         </div>
         </nav>

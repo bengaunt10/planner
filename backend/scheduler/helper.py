@@ -18,30 +18,31 @@ def overlap_checker(taskStart, duration, taskID = None, user=None):
             return True
     return False
 
-# def calculate(taskDuration, dueDate):
-#     #maybe look at each day and make a list of these days in order of least hours already in them(for balance). Then go through each of these days
-#     #and look at each hour of the day. If the hour is free then add the task there. If not then move to the next hour. If no hours are free then move to the next day.
-#     currentTime = datetime.now()
-#     twoWeeksPrior = dueDate - timedelta(weeks=1)
-#     if currentTime.date() >= twoWeeksPrior:
-#         daysBetween = (dueDate.date() - currentTime.date()).days
-#     else:
-#         daysBetween = (dueDate.date() - twoWeeksPrior.date()).days
-#     tasks = Task.objects.all()
-#     newTime = currentTime
-#     earliestHour = 8 #make users preference... 
-#     latestHour = 22
-#     taskDuration = timedelta(hours=taskDuration)
-#     for i in range(daysBetween + 1):
-#         dayHours = 0
-#         for t in tasks:
-#             if t.start_time.day == currentTime.day + i:
-#                 dayHours += t.duration
-#         if dayHours + taskDuration <= 10:
-#             while newTime + taskDuration <= 10: #while the end time for the new task doesn't exceed 10pm ... so add a task before 10pm.
-#                 if overlap_checker(newTime, taskDuration):
-#                     return newTime
-#                 newTime += timedelta(hours=1) #looks through each hour of the day.
+def calculate(taskDuration, dueDate, user=None):
+    if user is None:
+        return False
+    
+    currentTime = datetime.now()
+    twoWeeksPrior = dueDate - timedelta(weeks=1)
+    if currentTime.date() >= twoWeeksPrior:
+        daysBetween = (dueDate.date() - currentTime.date()).days
+    else:
+        daysBetween = (dueDate.date() - twoWeeksPrior.date()).days
+    tasks = Task.objects.filter(user=user)
+    newTime = currentTime
+    earliestHour = 8 #make users preference... 
+    latestHour = 22
+    taskDuration = timedelta(hours=taskDuration)
+    for i in range(daysBetween + 1):
+        dayHours = 0
+        for t in tasks:
+            if t.start_time.day == currentTime.day + i:
+                dayHours += t.duration
+        if dayHours + taskDuration <= 10:
+            while newTime + taskDuration <= 10: #while the end time for the new task doesn't exceed 10pm ... so add a task before 10pm.
+                if overlap_checker(newTime, taskDuration):
+                    return newTime
+                newTime += timedelta(hours=1) #looks through each hour of the day.
 
 
     # if no days left... alert user that the task will be added after 10pm. If they say yes then add it. 

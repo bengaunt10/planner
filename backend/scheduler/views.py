@@ -10,7 +10,7 @@ from rest_framework import status, generics
 from .helper import overlap_checker
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
-
+from .helper import calculate
 #overlapping funtion in helper.py and add to post and put methods
 #check if task overlaps with any other tasks
 #Calculate end time based off duration added to start time
@@ -18,6 +18,16 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 @api_view(["POST"])
 @permission_classes([AllowAny]) #anyone..even if not authenticated can call this function - as it is to create a new user 
 def user_create(request):
+    username = request.data.get("username")
+    if User.objects.filter(username=username).exists():
+        return Response({"reason": "Username taken."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    newPassword = request.data.get("password")
+    confirmNewPassword = request.data.get("confirmPassword")
+
+    if newPassword != confirmNewPassword:
+        return Response({"reason": "Confirmed password does not match"}, status=status.HTTP_400_BAD_REQUEST)
+
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -28,6 +38,7 @@ def user_create(request):
 
 @api_view(["GET"]) #sends back endtime varialbe still but it is calculated using start time and duration
 #either from selected start time or after my algorithm has been used
+@permission_classes([IsAuthenticated])
 def getData(request):
     user = request.user
     tasks = Task.objects.filter(user=user)
@@ -41,9 +52,16 @@ def addTask(request):
     if serializer.is_valid():
         taskStartTime = serializer.validated_data['start_time']
         taskDuration = serializer.validated_data['duration']
-        # runScheduler = request.data.get("schedule")
-        # dueDate = request.data.get("dueDate")
+        runScheduler = request.data.get("schedule")
+        dueDate = request.data.get("dueDate")
+
+        if runScheduler: 
+            adjusted_start_time = calculate(taskDuration, dueDate, user=request.user)
         
+            if not adjusted_start_time:
+                return Response({"error": "Unable to find a suitable time for the task."}, status=400)
+
+            taskStartTime = adjusted_start_time
         #// run calculator with test attributes and print result. This way can test calculator without affecting my add task or app.  
 
         # if runScheduler:
