@@ -1,7 +1,7 @@
 
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
-import Calendar from './pages/Calendar'
+import Calendar from './pages/calendar'
 
 import Breathing from './pages/Breathing'
 import MentalHealth from './pages/MentalHealth'
