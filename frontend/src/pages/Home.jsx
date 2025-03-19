@@ -1,8 +1,9 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState, useEffect } from "react";
 import Modal from "../components/Modal";
 //crud operations into components? Cos they being reused across. like post for example
 import Navbar from "../components/Navbar";
-
+import "../Styling/home.css"
 function Home() {
   const [Tasks, setTasks] = useState([]);
   // const[OpenModal, SetOpenModal] = useState(false);
@@ -137,18 +138,20 @@ function Home() {
   ));
 
   return (
-    <>
+    <div className="homePage">
       <Navbar />
-      <h1>{username}s Dashboard</h1>
+      <h1 className="homeTitle">{username}'s Dashboard</h1>
 
-      <div className="HomeBoxTop">
+      {/* <div className="HomeBoxTop">
         <h4>Tasks</h4>
         
-      </div>
+      </div> */}
       <div className="HomeBox">
+        <h2>Task</h2>
         <ul>{TaskList}</ul>
+        </div>
         <button
-          className="btn btn-primary"
+          className="btn btn-primary homeAdd"
           onClick={() => setOpenAddModal(true)}
         >
           Add task
@@ -240,8 +243,8 @@ function Home() {
             </button>
           </Modal>
         )}
-      </div>
-    </>
+      
+    </div>
   );
 }
 

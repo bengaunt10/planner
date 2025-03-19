@@ -89,7 +89,7 @@ function Form({route, result}) {
           />
         )}
         <div className="loadingComponent">{loading && <Loading />}</div>
-        <button  className="formButton btn btn-primary" type = "submit"> {what} </button>
+        <button  className="formButton btn btn-success" type = "submit"> {what} </button>
 
         {errorReason && (
         <div className="errorReason">{errorReason}</div>

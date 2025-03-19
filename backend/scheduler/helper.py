@@ -2,7 +2,7 @@ from .models import Task
 from datetime import timedelta, datetime, date, time
 
 def overlap_checker(taskStart, duration, taskID = None, user=None):
-    # Do it so it doesn't check the task being added itself
+    # Django queries to improve efficiency. in report talk about this one slow. looked into django queris, increased effiency time. 
     if user is None:
         return False  # If no user is provided, don't check anything
 
@@ -19,20 +19,26 @@ def overlap_checker(taskStart, duration, taskID = None, user=None):
     return False
 
 def calculate(taskDuration, dueDate, user=None):
+
     if user is None:
         return False
     
+    if isinstance(dueDate, str):
+        dueDate = datetime.strptime(dueDate, "%Y-%m-%dT%H:%M:%S") 
+
     currentTime = datetime.now()
-    twoWeeksPrior = dueDate - timedelta(weeks=1)
-    if currentTime.date() >= twoWeeksPrior:
-        daysBetween = (dueDate.date() - currentTime.date()).days
-    else:
-        daysBetween = (dueDate.date() - twoWeeksPrior.date()).days
+    twoWeeksBefore = dueDate - timedelta(weeks=2)
+
+    startLoopDate = max(currentTime, twoWeeksBefore) # chooses a date 2 weeks before due date unless that is before the current date. so if due date in a week for example we will start checking from 
+    daysBetween = (dueDate.date() - startLoopDate.date()).days
+
     tasks = Task.objects.filter(user=user)
-    newTime = currentTime
-    earliestHour = 8 #make users preference... 
+    
+    earliestHour = 8 #make users preference for all 3
     latestHour = 22
+    maxHoursInDay = 10
     taskDuration = timedelta(hours=taskDuration)
+    
     for i in range(daysBetween + 1):
         dayHours = 0
         for t in tasks:
@@ -44,10 +50,11 @@ def calculate(taskDuration, dueDate, user=None):
                     return newTime
                 newTime += timedelta(hours=1) #looks through each hour of the day.
 
-
-    # if no days left... alert user that the task will be added after 10pm. If they say yes then add it. 
-    # look through each day but after 10pm this time... should be a spot.
-
+#     #Look at each day between now and the due date and make a list of these days in order of least hours already in them(for balance). Then go through each of these days
+    # if no days left... alert user that the task will be added after 10pm. 
+    # look through each day but after 10pm this time... should be a spot... what if not. idk about this edge case tho what makes sense? 
+ # Maybe first attempt to add to 2 weeks before due date.. as in that timeframe. Cos if it's due in 20 weeks, it's not urgent. so probably schedule it in within week 18 or 19.
+    #  check hours of tasks. If already 10 hours worth move to next day. Or if cant fit between 8am and 10pm move to next day(add users availaility hours input later)
                 
     # For each day between now and the due date. 
     # Maybe first attempt to add to 2 weeks before due date.. as in that timeframe. Cos if it's due in 20 weeks, it's not urgent.

@@ -1,7 +1,7 @@
 import {Navigate} from "react-router-dom"
 import {jwtDecode} from "jwt-decode"
 import { useState, useEffect} from "react"
-
+import Loading from "./Loading"
 
 
 // eslint-disable-next-line react/prop-types
@@ -48,7 +48,7 @@ function ProtectRoute({children}) {
             return
         }
         const decoded = jwtDecode(Token)
-        const expiry = decoded.expiry
+        const expiry = decoded.exp
         const now = Date.now() / 1000
 
         if (expiry < now ){
@@ -59,7 +59,8 @@ function ProtectRoute({children}) {
     }
 
     if (isAuth === null) {
-        return <div>Loading...</div>
+        // return <div>Loading...</div>
+        return <div className="refreshLoader"><Loading /></div>
     }
 
     return isAuth ? children : <Navigate to="/login" />

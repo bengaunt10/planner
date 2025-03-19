@@ -12,6 +12,8 @@ function Register() {
         <div className="line"></div>
         <div className="line"></div>
         <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
       </div>
       <Form route={`${baseUrl}/user/create/`} result="register" />
     </>

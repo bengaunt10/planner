@@ -1,167 +1,195 @@
-
-  body {
-    background-color: #123c32;
-    
-    overflow: hidden;
-  }
-  
-  .line {
-    position: absolute;
-    width: 3px;
-    height: 100%;
-    top: 0;
-    left: 50%;
-    background: rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  .line::after {
-    content: '';
-    display: block;
-    position: absolute;
-    height: 15vh;
-    width: 100%;
-    top: -50%;
-    left: 0;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
-    animation: drop 10s 0s infinite;
-    animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
-  }
-  
-  .line:nth-child(1) {
-    margin-left: -25%;
-  }
-  
-  .line:nth-child(1)::after {
-    animation-delay: 2s;
-  }
-  
-  .line:nth-child(3) {
-    margin-left: 25%;
-  }
-  
-  .line:nth-child(3)::after {
-    animation-delay: 2.5s;
-  }
-  
-  @keyframes drop {
-    0% {
-      top: -50%;
-    }
-    100% {
-      top: 110%;
-    }
-  }
-  /* Line animation adapted from https://codepen.io/osorina/pen/PQdMOO */
-
-.title{
-    margin-top: 3vh;
-    font-size: 3vw;
+body {
+  background: linear-gradient(
+    191deg,
+    #2a5d61 20.63%,
+    #2c5256 26.84%,
+    #2e2e3a 49.56%,
+    #33365a 72.73%,
+    #34385e 73.06%,
+    #3c3c46 85.87%
+  );
+  background: linear-gradient(180deg, #30848a 0%, #264d58 40%, #27273e 100%);
+  background-color: #123c32;
+  overflow: hidden;
+  overflow: hidden;
 }
-  .loginForm {
-    /* width: 50vw; */
-    width:fit-content;
-    
-    height: 70vh;
-    max-width: 50vw;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    
-    background: transparent; 
-    align-items: center;
-    backdrop-filter: blur(10px);
-    justify-content: center; 
-    /* background-color: rgb(35, 62, 60); */
-    border-radius: 10px;
-    position: absolute;
-    top: 15vh;
-    left: 32.5vw;
-    box-shadow: 2px 2px 12px rgb(115, 115, 115);
-    padding: 5vw; 
-    color: white;
-    
-   
-  }
-  
 
+/* make slower, more frequent, 2 more of them. this is calming vibe. like rainfall. can link to anything? */
+.line {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.line::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 15vh;
+  width: 100%;
+  top: -50%;
+  left: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 75%,
+    #ffffff 100%
+  );
+  animation: drop 10s 0s infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0.5, 0.2, 0.67);
+}
+
+.line:nth-child(1) {
+  margin-left: -25%;
+}
+
+.line:nth-child(1)::after {
+  animation-delay: 1s;
+}
+
+.line:nth-child(3) {
+  margin-left: 25%;
+}
+
+.line:nth-child(3)::after {
+  animation-delay: 2.5s;
+}
+.line:nth-child(4) {
+  margin-left: 45%;
+}
+
+.line:nth-child(4)::after {
+  animation-delay: 4s;
+}
+.line:nth-child(5) {
+  margin-left: -45%;
+}
+
+.line:nth-child(5)::after {
+  animation-delay: 5.5s;
+}
+
+@keyframes drop {
+  0% {
+    top: -50%;
+  }
+  100% {
+    top: 110%;
+  }
+}
+/* Line animation adapted from https://codepen.io/osorina/pen/PQdMOO */
+
+
+
+
+.title {
+  margin-top: 5vh;
+  font-size: 3vw;
+  letter-spacing: 1vw;
+ 
+}
+.loginForm {
+  /* width: 50vw; */
+  width: fit-content;
+  height: 70vh;
+  max-width: 50vw;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  background: transparent;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  /* background-color: rgb(35, 62, 60); */
+  border-radius: 10px;
+  position: absolute;
+  top: 19vh;
+  left: 32.5vw;
+  box-shadow: 2px 2px 12px rgb(45, 44, 44);
+  padding: 5vw;
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.loginForm:hover {
+  box-shadow: 4px 4px 16px rgb(162, 162, 162);
+  background-color: rgb(115, 115, 115, 0.1);
+}
 
 h1 {
-    top: 0px;
-    text-align: center;
+  top: 0px;
+  text-align: center;
 }
-
 
 .form-control {
-    width: 25vw; 
-    padding: 10px;
-    margin-top: 20px;
-    border-radius: 2px;
-    border: none;
-    box-sizing: border-box; 
-    background: rgba(255, 255, 255, 0.1);
+  width: 25vw;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 2px;
+  border: none;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.1);
 
- 
-    outline: none;
-    color: white;
-    font-weight: 1000;
+  outline: none;
 
+  font-weight: 1000;
 }
+
 .formButton {
-    display: block;
-    width: 12.5vw;
-    padding: 20px;
-    margin: auto;
-    margin-top: 10%;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    
-   
+  display: block;
+  width: 40%;
+  padding: 16px;
+  margin: auto;
+  margin-top: 10%;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #156757;
 }
 
 .formButton:hover {
-    background-color: #072a23;
+  background-color: #0a3b31;
 }
 
-
-.formTitle{
-    margin-top: -10%;
-    margin-bottom: 17%;
+.formTitle {
+  margin-top: -10%;
+  margin-bottom: 17%;
+  font-size: 2.5vw;
 }
-.errorReason{
-    color: rgb(255, 0, 0);
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    margin-top: 10%;
-    
+.errorReason {
+  color: rgb(255, 0, 0);
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
 }
 .otherFormMessage {
-    display: flex;
-    justify-content: center;
-    margin-top: 10%;
-
-   
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
 }
 
 .otherFormMessage .nav-link {
-    
-    color: #884cae;
-    font-weight: bold;
-    
+  color: #884cae;
+  font-weight: bold;
 }
 
 .otherFormMessage .nav-link:hover {
-    color: #2f0a46;
+  color: #2f0a46;
 }
 
-.loadingComponent{
-    display: flex;
-    justify-content: center;
-    margin-top: 5%;
+.loadingComponent {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
 }

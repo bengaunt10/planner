@@ -1,4 +1,5 @@
 import Form from "../components/Form";
+import "../Styling/Form.css";
 
 function Login() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -7,6 +8,8 @@ function Login() {
     <>
       <h1 className="title">CALENDAR THINGY</h1>
       <div className="lines">
+        <div className="line"></div>
+        <div className="line"></div>
         <div className="line"></div>
         <div className="line"></div>
         <div className="line"></div>

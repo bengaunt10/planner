@@ -1,0 +1,58 @@
+.homePage{
+    background-image: url("../assets/clockwallpaper.jpg");
+    background-image: url("../assets/wallpaper1flipped.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    width:100vw;
+    height: 100vh;
+}
+
+
+.HomeBoxTop{
+    text-align: center;
+    padding: 40px;
+    
+    margin-top: 4vh;
+    width: 1093.874px;
+    height: 107.454px;
+    border-radius: 14px 14px 0px 0px;
+    background: rgba(55, 122, 82, 0.8);
+    box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+  }
+  .HomeBox{
+    margin-top: 7vh;
+    width: 60vw;
+    height: 800px;
+    flex-shrink: 0;
+    background: rgba(143, 143, 143, 0.40);
+    background: rgba(74, 129, 146, 0.4);
+    background: rgba(143, 143, 143, 0.4);
+    border-radius: 0px 70px 70px 0px;
+    box-shadow: 2px 2px 12px rgb(45, 44, 44);
+    display: flex;
+    justify-content: center;
+    padding: 2vw;
+    color: black;
+  }
+  .homeAdd{
+    display: flex;
+    justify-content: right;
+    margin-left: 80vw;
+    margin-top: -40vh;
+    font-size: 30px;
+    
+    padding: 0.5vw;
+    text-align: center;
+    align-items:center;
+  }
+  
+  .homeTitle{
+    font-size: 50px;
+    letter-spacing: 3px;
+    color: white;
+    margin-top: 5vh;
+    text-align: center;
+  }
