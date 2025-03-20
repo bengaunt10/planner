@@ -23,30 +23,55 @@ def calculate(taskDuration, dueDate, user=None):
     if user is None:
         return False
     
+    try:
+        taskDuration = float(taskDuration)  # Convert to float (or int if appropriate)
+    except (ValueError, TypeError):
+        return False
     if isinstance(dueDate, str):
-        dueDate = datetime.strptime(dueDate, "%Y-%m-%dT%H:%M:%S") 
-
+        # Parse the string into a datetime object
+        try:
+            dueDate = datetime.strptime(dueDate, "%Y-%m-%dT%H:%M")  # Match the format from datetime-local
+        except ValueError:
+            return False
     currentTime = datetime.now()
     twoWeeksBefore = dueDate - timedelta(weeks=2)
 
     startLoopDate = max(currentTime, twoWeeksBefore) # chooses a date 2 weeks before due date unless that is before the current date. so if due date in a week for example we will start checking from 
-    daysBetween = (dueDate.date() - startLoopDate.date()).days
+    # daysBetween = (dueDate.date() - startLoopDate.date()).days
 
-    tasks = Task.objects.filter(user=user)
+    # tasks = Task.objects.filter(user=user)
     
+    tasks = Task.objects.filter(user=user, start_time__date__gte=startLoopDate.date(), start_time__date__lte=dueDate.date())
+   
     earliestHour = 8 #make users preference for all 3
     latestHour = 22
     maxHoursInDay = 10
-    taskDuration = timedelta(hours=taskDuration)
-    
+    # taskDuration = timedelta(hours=taskDuration)
+    daysBetween = (dueDate.date() - startLoopDate.date()).days
+    dayHours = 0
     for i in range(daysBetween + 1):
-        dayHours = 0
+        dayOn = startLoopDate + timedelta(days=i)
         for t in tasks:
-            if t.start_time.day == currentTime.day + i:
+            if t.start_time.day == dayOn.day:
                 dayHours += t.duration
-        if dayHours + taskDuration <= 10:
-            while newTime + taskDuration <= 10: #while the end time for the new task doesn't exceed 10pm ... so add a task before 10pm.
-                if overlap_checker(newTime, taskDuration):
+
+        if dayHours + taskDuration <= maxHoursInDay:
+            newTime = datetime.combine(dayOn.date(), time(hour=earliestHour))
+            while newTime + timedelta(hours=taskDuration) <= datetime.combine(dayOn.date(), time(hour=latestHour)): #while the end time for the new task doesn't exceed 10pm ... so add a task before 10pm.
+                if overlap_checker(newTime, taskDuration, user=user):
+                    return newTime
+                newTime += timedelta(hours=1) #looks through each hour of the day.
+
+    for i in range(daysBetween + 1):
+        dayOn = startLoopDate + timedelta(days=i)
+        for t in tasks:
+            if t.start_time.day == dayOn.day:
+                dayHours += t.duration
+
+        if dayHours + taskDuration <= 24:
+            newTime = datetime.combine(dayOn.date(), time(hour=earliestHour))
+            while newTime + timedelta(hours=taskDuration) <= datetime.combine(dayOn.date(), time(hour=latestHour)): #while the end time for the new task doesn't exceed 10pm ... so add a task before 10pm.
+                if overlap_checker(newTime, taskDuration, user=user):
                     return newTime
                 newTime += timedelta(hours=1) #looks through each hour of the day.
 
@@ -63,8 +88,6 @@ def calculate(taskDuration, dueDate, user=None):
     # if overlap then move to next hour.
 
     #if last option is to make start time after 10pm, alert user...if they say yes then it will be added    
-
-
 
 
 

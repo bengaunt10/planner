@@ -10,7 +10,7 @@ class Task(models.Model): #add this as a foreign key to user model later
     description = models.CharField(max_length=300)
     duration = models.IntegerField()    
     # created = models.DateTimeField(auto_now_add=True)
-    start_time = models.DateTimeField()
+    start_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(blank=True, null=True) # Remove end time - calculate end time based on start time + duration
     fixed = models.BooleanField() 
     repeat = models.CharField(max_length=10,choices={

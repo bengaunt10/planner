@@ -27,7 +27,7 @@ function Calendar() {
 
   const [newFixed, setNewFixed] = useState(false);
   const [newRepeat, setNewRepeat] = useState("none");
-
+  
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const Token = localStorage.getItem("access");
 
@@ -93,13 +93,13 @@ function Calendar() {
     const newTask = {
       name: newName,
       description: newDescription,
-      duration: newDuration,
-      start_time: scheduleForMe ? "" : newStartTime,
+      duration: parseFloat(newDuration),
+      start_time: scheduleForMe ? null : newStartTime,
       // end_time: newEndTime,
       fixed: newFixed,
       repeat: newRepeat || "none",
-      // schedule: scheduleForMe,
-      // dueDate: !scheduleForMe ? "" : dueDate
+      schedule: scheduleForMe,
+      dueDate: !scheduleForMe ? "" : dueDate
     };
     try {
       const response = await fetch(`${baseUrl}/add/`, {

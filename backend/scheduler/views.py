@@ -48,68 +48,79 @@ def getData(request):
 @permission_classes([IsAuthenticated])
 @api_view(["POST"])
 def addTask(request):
-    serializer = TaskSerializer(data=request.data)
-    if serializer.is_valid():
-        taskStartTime = serializer.validated_data['start_time']
-        taskDuration = serializer.validated_data['duration']
-        runScheduler = request.data.get("schedule")
-        dueDate = request.data.get("dueDate")
-
-        if runScheduler: 
-            adjusted_start_time = calculate(taskDuration, dueDate, user=request.user)
+    runScheduler = request.data.get("schedule")
+    if runScheduler: 
+        dueDate = request.data.get("dueDate")    
+        taskDuration = request.data.get("duration")
+        adjusted_start_time = calculate(taskDuration, dueDate, user=request.user)
         
-            if not adjusted_start_time:
-                return Response({"error": "Unable to find a suitable time for the task."}, status=400)
-
-            taskStartTime = adjusted_start_time
-        #// run calculator with test attributes and print result. This way can test calculator without affecting my add task or app.  
-
-        # if runScheduler:
-        #     taskStartTime = calculate(taskDuration, dueDate)
-
-        if overlap_checker(taskStartTime, taskDuration, user=request.user):
-            return Response({"OVERLAP": "This task will overlap with an existing task. Please choose a different time."}, status=400)
-
-        taskSaving = serializer.save(user=request.user)
-        taskSaving.repeat_id = taskSaving.id
-        taskSaving.save()
-        print(f"Task saved: {taskSaving}")
-        if taskSaving.repeat == "daily":
-            for i in range(1, 360):
-                addition = timedelta(days=i)
-                nextObjectStartTime = taskSaving.start_time + addition
-                if overlap_checker(nextObjectStartTime, taskSaving.duration, user=request.user) == False: 
-                    Task.objects.create(
-                        user = taskSaving.user,
-                        name = taskSaving.name,
-                        description = taskSaving.description,
-                        duration = taskSaving.duration,
-                        start_time = nextObjectStartTime,
-                        fixed = taskSaving.fixed,
-                        repeat = "duplicate",
-                        repeat_id = taskSaving.id
-                    )
-        if taskSaving.repeat == "weekly":
-            for i in range(1, 52):
-                addition = timedelta(weeks=i)
-                nextObjectStartTime = taskSaving.start_time + addition
-                if overlap_checker(nextObjectStartTime, taskSaving.duration, user=request.user) == False: 
-                    Task.objects.create(
-                        user = taskSaving.user,
-                        name = taskSaving.name,
-                        description = taskSaving.description,
-                        duration = taskSaving.duration,
-                        start_time = nextObjectStartTime,
-                        fixed = taskSaving.fixed,
-                        repeat = "duplicate",
-                        repeat_id = taskSaving.id
-                    )
-        return Response(serializer.data)
+        if not adjusted_start_time:
+            return Response({"error": "Unable to find a suitable time for the task."}, status=400)
+        newObject = {
+            "name": request.data.get("name"),
+            "description": request.data.get("description"), 
+            "duration": request.data.get("duration"),
+            "start_time": adjusted_start_time,
+            "fixed": request.data.get("fixed"),
+            "repeat": request.data.get("repeat"),
+            "repeat_id": 0,
+            "user": request.user
+        }
+        serializer = TaskSerializer(data=newObject)
+        if serializer.is_valid():
+            taskSaving = serializer.save(user=request.user)
+            return Response(serializer.data)  # Ensure this is always reached
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
-        print(f"Serializer errors: {serializer.errors}")
-        return Response(serializer.errors, status=400)
-    
-    # return Response(serializer.data)
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid():
+            taskStartTime = serializer.validated_data['start_time']
+            taskDuration = serializer.validated_data['duration']
+
+            if overlap_checker(taskStartTime, taskDuration, user=request.user):
+                return Response({"OVERLAP": "This task will overlap with an existing task. Please choose a different time."}, status=400)
+
+            taskSaving = serializer.save(user=request.user)
+            taskSaving.repeat_id = taskSaving.id
+            taskSaving.save()
+            print(f"Task saved: {taskSaving}")
+            if taskSaving.repeat == "daily":
+                for i in range(1, 360):
+                    addition = timedelta(days=i)
+                    nextObjectStartTime = taskSaving.start_time + addition
+                    if overlap_checker(nextObjectStartTime, taskSaving.duration, user=request.user) == False: 
+                        Task.objects.create(
+                            user = taskSaving.user,
+                            name = taskSaving.name,
+                            description = taskSaving.description,
+                            duration = taskSaving.duration,
+                            start_time = nextObjectStartTime,
+                            fixed = taskSaving.fixed,
+                            repeat = "duplicate",
+                            repeat_id = taskSaving.id
+                        )
+            if taskSaving.repeat == "weekly":
+                for i in range(1, 52):
+                    addition = timedelta(weeks=i)
+                    nextObjectStartTime = taskSaving.start_time + addition
+                    if overlap_checker(nextObjectStartTime, taskSaving.duration, user=request.user) == False: 
+                        Task.objects.create(
+                            user = taskSaving.user,
+                            name = taskSaving.name,
+                            description = taskSaving.description,
+                            duration = taskSaving.duration,
+                            start_time = nextObjectStartTime,
+                            fixed = taskSaving.fixed,
+                            repeat = "duplicate",
+                            repeat_id = taskSaving.id
+                        )
+            return Response(serializer.data)
+        else:
+            print(f"Serializer errors: {serializer.errors}")
+            return Response(serializer.errors, status=400)
+        
+        # return Response(serializer.data)
 
 @permission_classes([IsAuthenticated])
 @api_view(["DELETE"])

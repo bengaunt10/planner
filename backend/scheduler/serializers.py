@@ -6,8 +6,9 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = "__all__"
-        extra_kwargs = {"user": {"read_only": True}} #read who author is but can't write who author is. SET BY BACKEND
-    
+        extra_kwargs = {"user": {"read_only": True}, #read who author is but can't write who author is. SET BY BACKEND
+        "start_time": {"required": False}
+        }
 
     # Check in documentation for these.. create normal django one?? or drf or where it at
 class UserSerializer(serializers.ModelSerializer):
