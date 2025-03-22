@@ -8,10 +8,15 @@ body {
     #34385e 73.06%,
     #3c3c46 85.87%
   );
-  background: linear-gradient(180deg, #30848a 0%, #264d58 40%, #27273e 100%);
   background-color: #123c32;
+  background-image: url("../assets/wallpaper5.jpg");
+  background: linear-gradient(180deg, #30848a 0%, #264d58 40%, #27273e 100%);
+  
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   overflow: hidden;
-  overflow: hidden;
+  
 }
 
 /* make slower, more frequent, 2 more of them. this is calming vibe. like rainfall. can link to anything? */
@@ -89,7 +94,7 @@ body {
 
 .title {
   margin-top: 5vh;
-  font-size: 3vw;
+  font-size: 3.5vw;
   letter-spacing: 1vw;
  
 }

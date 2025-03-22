@@ -4,6 +4,7 @@ from datetime import timedelta
 from django.contrib.auth.models import User
 
 #Paulo chceck my simple auth. make sure its ok for deployment and project. 
+#temporary database
 
 class Task(models.Model): #add this as a foreign key to user model later
     name = models.CharField(max_length=30)
@@ -12,6 +13,7 @@ class Task(models.Model): #add this as a foreign key to user model later
     # created = models.DateTimeField(auto_now_add=True)
     start_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(blank=True, null=True) # Remove end time - calculate end time based on start time + duration
+    
     fixed = models.BooleanField() 
     repeat = models.CharField(max_length=10,choices={
         "none": "none",

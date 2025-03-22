@@ -1,15 +1,12 @@
 
 body {
-  /* margin: 0; */
-  /* display: flex; */
-  /* background-color: rgb(14, 52, 56); */
-  /* background-color: rgba(115, 178, 180, 0.52); */
-
-
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;  /* Adjust weight as needed */
+  font-style: normal;
   color: white;
-
-  
 }
+
 
 
 /* .cal{
@@ -47,46 +44,9 @@ body {
  }
  /* Code inspired by "Using CSS Animations to Visualise Breathing https://vmar76.medium.com/using-css-animations-to-visualize-breathing-techniques-7a20ee0aed5a */
 
-
-
-
-.custom-nav{
-  width: 100vw;
-}
-#addTaskModal{
+ #addTaskModal{
   color: black;
 }
 
-header {
-  background-color: rgb(24, 24, 24);
-  width: 100%;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 10px 2vw;
-  background: #2F2F2F;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
 
-
-
-.custom-nav a {
-  color: white;
-  text-decoration: none;
-  margin-left: 2vw;
-  font-size: 25px;
-  
-}
-
-.navbar-toggler {
-  background-color: transparent !important;
-  border: none;
-}
-
-
-.custom-nav a:hover {
-  color: rgb(18, 86, 78) !important;
-  font-style: italic;
-  transition: 0.3s ease;
-}
 

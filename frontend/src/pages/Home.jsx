@@ -140,7 +140,7 @@ function Home() {
   return (
     <div className="homePage">
       <Navbar />
-      <h1 className="homeTitle">{username}'s Dashboard</h1>
+      
 
       {/* <div className="HomeBoxTop">
         <h4>Tasks</h4>
@@ -150,12 +150,23 @@ function Home() {
         <h2>Task</h2>
         <ul>{TaskList}</ul>
         </div>
-        <button
-          className="btn btn-primary homeAdd"
-          onClick={() => setOpenAddModal(true)}
-        >
-          Add task
-        </button>
+        <h1 className="homeTitle">{username}'s<br /> Dashboard</h1>
+        <div className="buttonHolders">
+          <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
+            Add task
+          </button>          
+          <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
+            Focus
+          </button>      
+          <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
+            Button
+          </button>      
+        </div>
+        <p className="homeQuote">
+          {/* motiavtional quote api to randomly shuffle a new quote every time the page is refreshed */}
+          “We generate fears while we do nothing. We overcome these fears by taking action.”
+        </p>
+
         {/* <button type="button" className="btn btn-primary" onClick={() => setOpenModal(true)}>
             Launch demo modal
           </button> */}

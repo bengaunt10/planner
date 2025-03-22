@@ -17,22 +17,79 @@ def overlap_checker(taskStart, duration, taskID = None, user=None):
         elif t.start_time < taskEnd and t.end_time > taskEnd:
             return True
     return False
-
+# def calculate(taskDuration, dueDate):
+#     # Get the current time
+#     currentTime = timezone.now()
+    
+#     # Define the start of the scheduling window (2 weeks before the due date)
+#     twoWeeksPrior = dueDate - timedelta(weeks=2)
+    
+#     # Determine the start date for scheduling
+#     if currentTime.date() >= twoWeeksPrior.date():
+#         startDate = currentTime.date()
+#     else:
+#         startDate = twoWeeksPrior.date()
+    
+#     # Calculate the number of days between the start date and the due date
+#     daysBetween = (dueDate.date() - startDate).days
+    
+#     # Define user preferences for working hours
+#     earliestHour = 8  # Earliest hour to schedule a task (8 AM)
+#     latestHour = 22   # Latest hour to schedule a task (10 PM)
+    
+#     # Convert taskDuration to a timedelta object
+#     taskDuration = timedelta(hours=taskDuration)
+    
+#     # Create a list of days in the scheduling window, sorted by least hours already allocated
+#     days = []
+#     for i in range(daysBetween + 1):
+#         currentDay = startDate + timedelta(days=i)
+        
+#         # Get all tasks on the current day
+#         tasksOnDay = Task.objects.filter(start_time__date=currentDay)
+        
+#         # Calculate total hours already allocated to tasks on this day
+#         dayHours = sum(task.duration for task in tasksOnDay)
+        
+#         # Add the day and its allocated hours to the list
+#         days.append((currentDay, dayHours))
+    
+#     # Sort the days by least hours already allocated (for balance)
+#     days.sort(key=lambda x: x[1])
+    
+#     # Iterate over the sorted days
+#     for day, dayHours in days:
+#         # Check if the task can fit within the daily limit (10 hours)
+#         if dayHours + taskDuration.total_seconds() / 3600 <= 10:
+#             # Iterate over each hour in the working hours range
+#             for hour in range(earliestHour, latestHour):
+#                 # Calculate the potential start time for the task
+#                 potentialStartTime = datetime.combine(day, datetime.min.time()) + timedelta(hours=hour)
+                
+#                 # Check if the task can be scheduled at this time without overlapping
+#                 if not overlap_checker(potentialStartTime, taskDuration):
+#                     return potentialStartTime  # Return the start time if no overlap
+    
+#     # If no suitable time is found within working hours, consider scheduling after 10 PM
+#     for day, dayHours in days:
+#         potentialStartTime = datetime.combine(day, datetime.min.time()) + timedelta(hours=latestHour)
+#         if not overlap_checker(potentialStartTime, taskDuration):
+#             return potentialStartTime  # Return the start time if no overlap
 def calculate(taskDuration, dueDate, user=None):
 
     if user is None:
         return False
     
-    try:
-        taskDuration = float(taskDuration)  # Convert to float (or int if appropriate)
-    except (ValueError, TypeError):
-        return False
-    if isinstance(dueDate, str):
-        # Parse the string into a datetime object
-        try:
-            dueDate = datetime.strptime(dueDate, "%Y-%m-%dT%H:%M")  # Match the format from datetime-local
-        except ValueError:
-            return False
+    # try:
+    #     taskDuration = float(taskDuration)  # Convert to float (or int if appropriate)
+    # except (ValueError, TypeError):
+    #     return False
+    # if isinstance(dueDate, str):
+    #     # Parse the string into a datetime object
+    #     try:
+    #         dueDate = datetime.strptime(dueDate, "%Y-%m-%dT%H:%M")  # Match the format from datetime-local
+    #     except ValueError:
+    #         return False
     currentTime = datetime.now()
     twoWeeksBefore = dueDate - timedelta(weeks=2)
 

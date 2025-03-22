@@ -49,29 +49,24 @@ def getData(request):
 @api_view(["POST"])
 def addTask(request):
     runScheduler = request.data.get("schedule")
+
     if runScheduler: 
-        dueDate = request.data.get("dueDate")    
-        taskDuration = request.data.get("duration")
-        adjusted_start_time = calculate(taskDuration, dueDate, user=request.user)
-        
-        if not adjusted_start_time:
-            return Response({"error": "Unable to find a suitable time for the task."}, status=400)
-        newObject = {
-            "name": request.data.get("name"),
-            "description": request.data.get("description"), 
-            "duration": request.data.get("duration"),
-            "start_time": adjusted_start_time,
-            "fixed": request.data.get("fixed"),
-            "repeat": request.data.get("repeat"),
-            "repeat_id": 0,
-            "user": request.user
-        }
-        serializer = TaskSerializer(data=newObject)
+        serializer = TaskSerializer(data=request.data)
         if serializer.is_valid():
-            taskSaving = serializer.save(user=request.user)
-            return Response(serializer.data)  # Ensure this is always reached
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            dueDate = request.data.get("dueDate")
+            taskDuration = serializer.validated_data['duration']
+            newtaskSaving = serializer.save(user=request.user)
+            adjusted_start_time = calculate(taskDuration, dueDate, user=request.user)
+        
+            if not adjusted_start_time:
+                return Response({"error": "Unable to find a suitable time for the task."}, status=400)
+            newtaskSaving.start_time = adjusted_start_time
+            newtaskSaving.save()
+            return Response(serializer.data)
+        print(f"Serializer errors: {serializer.errors}")
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #pass a temporary start time to the serializer
+        
     else:
         serializer = TaskSerializer(data=request.data)
         if serializer.is_valid():

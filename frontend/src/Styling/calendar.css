@@ -5,7 +5,7 @@ body{
     --fc-page-bg-color: #fff;
     --fc-neutral-bg-color: rgba(15, 38, 57, 0.3);
     --fc-neutral-text-color: #808080;
-    --fc-border-color: #1f0707;
+    --fc-border-color: #4b4b4b;
   
     --fc-button-text-color: #fff;
     --fc-button-bg-color: #2C3E50;
@@ -15,8 +15,8 @@ body{
     --fc-button-active-bg-color: #1a252f;
     --fc-button-active-border-color: #151e27;
   
-    --fc-event-bg-color: #130664;
-    --fc-event-border-color: #28ab46;
+    --fc-event-bg-color: #1f3d5a;
+    --fc-event-border-color: #d6ded8;
     --fc-event-text-color: #fff;
     --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
   
@@ -24,7 +24,7 @@ body{
     --fc-more-link-text-color: inherit;
   
     --fc-event-resizer-thickness: 8px;
-    --fc-event-resizer-dot-total-width: 8px;
+    --fc-event-resizer-dot-total-width: px;
     --fc-event-resizer-dot-border-width: 1px;
   
     --fc-non-business-color: rgba(215, 215, 215, 0.3);
@@ -33,7 +33,7 @@ body{
     --fc-highlight-color: rgba(188, 232, 241, 0.3);
     --fc-today-bg-color: rgba(12, 58, 88, 0.15);
     --fc-now-indicator-color: red;
-  
+    /* --fc-event-bg-color: #24634f; */
    
 }
 .fc-direction-ltr {
@@ -44,6 +44,8 @@ body{
   
 
 .cal{
-    background-color: rgb(95, 151, 123);
+
+    background: linear-gradient(180deg, #2C3E50 0%, #1B263B 100%);    
+    background: rgb(95, 151, 123);;
     height:100vh;
 }
