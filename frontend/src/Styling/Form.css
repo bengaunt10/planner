@@ -11,12 +11,11 @@ body {
   background-color: #123c32;
   background-image: url("../assets/wallpaper5.jpg");
   background: linear-gradient(180deg, #30848a 0%, #264d58 40%, #27273e 100%);
-  
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
-  
 }
 
 /* make slower, more frequent, 2 more of them. this is calming vibe. like rainfall. can link to anything? */
@@ -89,14 +88,10 @@ body {
 }
 /* Line animation adapted from https://codepen.io/osorina/pen/PQdMOO */
 
-
-
-
 .title {
   margin-top: 5vh;
   font-size: 3.5vw;
   letter-spacing: 1vw;
- 
 }
 .loginForm {
   /* width: 50vw; */

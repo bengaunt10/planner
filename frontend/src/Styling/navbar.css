@@ -38,3 +38,6 @@
     transition: 0.3s ease;
   }
   
+.logoutButton{
+    color: rgba(64, 64, 64, 1) !important;
+}

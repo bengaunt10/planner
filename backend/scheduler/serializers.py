@@ -1,24 +1,27 @@
 from rest_framework import serializers
 from .models import Task
 from django.contrib.auth.models import User
-
+from .helper import calculate
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = "__all__"
         extra_kwargs = {"user": {"read_only": True}, #read who author is but can't write who author is. SET BY BACKEND
-
-
         }
-  
-#anoither serializer based on another model. 
-#use start time instead of due date... still send through start time... check it through with calculate passing start time as due date. just change the label in input box?
-#ask paulo about serializer issue - issue when sending no start time, how to organise that in views and frotend? 
-#as i did before where calculated start time before calling serializer.... tho cos it wasnt serialized and i used the non serializer values like before due date was in model i just did data.get and it was
-#a string.. ooooohhh do json response o whoops i forgot about that..but then that defeats serializer purpose so maybe paulo can heklp with serializer thing. 
 
+    def validate(self, data):
+        if "start_time" not in data or data["start_time"] is None:
+            request = self.context.get("request")
+            user = request.user
+            due_date= data.get("due_date")
+            task_duration = data.get("duration")
+            print(f"Task due Time: {due_date}") #debug... due date is None
+            newStartTime = calculate(task_duration, due_date, user=user)
+            if not newStartTime:
+                raise serializers.ValidationError("Unable to find a suitable time for the task.")
+            data["start_time"] = newStartTime
+        return data
 
-    # Check in documentation for these.. create normal django one?? or drf or where it at
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -29,4 +32,4 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
 
-        
+

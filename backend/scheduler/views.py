@@ -11,9 +11,7 @@ from .helper import overlap_checker
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .helper import calculate
-#overlapping funtion in helper.py and add to post and put methods
-#check if task overlaps with any other tasks
-#Calculate end time based off duration added to start time
+
 
 @api_view(["POST"])
 @permission_classes([AllowAny]) #anyone..even if not authenticated can call this function - as it is to create a new user 
@@ -36,8 +34,7 @@ def user_create(request):
 
 
 
-@api_view(["GET"]) #sends back endtime varialbe still but it is calculated using start time and duration
-#either from selected start time or after my algorithm has been used
+@api_view(["GET"]) 
 @permission_classes([IsAuthenticated])
 def getData(request):
     user = request.user
@@ -48,27 +45,7 @@ def getData(request):
 @permission_classes([IsAuthenticated])
 @api_view(["POST"])
 def addTask(request):
-    runScheduler = request.data.get("schedule")
-
-    if runScheduler: 
-        serializer = TaskSerializer(data=request.data)
-        if serializer.is_valid():
-            dueDate = request.data.get("dueDate")
-            taskDuration = serializer.validated_data['duration']
-            newtaskSaving = serializer.save(user=request.user)
-            adjusted_start_time = calculate(taskDuration, dueDate, user=request.user)
-        
-            if not adjusted_start_time:
-                return Response({"error": "Unable to find a suitable time for the task."}, status=400)
-            newtaskSaving.start_time = adjusted_start_time
-            newtaskSaving.save()
-            return Response(serializer.data)
-        print(f"Serializer errors: {serializer.errors}")
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #pass a temporary start time to the serializer
-        
-    else:
-        serializer = TaskSerializer(data=request.data)
+        serializer = TaskSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             taskStartTime = serializer.validated_data['start_time']
             taskDuration = serializer.validated_data['duration']
@@ -91,7 +68,6 @@ def addTask(request):
                             description = taskSaving.description,
                             duration = taskSaving.duration,
                             start_time = nextObjectStartTime,
-                            fixed = taskSaving.fixed,
                             repeat = "duplicate",
                             repeat_id = taskSaving.id
                         )
@@ -106,7 +82,6 @@ def addTask(request):
                             description = taskSaving.description,
                             duration = taskSaving.duration,
                             start_time = nextObjectStartTime,
-                            fixed = taskSaving.fixed,
                             repeat = "duplicate",
                             repeat_id = taskSaving.id
                         )
@@ -114,8 +89,7 @@ def addTask(request):
         else:
             print(f"Serializer errors: {serializer.errors}")
             return Response(serializer.errors, status=400)
-        
-        # return Response(serializer.data)
+
 
 @permission_classes([IsAuthenticated])
 @api_view(["DELETE"])
@@ -148,5 +122,3 @@ def editTask(request, taskID):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-# Create your views here.

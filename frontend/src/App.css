@@ -17,31 +17,7 @@ body {
 
   max-width: 90vw;
 } */
-.anim-circle {
-  text-align: center;
-  padding: 2vw;
-  color: black;
-  margin: auto;
-  margin-top: 30vh;
-  transform: translate(50%, 50%);
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background: rgba(188, 237, 243, 0.889);
-  animation: breathe 10s linear infinite;
-}
 
-@keyframes breathe {
-  0% {
- box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 65px rgba(188, 237, 243, 0.3), 0 0 0 80px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3);
-  }
-  50% {
- box-shadow: 0 0 0 35px rgba(188, 237, 243, 0.3), 0 0 0 70px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3), 0 0 0 120px rgba(188, 237, 243, 0.3), 0 0 0 145px rgba(188, 237, 243, 0.3);
-  }
-  100% {
- box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 65px rgba(188, 237, 243, 0.3), 0 0 0 80px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3);
-  }
- }
  /* Code inspired by "Using CSS Animations to Visualise Breathing https://vmar76.medium.com/using-css-animations-to-visualize-breathing-techniques-7a20ee0aed5a */
 
  #addTaskModal{

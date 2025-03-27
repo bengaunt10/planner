@@ -1,4 +1,4 @@
-
+import "../Styling/modal.css"
 // eslint-disable-next-line react/prop-types
 function Modal({onClose,title, children}) {
   return (
@@ -7,7 +7,7 @@ function Modal({onClose,title, children}) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">{title}</h5>
-            <button type="button" className="close position-absolute top-20 end-0" onClick={onClose} aria-label="Close">
+            <button type="button" className="close position-absolute top-0 end-0" onClick={onClose} aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -19,7 +19,7 @@ function Modal({onClose,title, children}) {
         </div>
       </div>
     </div>
-    
+    // a typical bootstrap modal layout from bootstrap documentation. adapated by me
   )
 }
 

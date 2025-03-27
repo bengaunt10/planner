@@ -25,7 +25,7 @@ function Calendar() {
   const [scheduleForMe, setScheduleForMe] = useState(false);
   const [dueDate, setDueDate] = useState("");
 
-  const [newFixed, setNewFixed] = useState(false);
+  // const [newFixed, setNewFixed] = useState(false);
   const [newRepeat, setNewRepeat] = useState("none");
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -94,12 +94,12 @@ function Calendar() {
       name: newName,
       description: newDescription,
       duration: newDuration,
-      start_time: scheduleForMe ? "" : newStartTime,
+      start_time: scheduleForMe ? null : newStartTime,
       // end_time: newEndTime,
-      fixed: newFixed,
+      // fixed: newFixed,
       repeat: newRepeat || "none",
-      // schedule: scheduleForMe,
-      // dueDate: !scheduleForMe ? "" : dueDate
+      schedule: scheduleForMe,
+      due_date: !scheduleForMe ? null : dueDate
     };
     try {
       const response = await fetch(`${baseUrl}/add/`, {
@@ -117,7 +117,7 @@ function Calendar() {
         setNewStartTime("");
         // setNewEndTime("")
         setNewRepeat("none");
-        setNewFixed(false);
+        // setNewFixed(false);
         console.log("task added successfully");
         setScheduleForMe(false);
         setDueDate("");
@@ -155,7 +155,7 @@ function Calendar() {
       description: taskToUpdate.description,
       duration: taskToUpdate.duration,
       start_time: taskToUpdate.start_time,
-      fixed: taskToUpdate.fixed,
+      // fixed: taskToUpdate.fixed,
       repeat: taskToUpdate.repeat,
     };
     try {
@@ -252,7 +252,7 @@ function Calendar() {
           droppable={true} // Enables the ability to drag events
           weekends={true}
           auto={true}
-          height={850}
+          height={880}
           nowIndicator={true}
           headerToolbar={{
             left: "prev,next today",
@@ -271,7 +271,7 @@ function Calendar() {
           eventClick={onEventClick}
           eventDrop={dropDate}
         />
-        <button className="btn btn-primary" onClick={() => setOpenAddModal(true)}>
+        <button className="btn btn-primary addTaskButtonCalendar" onClick={() => setOpenAddModal(true)}>
           Add task
         </button>
 
@@ -282,27 +282,27 @@ function Calendar() {
             Launch demo modal
           </button> */}
 
-      {openAddModal && (
+{openAddModal && (
         <Modal onClose={() => setOpenAddModal(false)} title="Add Task">
           {/* My adding new task form - Children to be passed into component   */}
           <h2> Add a new task</h2>
           <form onSubmit={addTask}>
             <label> Task Name: </label>
-            <input
+            <input className="form-control"
               type="text"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               required
             />
             <label> Description: </label>
-            <input //dont make this required
+            <input className="form-control"
               type="text"
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
               required
             />
             <label> duration:</label>
-            <input
+            <input className="form-control"
               type="number"
               value={newDuration}
               onChange={(e) => setNewDuration(e.target.value)}
@@ -312,7 +312,7 @@ function Calendar() {
             {!scheduleForMe && (
               <>
                 <label> Start Time:</label>
-                <input
+                <input className="form-control"
                   type="datetime-local"
                   value={newStartTime}
                   onChange={(e) => setNewStartTime(e.target.value)}
@@ -320,14 +320,14 @@ function Calendar() {
                 />
               </>
             )}
-            <label>Fixed?</label>
-            <input
+            {/* <label>Fixed?</label>
+            <input className="form-control"
               type="checkbox"
               checked={newFixed}
               onChange={(e) => setNewFixed(e.target.checked)}
-            />
+            /> */}
             <label>Repeat: </label>
-            <select
+            <select className="form-control"
               value={newRepeat}
               onChange={(e) => setNewRepeat(e.target.value)}
             >
@@ -336,17 +336,17 @@ function Calendar() {
               <option value="weekly">Weekly</option>
             </select>
 
-            <label>Schedule for me?</label>
-            <input
+            <label className="form-check-label">Schedule for me?</label>
+            <input className="form-check-input"
               type="checkbox"
               checked={scheduleForMe}
               onChange={(e) => setScheduleForMe(e.target.checked)}
             />
-
+            <br />
             {scheduleForMe && (
               <>
                 <label>dueDate</label>
-                <input
+                <input className="form-control"
                   type="datetime-local"
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
@@ -354,7 +354,7 @@ function Calendar() {
               </>
             )}
 
-            <button type="submit">POST</button>
+            <button type="submit" className="btn btn-primary">POST</button>
           </form>
         </Modal>
       )}
@@ -364,24 +364,28 @@ function Calendar() {
           onClose={() => {
             setOpenTaskModal(false);
             setEventSelect(null);
-          }}
-          title="Task Details"
-        >
-          <h2>Task</h2>
-          <div>
+            }}
+            title="Task Details"
+          >
+            <h2>Task</h2>
+            <div className="form-group">
             <label>Task Name: {eventSelect.name}</label>
-
+            </div>
+            <div className="form-group">
             <label>Description: {eventSelect.description}</label>
-
+            </div>
+            <div className="form-group">
             <label>Duration: {eventSelect.duration}</label>
-
+            </div>
+            <div className="form-group">
             <label>Start Time: {eventSelect.start_time}</label>
-
+            </div>
+            <div className="form-group">
             <label>End Time: {eventSelect.end_time}</label>
-          </div>
-
-          <button
-            className="btn btn-danger position-absolute start-0 "
+            </div>
+            <div className="taskDisplayButtons">
+            <button
+            className="btn btn-warning position-absolute start-0 "
             onClick={() => {
               setOpenEditModal(true);
             }}
@@ -408,6 +412,7 @@ function Calendar() {
             {" "}
             Delete
           </button>
+          </div>
         </Modal>
       )}
       {openDeleteModal && eventSelect && (
@@ -443,10 +448,11 @@ function Calendar() {
       )}
       {openEditModal && eventSelect && (
         <Modal onClose={() => setOpenEditModal(false)} title="Edit Task">
-          <div>
-            <form onSubmit={editTask}>
+        <div>
+          <form onSubmit={editTask}>
+            <div className="form-group">
               <label> Task Name: </label>
-              <input
+              <input className="form-control"
                 type="text"
                 value={eventSelect.name}
                 onChange={(e) =>
@@ -454,8 +460,10 @@ function Calendar() {
                 }
                 required
               />
+            </div>
+            <div className="form-group">
               <label> Description: </label>
-              <input
+              <input className="form-control"
                 type="text"
                 value={eventSelect.description}
                 onChange={(e) =>
@@ -466,8 +474,10 @@ function Calendar() {
                 }
                 required
               />
+            </div>
+            <div className="form-group">
               <label> duration:</label>
-              <input
+              <input className="form-control"
                 type="number"
                 value={eventSelect.duration}
                 onChange={(e) =>
@@ -476,8 +486,10 @@ function Calendar() {
                 min="0"
                 required
               />
+            </div>
+            <div className="form-group">
               <label> Start Time:</label>
-              <input
+              <input className="form-control"
                 type="datetime-local"
                 value={eventSelect.start_time.toString().substring(0, 16)}
                 onChange={(e) =>
@@ -485,7 +497,9 @@ function Calendar() {
                 }
                 required
               />
-              <label>Fixed?</label>
+            </div>
+            {/* <div className="form-group"> */}
+              {/* <label>Fixed?</label>
               <input
                 type="checkbox"
                 checked={eventSelect.fixed}
@@ -493,22 +507,15 @@ function Calendar() {
                   setEventSelect({ ...eventSelect, fixed: e.target.checked })
                 }
               />
+            </div> */}
 
-              <button className="btn btn-danger" type="submit">
-                Update
-              </button>
-            </form>
-          </div>
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              setOpenEditModal(false);
-            }}
-          >
-            {" "}
-            Close
-          </button>
-        </Modal>
+            <button className="btn btn-success" type="submit">
+              Update
+            </button>
+          </form>
+        </div>
+
+      </Modal>
 
         //add edit modal here
       )}

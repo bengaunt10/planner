@@ -5,7 +5,7 @@ body{
     --fc-page-bg-color: #fff;
     --fc-neutral-bg-color: rgba(15, 38, 57, 0.3);
     --fc-neutral-text-color: #808080;
-    --fc-border-color: #4b4b4b;
+    --fc-border-color: #777777;
   
     --fc-button-text-color: #fff;
     --fc-button-bg-color: #2C3E50;
@@ -15,7 +15,9 @@ body{
     --fc-button-active-bg-color: #1a252f;
     --fc-button-active-border-color: #151e27;
   
-    --fc-event-bg-color: #1f3d5a;
+    /* --fc-event-bg-color: #1f3d5a; */
+    --fc-event-bg-color: #3d5a74;
+    --fc-event-bg-color: rgb(95, 151, 123);
     --fc-event-border-color: #d6ded8;
     --fc-event-text-color: #fff;
     --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
@@ -31,7 +33,7 @@ body{
     --fc-bg-event-color: rgb(143, 223, 130);
     --fc-bg-event-opacity: 0.3;
     --fc-highlight-color: rgba(188, 232, 241, 0.3);
-    --fc-today-bg-color: rgba(12, 58, 88, 0.15);
+    --fc-today-bg-color: rgba(2, 20, 32, 0.15);
     --fc-now-indicator-color: red;
     /* --fc-event-bg-color: #24634f; */
    
@@ -41,11 +43,34 @@ body{
       margin-right: 1vw;
     }
 
-  
+    .fc-col-header-cell a {
+        color: white !important;  /* Change to your desired color */
+        text-decoration: none !important;
+    }
+    
+    
+    /* Change color of day numbers */
+.fc-daygrid-day-number {
+    color: white !important; /* Change to desired color */
+    text-decoration: none !important; /* Prevents them from looking like links */
+}
+.fc-daygrid-event, .fc-daygrid-event a {
+    color: white !important;
+    text-decoration: none !important;
+}
 
 .cal{
-
+    background: rgb(95, 151, 123);
     background: linear-gradient(180deg, #2C3E50 0%, #1B263B 100%);    
-    background: rgb(95, 151, 123);;
+    background: #264d58;
     height:100vh;
+}
+.addTaskButtonCalendar{
+    position: absolute;
+    top: 10.2vh;
+    left: 11vw;
+}
+.taskDisplayButtons{
+    margin-top: 1vh;
+    margin-bottom: 4vh;
 }

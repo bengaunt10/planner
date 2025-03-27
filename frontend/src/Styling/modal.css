@@ -1,0 +1,30 @@
+
+.modal{
+    backdrop-filter: blur(4px);
+    display: flex;
+}
+.modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: auto;
+  
+}
+.modal-content {
+    background-color: #9b809d !important;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width:100%;
+    width: 100%;
+    
+    box-shadow: 0 0 10px 0 #542858;
+  
+  }
+  
+  .form-control {
+    max-width: 100%; /* Prevents it from expanding beyond the modal */
+    width: 100%;
+    margin-bottom: 5%;
+    
+  }
+  

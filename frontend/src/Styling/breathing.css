@@ -1,0 +1,39 @@
+.anim-circle {
+    text-align: center;
+    padding: 2vw;
+    color: black;
+    margin: auto;
+    margin-top: 30vh;
+    margin-right: 45vw;
+    margin-bottom: 55vh;
+   
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(188, 237, 243, 0.889);
+    animation: breathe 10s linear infinite;
+  }
+  
+  @keyframes breathe {
+    0% {
+   box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 65px rgba(188, 237, 243, 0.3), 0 0 0 80px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3);
+    }
+    50% {
+   box-shadow: 0 0 0 35px rgba(188, 237, 243, 0.3), 0 0 0 70px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3), 0 0 0 120px rgba(188, 237, 243, 0.3), 0 0 0 145px rgba(188, 237, 243, 0.3);
+    }
+    100% {
+   box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 65px rgba(188, 237, 243, 0.3), 0 0 0 80px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3);
+    }
+   }
+   .breathingTitle{
+    text-align: center;
+    font-size: 2.5vw;
+    font-weight: 8000;
+    margin-top: 5vh;
+   }
+   .breathingInstructions{
+    text-align: center;
+    font-size: 1vw;
+    font-weight: 5000;
+    margin-top: 5vh;
+   }

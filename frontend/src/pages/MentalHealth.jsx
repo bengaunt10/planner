@@ -6,7 +6,7 @@ export default function MentalHealth() {
     return (
       <div>
         <Navbar />
-        <h1>Mental Health Information</h1>
+        <h1>Pomodoro timer</h1>
     
       </div>
     );
