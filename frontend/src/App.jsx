@@ -4,7 +4,7 @@ import Home from './pages/Home'
 import Calendar from './pages/calendar'
 
 import Breathing from './pages/Breathing'
-import MentalHealth from './pages/MentalHealth'
+import Study from './pages/Study'
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import UnFound from './pages/UnFound'
@@ -34,7 +34,7 @@ function App() {
           <Route path = "/logout" element = {<Logout />} />
           <Route path = "/calendar" element ={<ProtectRoute><Calendar /></ProtectRoute>} />
           <Route path = "/breathing" element = {<ProtectRoute><Breathing/></ProtectRoute>} />
-          <Route path = "/mentalhealth" element = {<ProtectRoute><MentalHealth/></ProtectRoute>} />
+          <Route path = "/study" element = {<ProtectRoute><Study/></ProtectRoute>} />
           <Route path ="*" element = {<UnFound />} />
         </Routes>
  

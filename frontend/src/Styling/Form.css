@@ -94,7 +94,6 @@ body {
   letter-spacing: 1vw;
 }
 .loginForm {
-  /* width: 50vw; */
   width: fit-content;
   height: 70vh;
   max-width: 50vw;
@@ -102,12 +101,10 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
-
   background: transparent;
   align-items: center;
   backdrop-filter: blur(10px);
   justify-content: center;
-  /* background-color: rgb(35, 62, 60); */
   border-radius: 10px;
   position: absolute;
   top: 19vh;

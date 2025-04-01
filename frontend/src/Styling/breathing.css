@@ -37,3 +37,30 @@
     font-weight: 5000;
     margin-top: 5vh;
    }
+
+   .card{
+    width:20vw;
+    margin-bottom: 10vh;
+    background-color: rgb(95, 151, 123);
+    color: white;
+     box-shadow: 3px 8px 10px rgba(0, 0, 0, 0.5);
+   }
+
+   .resourceCards{
+    
+    margin-left: 10vw;
+   }
+
+   .tab.active {
+    background-color: rgb(95, 151, 123, 1) !important; /* Change background to grey */
+    color: white !important; /* Change text color if needed */
+  }
+  .tab{
+    color: white !important;
+    background-color: rgb(95, 151, 123, 0.1) !important; /* Change background to grey */
+    border: 1px solid rgba(44, 41, 41, 0.5) !important; /* Adjust border color if necessary */
+  }
+  .tab:hover {
+    background-color: rgb(95, 151, 123, 0.5) !important;/* Change background to grey */
+    transition: ease-in-out 0.3s;
+  }

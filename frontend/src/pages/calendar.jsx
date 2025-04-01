@@ -84,10 +84,6 @@ function Calendar() {
       alert("Start time cannot be before current time");
       return;
     }
-    // if(newEndTime < newStartTime){
-    //   alert("End time cannot be before start time")
-    //   return
-    // }
     e.preventDefault();
     setOpenAddModal(false);
     const newTask = {
@@ -95,8 +91,6 @@ function Calendar() {
       description: newDescription,
       duration: newDuration,
       start_time: scheduleForMe ? null : newStartTime,
-      // end_time: newEndTime,
-      // fixed: newFixed,
       repeat: newRepeat || "none",
       schedule: scheduleForMe,
       due_date: !scheduleForMe ? null : dueDate
@@ -115,10 +109,7 @@ function Calendar() {
         setNewName("");
         setNewDuration(0);
         setNewStartTime("");
-        // setNewEndTime("")
         setNewRepeat("none");
-        // setNewFixed(false);
-        console.log("task added successfully");
         setScheduleForMe(false);
         setDueDate("");
         fetchTasks();
@@ -126,7 +117,7 @@ function Calendar() {
       } else {
         const data = await response.json();
         if (data.OVERLAP) {
-          alert(data.OVERLAP); // Show the overlap alert
+          alert(data.OVERLAP); 
         }
       }
     } catch (error) {
@@ -308,7 +299,24 @@ function Calendar() {
               onChange={(e) => setNewDuration(e.target.value)}
               min="0"
               required
+            />            
+            <label className="form-check-label">Schedule for me?</label>
+            <input className="form-check-input"
+              type="checkbox"
+              checked={scheduleForMe}
+              onChange={(e) => setScheduleForMe(e.target.checked)}
             />
+            <br />
+            {scheduleForMe && (
+              <>
+                <label>Date Due</label>
+                <input className="form-control"
+                  type="datetime-local"
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                />
+              </>
+            )}
             {!scheduleForMe && (
               <>
                 <label> Start Time:</label>
@@ -336,23 +344,7 @@ function Calendar() {
               <option value="weekly">Weekly</option>
             </select>
 
-            <label className="form-check-label">Schedule for me?</label>
-            <input className="form-check-input"
-              type="checkbox"
-              checked={scheduleForMe}
-              onChange={(e) => setScheduleForMe(e.target.checked)}
-            />
-            <br />
-            {scheduleForMe && (
-              <>
-                <label>dueDate</label>
-                <input className="form-control"
-                  type="datetime-local"
-                  value={dueDate}
-                  onChange={(e) => setDueDate(e.target.value)}
-                />
-              </>
-            )}
+
 
             <button type="submit" className="btn btn-primary">POST</button>
           </form>

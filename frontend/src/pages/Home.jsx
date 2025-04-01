@@ -5,6 +5,7 @@ import Modal from "../components/Modal";
 import Navbar from "../components/Navbar";
 import "../Styling/home.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from "react-router-dom";
 function Home() {
   const [Tasks, setTasks] = useState([]);
   // const[OpenModal, SetOpenModal] = useState(false);
@@ -227,7 +228,10 @@ function Home() {
       <p className="HomeBoxDescriptionn">{nextTask.description}</p>
       {/* <p>{nextTask.duration}</p>
       <p>{nextTask.created}</p> */}
-      <p className="HomeBoxTime">{new Date(nextTask.start_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'})}- {new Date(nextTask.end_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'})}</p> 
+      <p className="HomeBoxTime">{new Date(nextTask.start_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'})}- {new Date(nextTask.end_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'})}
+        <br />
+        {new Date(nextTask.start_time).toLocaleDateString("en-us", {month: 'long', day: 'numeric'})}
+      </p> 
       <p></p>
 
       <button
@@ -264,9 +268,7 @@ function Home() {
           <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
             Add task
           </button>          
-          <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
-            Focus
-          </button>      
+          <Link className="btn btn-primary homeButton" to="/study"> Focus </Link>
           <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
             Today
           </button>      
@@ -307,7 +309,26 @@ function Home() {
                 min="0"
                 required
               />
+            </div>            
+            <div className="form-group">
+              <label className="form-check-label">Schedule for me?</label>
+              <input className="form-check-input"
+                type="checkbox"
+                checked={scheduleForMe}
+                onChange={(e) => setScheduleForMe(e.target.checked)}
+              />
             </div>
+            <br />
+            {scheduleForMe && (
+              <div className="form-group">
+                <label>Date Due</label>
+                <input className="form-control"
+                  type="datetime-local"
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                />
+              </div>
+            )}
             {!scheduleForMe && (
               <div className="form-group">
                 <label> Start Time:</label>
@@ -338,25 +359,7 @@ function Home() {
                 <option value="weekly">Weekly</option>
               </select>
             </div>
-            <div className="form-group">
-              <label className="form-check-label">Schedule for me?</label>
-              <input className="form-check-input"
-                type="checkbox"
-                checked={scheduleForMe}
-                onChange={(e) => setScheduleForMe(e.target.checked)}
-              />
-            </div>
-            <br />
-            {scheduleForMe && (
-              <div className="form-group">
-                <label>dueDate</label>
-                <input className="form-control"
-                  type="datetime-local"
-                  value={dueDate}
-                  onChange={(e) => setDueDate(e.target.value)}
-                />
-              </div>
-            )}
+
 
             <button type="submit" className="btn btn-success">Add Task</button>
           </form>

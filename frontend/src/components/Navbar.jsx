@@ -22,7 +22,7 @@ function Navbar() {
                     <Link className="nav-link" to="/breathing">Wellbeing</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/mentalhealth"> Study</Link>
+                    <Link className="nav-link" to="/study"> Study</Link>
                 </li>
                 <li className="nav-item">
                     <Link className="btn btn-info logoutButton" to="/logout">Logout</Link>

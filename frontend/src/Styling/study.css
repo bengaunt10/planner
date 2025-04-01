@@ -1,0 +1,29 @@
+.studyPage{
+
+}
+.pomodoroContainer{
+    
+    color:white; 
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    
+    font-size: 6em;
+}
+.timerWriting{
+    margin-top: -20vh;
+    font-size: 2vw;
+    margin-bottom: 0.5em;
+    min-height:1.3em;
+    color: rgb(174, 124, 58);
+}
+.timer{
+    margin-top: 5vh;
+    text-align: center;
+    padding:20px;
+    width:20vw;
+    border: 1px solid white;
+    border-radius: 50px;
+}
