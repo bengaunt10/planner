@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <>
     <header>    
-        <Link className="nav-link" to="/"><h1>DayCalmWeb</h1></Link>   
+        <Link className="nav-link" to="/"><h1>CalmDay</h1></Link>   
         <nav className="custom-nav navbar navbar-expand-lg navbar-dark ">
         <button className="navbar-toggler toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>

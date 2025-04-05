@@ -35,7 +35,6 @@ def calculate(taskDuration, dueDate, user=None):
     earliestHour = 8 
     latestHour = 22
     maxHoursInDay = 10
-    # taskDuration = timedelta(hours=taskDuration)
     daysBetween = (dueDate.date() - startLoopDate.date()).days
     dayHours = {}
 

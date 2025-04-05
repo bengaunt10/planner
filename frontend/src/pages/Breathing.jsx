@@ -9,11 +9,11 @@ function Breathing() {
           <button
             className="nav-link active tab"
             data-bs-toggle="tab"
-            data-bs-target="#breathing"
+            data-bs-target="#resources"
             aria-selected="true"
             type="button"
           >
-            Breathing
+            Resources
           </button>
         </li>
         <li className="nav-item">
@@ -31,11 +31,11 @@ function Breathing() {
           <button
             className="nav-link tab"
             data-bs-toggle="tab"
-            data-bs-target="#resources"
+            data-bs-target="#breathing"
             aria-selected="false"
             type="button"
           >
-            Resources
+            Breathing Timer
           </button>
         </li>
       </ul>
