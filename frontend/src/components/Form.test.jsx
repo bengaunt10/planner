@@ -27,6 +27,19 @@ describe('Form Component - Register and Login tests', () => {
       </MemoryRouter>
     );
   };
+  it('Username and Password Input Test', async () => {
+    setup('login');
+    const user = userEvent.setup();
+    
+    const usernameInputBox = screen.getByPlaceholderText('UserName');
+    const passwordInputBox = screen.getByPlaceholderText('Password');
+
+    await user.type(usernameInputBox, 'testingtheusername');
+    await user.type(passwordInputBox, 'testingthepassword');
+
+    expect(usernameInputBox).toHaveValue('testingtheusername');
+    expect(passwordInputBox).toHaveValue('testingthepassword');
+  });
 
   it('Login Successful Test', async () => {
     const testingTokens = {
@@ -58,19 +71,6 @@ describe('Form Component - Register and Login tests', () => {
     });
   });
 
-  it('Username and Password Input Test', async () => {
-    setup('login');
-    const user = userEvent.setup();
-    
-    const usernameInputBox = screen.getByPlaceholderText('UserName');
-    const passwordInputBox = screen.getByPlaceholderText('Password');
-
-    await user.type(usernameInputBox, 'testingtheusername');
-    await user.type(passwordInputBox, 'testingthepassword');
-
-    expect(usernameInputBox).toHaveValue('testingtheusername');
-    expect(passwordInputBox).toHaveValue('testingthepassword');
-  });
 
   it('Error displayed when Login Failed Test', async () => {
     fetch.mockResolvedValueOnce({
