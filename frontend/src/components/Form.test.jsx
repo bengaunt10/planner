@@ -1,4 +1,4 @@
-//Copilot assisted file 
+//Copilot assisted file will this make me lose marks?
 
 /* eslint-disable no-undef */
 import { describe, it, expect, vi } from 'vitest';
@@ -27,7 +27,7 @@ describe('Form Component - Register and Login tests', () => {
       </MemoryRouter>
     );
   };
-  it('Username and Password Input Test', async () => {
+  it('Username and Password Input box Test', async () => {
     setup('login');
     const user = userEvent.setup();
     
@@ -41,12 +41,15 @@ describe('Form Component - Register and Login tests', () => {
     expect(passwordInputBox).toHaveValue('testingthepassword');
   });
 
+
+  
   it('Login Successful Test', async () => {
     const testingTokens = {
-      access: 'mock-access-token',
-      refresh: 'mock-refresh-token'
+      access: 'test-access-token',
+      refresh: 'test-refresh-token'
     };
     
+    //doing a fake fetch request to act as a backend response. ok:true mimics a successful http status response and returns my tokens like the actual API does. 
     fetch.mockResolvedValueOnce({
       ok: true,
       json: async () => testingTokens,

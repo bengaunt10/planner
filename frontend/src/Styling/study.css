@@ -1,6 +1,4 @@
-.studyPage{
 
-}
 .pomodoroContainer{
     
     color:white; 
@@ -22,8 +20,8 @@
 .timer{
     margin-top: 5vh;
     text-align: center;
-    padding:20px;
-    width:20vw;
+    padding:50px;
+    width:30vw;
     border: 1px solid white;
-    border-radius: 50px;
+    border-radius: 100px;
 }

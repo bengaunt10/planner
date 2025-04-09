@@ -166,7 +166,7 @@ function Calendar() {
         fetchTasks();
         const data = await response.json();
         if (data.OVERLAP) {
-          alert(data.OVERLAP); // Show the overlap alert
+          alert(data.OVERLAP);
         }
         fetchTasks();
       }
@@ -189,6 +189,8 @@ function Calendar() {
     setOpenTaskModal(true);
   };
 
+
+  
   const dropDate = async (info) => {
     const eventMovedId = info.event.id;
     const eventMovedStart = info.event.start.toISOString();
@@ -196,16 +198,15 @@ function Calendar() {
       (task) => String(task.id) === String(eventMovedId)
     );
     const currentTime = new Date().toISOString().substring(0, 16);
-    // Validate the new start time
+
     if (eventMovedStart < currentTime) {
       alert("Start time cannot be before current time");
-      info.revert(); // Revert the event to its original position
+      info.revert();
       return;
     }
     const edittedTask = {
       ...eventMoved,
       start_time: eventMovedStart,
-      // end_time: eventMovedEnd
     };
     await editTask(null, edittedTask);
   };
@@ -222,7 +223,7 @@ function Calendar() {
     const resizedTask = {
       ...eventResized,
       duration: duration,
-      // end_time: eventMovedEnd
+
     };
     await editTask(null, resizedTask);
   };
@@ -234,14 +235,26 @@ function Calendar() {
       <div className="cal">
         <Navbar />
         <FullCalendar
-          //bootstrap theming
           plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
           dateClick={handleDateClick}
           initialView="timeGridWeek"
           themeSystem="standard"
-          editable={true} // Enables drag-and-drop functionality
-          droppable={true} // Enables the ability to drag events
+          editable={true} 
+          droppable={true} 
           weekends={true}
+          eventDidMount={(info) => {
+            const now = new Date();
+            const eventStart = new Date(info.event.start);
+            if (eventStart < now) {
+              info.el.style.backgroundColor = "#6c757d"; 
+            }
+          }}
+          eventAllow={(dropInfo, draggedEvent) => {
+            const eventStart = new Date(draggedEvent.start);
+            const now = new Date();
+          
+            return eventStart >= now;
+          }}
           auto={true}
           height={880}
           nowIndicator={true}

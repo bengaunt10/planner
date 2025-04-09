@@ -34,9 +34,12 @@ function Study() {
       <Navbar />
       <h1>Pomodoro timer</h1>
       <div className="pomodoroContainer">
-        <div className="timerWriting">
+        <div >
           {displayWriting && (
-            <div>Take a break, your next session starts in: </div>
+            <div className="timerWriting">Take a break, your next session starts in: </div>
+          )}
+          {!displayWriting && (
+            <div className="timerWriting">Keep studying, you got this!!</div>
           )}
         </div>
         <div className="timer">
@@ -49,4 +52,4 @@ function Study() {
 
 export default Study;
 
-// Pomodoro code inspired and adapted from: https://www.youtube.com/watch?v=9z1qBcFwdXg&list=WL&index=2&t=11s
+// Pomodoro timer code inspired and adapted from: https://www.youtube.com/watch?v=9z1qBcFwdXg&list=WL&index=2&t=11s
