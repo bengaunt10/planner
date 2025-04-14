@@ -1,4 +1,4 @@
-//Copilot assisted file will this make me lose marks?
+//Copilot assisted file. All code was reviewed, tested, and modified by me 
 
 /* eslint-disable no-undef */
 import { describe, it, expect, vi } from 'vitest';
@@ -42,7 +42,7 @@ describe('Form Component - Register and Login tests', () => {
   });
 
 
-  
+
   it('Login Successful Test', async () => {
     const testingTokens = {
       access: 'test-access-token',

@@ -270,7 +270,7 @@ function Home() {
           </button>          
           <Link className="btn btn-primary homeButton" to="/study"> Focus </Link>
           <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
-            Today
+            button
           </button>      
         </div>
         <p className="homeQuote">

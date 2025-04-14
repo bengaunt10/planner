@@ -175,7 +175,6 @@ function Calendar() {
     }
   };
 
-  //camoooooon
 
   const handleDateClick = (arg) => {
     alert(arg.dateStr);
@@ -282,9 +281,6 @@ function Calendar() {
       </div>
 
 
-      {/* <button type="button" className="btn btn-primary" onClick={() => setOpenModal(true)}>
-            Launch demo modal
-          </button> */}
 
 {openAddModal && (
         <Modal onClose={() => setOpenAddModal(false)} title="Add Task">
@@ -341,12 +337,7 @@ function Calendar() {
                 />
               </>
             )}
-            {/* <label>Fixed?</label>
-            <input className="form-control"
-              type="checkbox"
-              checked={newFixed}
-              onChange={(e) => setNewFixed(e.target.checked)}
-            /> */}
+
             <label>Repeat: </label>
             <select className="form-control"
               value={newRepeat}
@@ -356,9 +347,6 @@ function Calendar() {
               <option value="daily">Daily</option>
               <option value="weekly">Weekly</option>
             </select>
-
-
-
             <button type="submit" className="btn btn-primary">POST</button>
           </form>
         </Modal>

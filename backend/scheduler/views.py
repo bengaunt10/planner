@@ -56,7 +56,6 @@ def addTask(request):
             taskSaving = serializer.save(user=request.user)
             taskSaving.repeat_id = taskSaving.id
             taskSaving.save()
-            print(f"Task saved: {taskSaving}")
             if taskSaving.repeat == "daily":
                 for i in range(1, 360):
                     addition = timedelta(days=i)
@@ -91,8 +90,9 @@ def addTask(request):
             return Response(serializer.errors, status=400)
 
 
-@permission_classes([IsAuthenticated])
+
 @api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
 def deleteTask(request, taskID):
     try: 
         taskToDelete = Task.objects.get(id=taskID, user=request.user)
@@ -104,8 +104,9 @@ def deleteTask(request, taskID):
     except:
         return Response({"Backend: Can't delete task"})
 
-@permission_classes([IsAuthenticated])
+
 @api_view(["PUT"])
+@permission_classes([IsAuthenticated])
 def editTask(request, taskID):
     try: 
         task = Task.objects.get(id=taskID, user=request.user)

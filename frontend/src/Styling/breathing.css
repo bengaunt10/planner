@@ -41,7 +41,7 @@
    .card{
     width:20vw;
     margin-bottom: 10vh;
-    background-color: rgb(95, 151, 123);
+    background-color: rgb(95, 151, 123, 0.6);
     color: white;
      box-shadow: 3px 8px 10px rgba(0, 0, 0, 0.5);
    }

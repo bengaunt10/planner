@@ -47,7 +47,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 8vw;
-    color: #434343;
+    color: #d4d4d4;
     overflow: scroll;
     
   }
@@ -112,11 +112,14 @@
     margin: 2.5vw;
     border-radius: 10px;
     background-color: #1B263B;
-    background: #82A3AF;
-    color: #434343;
+    background: rgb(95, 151, 123);
+    color: #242424;
     font-weight: 600;
     border: none;
     
+  }
+  .homeButton:hover{
+    background: rgb(35, 80, 58);
   }
   .HomeBoxButton{
     position: absolute;
