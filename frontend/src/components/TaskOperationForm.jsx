@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 
 function TaskOperationForm({ onSubmit, passedData, isEdit=false }) {

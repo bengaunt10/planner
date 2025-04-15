@@ -1,13 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState, useEffect } from "react";
 import Modal from "../components/Modal";
-//crud operations into components? Cos they being reused across. like post for example
+
 import Navbar from "../components/Navbar";
 import "../Styling/home.css"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { Link } from "react-router-dom";
 import TaskServices from "../services/TaskServices";
 import TaskOperationForm from "../components/TaskOperationForm";
+import DeleteEvent from "../components/DeleteEvent";
+import NextTask from "../components/NextTask";
 
 function Home() {
   const [Tasks, setTasks] = useState([]);
@@ -71,65 +73,6 @@ function Home() {
     setEventSelect(null);
   };
 
-
-  const getNextTask = () => {
-    if (!Tasks) {
-      return null;
-    }
-    const currentTime = new Date();
-    const nextTasks = Tasks.filter((task) => {
-      const taskTime = new Date(task.start_time);
-      return taskTime > currentTime;
-    });
-    if (nextTasks.length === 0) {
-      return null;
-    }
-    nextTasks.sort((a, b) => {
-      return new Date(a.start_time) - new Date(b.start_time);
-    });
-    return nextTasks[0];
-  }
-
-
-  const nextTask = getNextTask();
-
-  const TaskList = nextTask ? (
-    <li className="nextTask"key={nextTask.id}>
-      <button
-        className="btn btn-primary HomeBoxButton"
-        onClick={() => {
-          setOpenDeleteModal(true);
-          setTaskToDelete(nextTask);
-        }}
-      >
-        Remove Task
-      </button>
-      {/* <p>{nextTask.id}</p> */}
-      <h2 className="HomeBoxTask">{nextTask.name}</h2>
-      <p className="HomeBoxDescriptionn">{nextTask.description}</p>
-      {/* <p>{nextTask.duration}</p>
-      <p>{nextTask.created}</p> */}
-      <p className="HomeBoxTime">{new Date(nextTask.start_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'})}- {new Date(nextTask.end_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'})}
-        <br />
-        {new Date(nextTask.start_time).toLocaleDateString("en-us", {month: 'long', day: 'numeric'})}
-      </p> 
-      <p></p>
-
-      <button
-        className="btn btn-info HomeBoxEdit"
-        onClick={() => {
-          setOpenEditModal(true);
-          setEventSelect(nextTask);
-        }}
-      >
-        Edit Task<FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
-      </button>
-    </li>
-  ): (
-    <h2>No tasks. Add a new task below</h2>
-  );
-
-
   return (
     <div className="homePage">
       <Navbar />
@@ -141,7 +84,7 @@ function Home() {
         </div>
         <div className="HomeBox">
           <h2 className="HomeBoxTitle">NextTask</h2>
-          <ul>{TaskList}</ul>  
+          <NextTask Tasks={Tasks} setOpenDeleteModal={setOpenDeleteModal} setTaskToDelete={setTaskToDelete} setOpenEditModal={setOpenEditModal} setEventSelect={setEventSelect}/>
         </div>
       </div>
         <h1 className="homeTitle">{username}'s<br /> Dashboard</h1>
@@ -167,30 +110,7 @@ function Home() {
 
         {openDeleteModal && taskToDelete && (
           <Modal onClose={() => setOpenDeleteModal(false)}>
-            <h2>Are you sure you want to delete this task?</h2>
-            {taskToDelete.repeat !== "none" && (
-              <div className="form-group">
-                <label>
-                  Do you want to delete all tasks with the same repeating_id?
-                </label>
-                <input
-                  type="checkbox"
-                  value={deleteRepeat}
-                  onChange={(e) => setDeleteRepeat(e.target.checked)}
-                />
-              </div>
-            )}
-            <button className="btn btn-danger" onClick={() => deleteTask()}>
-              {" "}
-              Yes
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => setOpenDeleteModal(false)}
-            >
-              {" "}
-              No
-            </button>
+            <DeleteEvent deleteTask={deleteTask} eventSelect={taskToDelete} deleteRepeat={deleteRepeat} setDeleteRepeat={setDeleteRepeat} setOpenDeleteModal={setOpenDeleteModal}/>
           </Modal>
         )}
         {openEditModal && eventSelect && (
