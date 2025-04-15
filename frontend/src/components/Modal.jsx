@@ -19,7 +19,7 @@ function Modal({onClose,title, children}) {
         </div>
       </div>
     </div>
-    // a typical bootstrap modal layout from bootstrap documentation. adapated by me
+
   )
 }
 

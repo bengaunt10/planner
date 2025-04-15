@@ -6,71 +6,27 @@ import { useState, useEffect } from "react";
 import Modal from "../components/Modal";
 import Navbar from "../components/Navbar";
 import "../Styling/calendar.css"
-
+import TaskServices from "../services/TaskServices";
+import TaskOperationForm from "../components/TaskOperationForm";
 function Calendar() {
   const [Tasks, setTasks] = useState([]);
-  // const[OpenModal, SetOpenModal] = useState(false);
 
-  const [newName, setNewName] = useState("");
-  const [newDescription, setNewDescription] = useState("");
-  const [newDuration, setNewDuration] = useState(0);
-  const [newStartTime, setNewStartTime] = useState("");
-  // const [newEndTime, setNewEndTime] = useState("");
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openTaskModal, setOpenTaskModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false); //make a delete modal. option to delete all repeating tasks. send option through request body. if option is yes, delete all with same repeating_id. Gonna want to change the view aswell so that the first task created takes the same repeating_id as the rest of the tasks created.default = id?
   const [openEditModal, setOpenEditModal] = useState(false);
   const [deleteRepeat, setDeleteRepeat] = useState(false);
   const [eventSelect, setEventSelect] = useState(null);
-  const [scheduleForMe, setScheduleForMe] = useState(false);
-  const [dueDate, setDueDate] = useState("");
 
-  // const [newFixed, setNewFixed] = useState(false);
-  const [newRepeat, setNewRepeat] = useState("none");
 
-  const baseUrl = import.meta.env.VITE_BASE_URL;
   const Token = localStorage.getItem("access");
 
   const fetchTasks = async () => {
-    try {
-      const response = await fetch(`${baseUrl}/retrieve`, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-        method: "GET",
-      });
-      if (response.ok) {
-        let data = await response.json();
-        setTasks(data);
-      } else {
-        console.error("failed to fetch data", response.status);
-      }
-    } catch (error) {
-      console.error("error fetching tasks", error);
-    }
-  };
-
-  const deleteTask = async () => {
-    try {
-      const response = await fetch(`${baseUrl}/delete/${eventSelect.id}/`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Token}`,
-        },
-        body: JSON.stringify({ deleteRepeat }),
-      });
-      if (response.ok) {
-        console.log("task deleted");
-        setOpenDeleteModal(false);
-        setOpenTaskModal(false);
-        setEventSelect(null);
-        fetchTasks();
-      } else {
-        console.error("Failed to delete task");
-      }
-    } catch (error) {
-      console.error("error: ", error);
+    const response = await TaskServices.fetchTasks(Token);
+    if (response) {
+      setTasks(response);
+    } else {
+      console.error("Failed to fetch tasks");
     }
   };
 
@@ -78,103 +34,28 @@ function Calendar() {
     fetchTasks();
   }, []);
 
-  const addTask = async (e) => {
-    const currentTime = new Date().toISOString().substring(0, 16);
-    if (!scheduleForMe && newStartTime < currentTime) {
-      alert("Start time cannot be before current time");
-      return;
-    }
-    e.preventDefault();
+  const deleteTask = async () => {
+    await TaskServices.deleteTask(eventSelect.id, Token, deleteRepeat);
+    setOpenDeleteModal(false);
+    setOpenTaskModal(false);
+    setEventSelect(null);
+    fetchTasks();
+  };
+
+  const addTask = async (taskData) => {
+    await TaskServices.addTask(taskData, Token);
+    fetchTasks();
     setOpenAddModal(false);
-    const newTask = {
-      name: newName,
-      description: newDescription,
-      duration: newDuration,
-      start_time: scheduleForMe ? null : newStartTime,
-      repeat: newRepeat || "none",
-      schedule: scheduleForMe,
-      due_date: !scheduleForMe ? null : dueDate
-    };
-    try {
-      const response = await fetch(`${baseUrl}/add/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Token}`,
-        },
-        body: JSON.stringify(newTask),
-      });
-      if (response.ok) {
-        setNewDescription("");
-        setNewName("");
-        setNewDuration(0);
-        setNewStartTime("");
-        setNewRepeat("none");
-        setScheduleForMe(false);
-        setDueDate("");
-        fetchTasks();
-        setOpenAddModal(false);
-      } else {
-        const data = await response.json();
-        if (data.OVERLAP) {
-          alert(data.OVERLAP); 
-        }
-      }
-    } catch (error) {
-      console.error("Error posting task:", error);
-    }
   };
 
-  const editTask = async (e, task = null) => {
-    if (e) {
-      e.preventDefault(); // Only call preventDefault if e exists
-    }
-    const taskToUpdate = task || eventSelect;
-    const currentTime = new Date().toISOString().substring(0, 16);
-    if (taskToUpdate.start_time < currentTime) {
-      alert("Start time cannot be before current time");
-      return;
-    }
-    // if(taskToUpdate.end_time < taskToUpdate.start_time){
-    //   alert("End time cannot be before start time")
-    //   return;
-    // }
-
+  const editTask = async (taskData) => {
+    
+    await TaskServices.editTask(eventSelect.id, Token, taskData);
+    fetchTasks();
     setOpenEditModal(false);
-    const editedTask = {
-      name: taskToUpdate.name,
-      description: taskToUpdate.description,
-      duration: taskToUpdate.duration,
-      start_time: taskToUpdate.start_time,
-      // fixed: taskToUpdate.fixed,
-      repeat: taskToUpdate.repeat,
-    };
-    try {
-      const response = await fetch(`${baseUrl}/edit/${taskToUpdate.id}/`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Token}`,
-        },
-        body: JSON.stringify(editedTask),
-      });
-      if (response.ok) {
-        fetchTasks();
-
-        setOpenEditModal(false);
-      } else {
-        fetchTasks();
-        const data = await response.json();
-        if (data.OVERLAP) {
-          alert(data.OVERLAP);
-        }
-        fetchTasks();
-      }
-    } catch (error) {
-      console.error("Error editing task:", error);
-    }
+    setOpenTaskModal(false);
+    setEventSelect(null);
   };
-
 
   const handleDateClick = (arg) => {
     alert(arg.dateStr);
@@ -188,8 +69,6 @@ function Calendar() {
     setOpenTaskModal(true);
   };
 
-
-  
   const dropDate = async (info) => {
     const eventMovedId = info.event.id;
     const eventMovedStart = info.event.start.toISOString();
@@ -207,7 +86,8 @@ function Calendar() {
       ...eventMoved,
       start_time: eventMovedStart,
     };
-    await editTask(null, edittedTask);
+    await TaskServices.editTask(eventMovedId, Token, edittedTask);
+    fetchTasks();
   };
 
   const onResize = async (info) => {
@@ -224,13 +104,12 @@ function Calendar() {
       duration: duration,
 
     };
-    await editTask(null, resizedTask);
+    await TaskServices.editTask(eventResizedId, Token, resizedTask);
+    fetchTasks();
   };
 
   return (
-    <>
-
-      
+    <>      
       <div className="cal">
         <Navbar />
         <FullCalendar
@@ -238,6 +117,7 @@ function Calendar() {
           dateClick={handleDateClick}
           initialView="timeGridWeek"
           themeSystem="standard"
+          timeZone="UTC"
           editable={true} 
           droppable={true} 
           weekends={true}
@@ -266,9 +146,9 @@ function Calendar() {
           events={Tasks.map((task) => ({
             id: task.id,
             title: task.name,
-            date: task.start_time,
+            start: task.start_time,
             end: task.end_time,
-            // end: task.end_time --> make this end: tasl.start_time + task.duration
+           
           }))}
           eventResize={onResize}
           eventClick={onEventClick}
@@ -282,73 +162,11 @@ function Calendar() {
 
 
 
-{openAddModal && (
+    {openAddModal && (
         <Modal onClose={() => setOpenAddModal(false)} title="Add Task">
-          {/* My adding new task form - Children to be passed into component   */}
+        
           <h2> Add a new task</h2>
-          <form onSubmit={addTask}>
-            <label> Task Name: </label>
-            <input className="form-control"
-              type="text"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              required
-            />
-            <label> Description: </label>
-            <input className="form-control"
-              type="text"
-              value={newDescription}
-              onChange={(e) => setNewDescription(e.target.value)}
-              required
-            />
-            <label> duration:</label>
-            <input className="form-control"
-              type="number"
-              value={newDuration}
-              onChange={(e) => setNewDuration(e.target.value)}
-              min="0"
-              required
-            />            
-            <label className="form-check-label">Schedule for me?</label>
-            <input className="form-check-input"
-              type="checkbox"
-              checked={scheduleForMe}
-              onChange={(e) => setScheduleForMe(e.target.checked)}
-            />
-            <br />
-            {scheduleForMe && (
-              <>
-                <label>Date Due</label>
-                <input className="form-control"
-                  type="datetime-local"
-                  value={dueDate}
-                  onChange={(e) => setDueDate(e.target.value)}
-                />
-              </>
-            )}
-            {!scheduleForMe && (
-              <>
-                <label> Start Time:</label>
-                <input className="form-control"
-                  type="datetime-local"
-                  value={newStartTime}
-                  onChange={(e) => setNewStartTime(e.target.value)}
-                  required
-                />
-              </>
-            )}
-
-            <label>Repeat: </label>
-            <select className="form-control"
-              value={newRepeat}
-              onChange={(e) => setNewRepeat(e.target.value)}
-            >
-              <option value="none">No</option>
-              <option value="daily">Daily</option>
-              <option value="weekly">Weekly</option>
-            </select>
-            <button type="submit" className="btn btn-primary">POST</button>
-          </form>
+          <TaskOperationForm onSubmit={addTask} /> 
         </Modal>
       )}
 
@@ -437,80 +255,14 @@ function Calendar() {
           </button>
         </Modal>
 
-        //add edit modal here
+    
       )}
       {openEditModal && eventSelect && (
         <Modal onClose={() => setOpenEditModal(false)} title="Edit Task">
-        <div>
-          <form onSubmit={editTask}>
-            <div className="form-group">
-              <label> Task Name: </label>
-              <input className="form-control"
-                type="text"
-                value={eventSelect.name}
-                onChange={(e) =>
-                  setEventSelect({ ...eventSelect, name: e.target.value })
-                }
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label> Description: </label>
-              <input className="form-control"
-                type="text"
-                value={eventSelect.description}
-                onChange={(e) =>
-                  setEventSelect({
-                    ...eventSelect,
-                    description: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label> duration:</label>
-              <input className="form-control"
-                type="number"
-                value={eventSelect.duration}
-                onChange={(e) =>
-                  setEventSelect({ ...eventSelect, duration: e.target.value })
-                }
-                min="0"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label> Start Time:</label>
-              <input className="form-control"
-                type="datetime-local"
-                value={eventSelect.start_time.toString().substring(0, 16)}
-                onChange={(e) =>
-                  setEventSelect({ ...eventSelect, start_time: e.target.value })
-                }
-                required
-              />
-            </div>
-            {/* <div className="form-group"> */}
-              {/* <label>Fixed?</label>
-              <input
-                type="checkbox"
-                checked={eventSelect.fixed}
-                onChange={(e) =>
-                  setEventSelect({ ...eventSelect, fixed: e.target.checked })
-                }
-              />
-            </div> */}
-
-            <button className="btn btn-success" type="submit">
-              Update
-            </button>
-          </form>
-        </div>
-
+          <TaskOperationForm onSubmit={editTask} passedData={eventSelect} isEdit={true}/>
       </Modal>
 
-        //add edit modal here
+
       )}
     </>
   );
