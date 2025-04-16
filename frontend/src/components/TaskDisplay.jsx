@@ -1,24 +1,24 @@
 /* eslint-disable react/prop-types */
 
 
-function TaskDisplay({eventSelect, setEventSelect, setOpenEditModal, setOpenDeleteModal, setOpenTaskModal}) {
+function TaskDisplay({taskSelected, setTaskSelected, setOpenEditModal, setOpenDeleteModal, setOpenTaskModal}) {
   return (
     <>
         <h2>Task</h2>
         <div className="form-group">
-        <label>Task Name: {eventSelect.name}</label>
+        <label>Task Name: {taskSelected.name}</label>
         </div>
         <div className="form-group">
-        <label>Description: {eventSelect.description}</label>
+        <label>Description: {taskSelected.description}</label>
         </div>
         <div className="form-group">
-        <label>Duration: {eventSelect.duration}</label>
+        <label>Duration: {taskSelected.duration}</label>
         </div>
         <div className="form-group">
-        <label>Start Time: {eventSelect.start_time}</label>
+        <label>Start Time: {taskSelected.start_time}</label>
         </div>
         <div className="form-group">
-        <label>End Time: {eventSelect.end_time}</label>
+        <label>End Time: {taskSelected.end_time}</label>
         </div>
         <div className="taskDisplayButtons">
         <button
@@ -34,7 +34,7 @@ function TaskDisplay({eventSelect, setEventSelect, setOpenEditModal, setOpenDele
         className="btn btn-primary position-absolute end-50"
         onClick={() => {
         setOpenTaskModal(false);
-        setEventSelect(null);
+        setTaskSelected(null);
         }}
     >
         {" "}

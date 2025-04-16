@@ -14,10 +14,10 @@ function Calendar() {
 
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openTaskModal, setOpenTaskModal] = useState(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false); //make a delete modal. option to delete all repeating tasks. send option through request body. if option is yes, delete all with same repeating_id. Gonna want to change the view aswell so that the first task created takes the same repeating_id as the rest of the tasks created.default = id?
+  const [openDeleteModal, setOpenDeleteModal] = useState(false); 
   const [openEditModal, setOpenEditModal] = useState(false);
   const [deleteRepeat, setDeleteRepeat] = useState(false);
-  const [eventSelect, setEventSelect] = useState(null);
+  const [TaskSelected, setTaskSelected] = useState(null);
 
 
   const Token = localStorage.getItem("access");
@@ -36,26 +36,34 @@ function Calendar() {
   }, []);
 
   const deleteTask = async () => {
-    await TaskServices.deleteTask(eventSelect.id, Token, deleteRepeat);
-    setOpenDeleteModal(false);
+    try {
+      await TaskServices.deleteTask(TaskSelected.id, Token, deleteRepeat);
+      await setOpenDeleteModal(false);
+    }catch(error){
+      console.error("Error deleting task:", error);
+    }
     setOpenTaskModal(false);
-    setEventSelect(null);
+    setTaskSelected(null);
     fetchTasks();
   };
 
   const addTask = async (taskData) => {
+    try {
     await TaskServices.addTask(taskData, Token);
-    fetchTasks();
+    await fetchTasks();
+    }catch (error){
+      console.error("Error adding task:", error);
+    }
     setOpenAddModal(false);
   };
 
   const editTask = async (taskData) => {
     
-    await TaskServices.editTask(eventSelect.id, Token, taskData);
+    await TaskServices.editTask(TaskSelected.id, Token, taskData);
     fetchTasks();
-    setOpenEditModal(false);
-    setOpenTaskModal(false);
-    setEventSelect(null);
+    setOpenEditModal(false)
+    setOpenTaskModal(false)
+    setTaskSelected(null)
   };
 
   const handleDateClick = (arg) => {
@@ -63,7 +71,7 @@ function Calendar() {
   };
 
   const onEventClick = (info) => {
-    setEventSelect(
+    setTaskSelected(
       Tasks.find((task) => String(task.id) === String(info.event.id))
     );
 
@@ -133,23 +141,23 @@ function Calendar() {
         <Modal
           onClose={() => {
             setOpenTaskModal(false);
-            setEventSelect(null);
+            setTaskSelected(null);
             }}
             title="Task Details"
           >
-          <TaskDisplay setEventSelect={setEventSelect} setOpenEditModal={setOpenEditModal} eventSelect={eventSelect} setOpenDeleteModal={setOpenDeleteModal} setOpenTaskModal={setOpenTaskModal}/>
+          <TaskDisplay setEventSelect={setTaskSelected} setOpenEditModal={setOpenEditModal} eventSelect={TaskSelected} setOpenDeleteModal={setOpenDeleteModal} setOpenTaskModal={setOpenTaskModal}/>
         </Modal>
       )}
-      {openDeleteModal && eventSelect && (
+      {openDeleteModal && TaskSelected && (
         <Modal onClose={() => setOpenDeleteModal(false)} title="Delete Task?">
-          <DeleteEvent deleteTask={deleteTask} eventSelect={eventSelect} deleteRepeat={deleteRepeat} setDeleteRepeat={setDeleteRepeat} setOpenDeleteModal={setOpenDeleteModal}/>
+          <DeleteEvent deleteTask={deleteTask} eventSelect={TaskSelected} deleteRepeat={deleteRepeat} setDeleteRepeat={setDeleteRepeat} setOpenDeleteModal={setOpenDeleteModal}/>
         </Modal>
 
     
       )}
-      {openEditModal && eventSelect && (
+      {openEditModal && TaskSelected && (
         <Modal onClose={() => setOpenEditModal(false)} title="Edit Task">
-          <TaskOperationForm onSubmit={editTask} passedData={eventSelect} isEdit={true}/>
+          <TaskOperationForm onSubmit={editTask} passedData={TaskSelected} isEdit={true}/>
       </Modal>
 
 

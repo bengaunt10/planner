@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 
 
-function DeleteEvent({deleteTask, eventSelect, deleteRepeat, setDeleteRepeat, setOpenDeleteModal}) {
+function DeleteEvent({deleteTask, taskSelected, deleteRepeat, setDeleteRepeat, setOpenDeleteModal}) {
   return (
     <>
-          {eventSelect.repeat !== "none" && (
+          {taskSelected.repeat !== "none" && (
             <div>
               <label>
                 Do you want to delete all tasks with the same repeating_id?

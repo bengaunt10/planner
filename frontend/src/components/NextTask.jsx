@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal, setEventSelect}) {
+function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal, setTaskSelected}) {
 
 
   const getNextTask = () => {
@@ -51,7 +51,7 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
             className="btn btn-info HomeBoxEdit"
             onClick={() => {
               setOpenEditModal(true);
-              setEventSelect(nextTask);
+              setTaskSelected(nextTask);
             }}
           >
             Edit Task<FontAwesomeIcon icon="fa-solid fa-pen-to-square" />

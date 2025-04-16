@@ -21,9 +21,10 @@ function Home() {
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
 
-  const [eventSelect, setEventSelect] = useState(null);
+  const [taskSelected, setTaskSelected] = useState(null);
 
   const Token = localStorage.getItem("access");
+  
   const username = localStorage.getItem("username") || "Guest";
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'}));
   const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString("en-us", {month: 'long', day: 'numeric'}));
@@ -67,10 +68,10 @@ function Home() {
 
   const editTask = async (taskData) => {
     
-    await TaskServices.editTask(eventSelect.id, Token, taskData);
+    await TaskServices.editTask(taskSelected.id, Token, taskData);
     fetchTasks();
     setOpenEditModal(false);
-    setEventSelect(null);
+    setTaskSelected(null);
   };
 
   return (
@@ -84,7 +85,7 @@ function Home() {
         </div>
         <div className="HomeBox">
           <h2 className="HomeBoxTitle">NextTask</h2>
-          <NextTask Tasks={Tasks} setOpenDeleteModal={setOpenDeleteModal} setTaskToDelete={setTaskToDelete} setOpenEditModal={setOpenEditModal} setEventSelect={setEventSelect}/>
+          <NextTask Tasks={Tasks} setOpenDeleteModal={setOpenDeleteModal} setTaskToDelete={setTaskToDelete} setOpenEditModal={setOpenEditModal} setEventSelect={setTaskSelected}/>
         </div>
       </div>
         <h1 className="homeTitle">{username}'s<br /> Dashboard</h1>
@@ -113,9 +114,9 @@ function Home() {
             <DeleteEvent deleteTask={deleteTask} eventSelect={taskToDelete} deleteRepeat={deleteRepeat} setDeleteRepeat={setDeleteRepeat} setOpenDeleteModal={setOpenDeleteModal}/>
           </Modal>
         )}
-        {openEditModal && eventSelect && (
+        {openEditModal && taskSelected && (
           <Modal onClose={() => setOpenEditModal(false)} title="Edit Task">
-            <TaskOperationForm onSubmit={editTask} passedData={eventSelect} isEdit={true}/>
+            <TaskOperationForm onSubmit={editTask} passedData={taskSelected} isEdit={true}/>
           </Modal>
       )}
     </div>
