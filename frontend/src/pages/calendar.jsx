@@ -145,12 +145,12 @@ function Calendar() {
             }}
             title="Task Details"
           >
-          <TaskDisplay setEventSelect={setTaskSelected} setOpenEditModal={setOpenEditModal} eventSelect={TaskSelected} setOpenDeleteModal={setOpenDeleteModal} setOpenTaskModal={setOpenTaskModal}/>
+          <TaskDisplay taskSelected={TaskSelected} setTaskSelected={setTaskSelected} setOpenEditModal={setOpenEditModal} setOpenDeleteModal={setOpenDeleteModal} setOpenTaskModal={setOpenTaskModal}/>
         </Modal>
       )}
       {openDeleteModal && TaskSelected && (
         <Modal onClose={() => setOpenDeleteModal(false)} title="Delete Task?">
-          <DeleteEvent deleteTask={deleteTask} eventSelect={TaskSelected} deleteRepeat={deleteRepeat} setDeleteRepeat={setDeleteRepeat} setOpenDeleteModal={setOpenDeleteModal}/>
+          <DeleteEvent deleteTask={deleteTask} taskSelected={TaskSelected} deleteRepeat={deleteRepeat} setDeleteRepeat={setDeleteRepeat} setOpenDeleteModal={setOpenDeleteModal}/>
         </Modal>
 
     

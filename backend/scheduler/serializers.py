@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Task
+from .models import Task, Gratitudes
 from django.contrib.auth.models import User
 from .helper import calculate
 class TaskSerializer(serializers.ModelSerializer):
@@ -33,3 +33,9 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
+class GratitudeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gratitudes
+        fields = "__all__"
+        extra_kwargs = {"user": {"read_only": True}, #read who author is but can't write who author is. SET BY BACKEND
+        }

@@ -24,7 +24,7 @@ function Home() {
   const [taskSelected, setTaskSelected] = useState(null);
 
   const Token = localStorage.getItem("access");
-  
+
   const username = localStorage.getItem("username") || "Guest";
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'}));
   const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString("en-us", {month: 'long', day: 'numeric'}));
@@ -99,7 +99,7 @@ function Home() {
           </button>      
         </div>
         <p className="homeQuote">
-          “We generate fears while we do nothing. We overcome these fears by taking action.”
+          “Take each day as it comes, keep balance and stay calm, You've got this!”
         </p>
 
         {openAddModal && (

@@ -45,13 +45,13 @@ function Breathing() {
       </ul>
 
       <div className="tab-content">
-        <div className="tab-pane fade show active" id="breathing">
+        <div className="tab-pane fade" id="breathing">
           <BreathingTimer />
         </div>
         <div className="tab-pane fade" id="gratitudes">
           <GratitudeJournal />
         </div>
-        <div className="tab-pane fade" id="resources">
+        <div className="tab-pane fade show active" id="resources">
           <div className="resourcesContainer">
             <h2>WellBeing Resources</h2>
             <div className="row resourceCards">

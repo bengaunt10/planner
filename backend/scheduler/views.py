@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.utils import timezone
 from django.http import JsonResponse
-from .models import Task
+from .models import Task, Gratitudes
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from .serializers import TaskSerializer, UserSerializer
+from .serializers import TaskSerializer, UserSerializer, GratitudeSerializer
 from datetime import timedelta
 from rest_framework import status, generics
 from .helper import overlap_checker
@@ -122,4 +122,49 @@ def editTask(request, taskID):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(["GET"]) 
+@permission_classes([IsAuthenticated])
+def getGratitude(request):
+    user = request.user
+    gratitudes = Gratitudes.objects.filter(user=user)
+    serializer = GratitudeSerializer(gratitudes, many=True)
+    return Response(serializer.data)
+
+@permission_classes([IsAuthenticated])
+@api_view(["POST"])
+def addGratitude(request):
+        serializer = GratitudeSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            taskSaving = serializer.save(user=request.user)
+            taskSaving.save()
+            return Response(serializer.data)
+        else:
+            print(f"Serializer errors: {serializer.errors}")
+            return Response(serializer.errors, status=400)
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def deleteGratitude(request, gratitudeID):
+    try: 
+        gratitudeToDelete = Gratitudes.objects.get(id=gratitudeID, user=request.user)
+        deleteRepeat = request.data.get("deleteRepeat") in ["true", "True", True]
+        gratitudeToDelete.delete()
+        return Response({"Backend: gratitude deleted"})
+    except:
+        return Response({"Backend: Can't delete gratitude"})
+
+
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def editGratitude(request, gratitudeID):
+    try: 
+        gratitude = Gratitudes.objects.get(id=gratitudeID, user=request.user)
+    except Gratitudes.DoesNotExist:
+        return Response({"Backend: Task not found"}, status=404)
+    serializer = GratitudeSerializer(gratitude, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
