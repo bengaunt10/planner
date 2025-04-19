@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 
-function TaskOperationForm({ onSubmit, passedData, isEdit=false }) {
+function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
     const [taskData, setTaskData] = useState({
         newName: "",
         newDescription: "",
@@ -66,7 +66,7 @@ function TaskOperationForm({ onSubmit, passedData, isEdit=false }) {
             </div>
             <div className="form-group">
               <label> Description: </label>
-              <input className="form-control"
+              <textarea className="form-control"
                 type="text"
                 value={taskData.newDescription}
                 onChange={(e) =>
@@ -99,8 +99,7 @@ function TaskOperationForm({ onSubmit, passedData, isEdit=false }) {
                       onChange={(e) => setTaskData({...taskData, newStartTime: e.target.value})}
                       required
                     />
-                  </>
-                )}                
+                  
                 <label>Repeat: </label>
                 <select className="form-control"
                   value={taskData.newRepeat}
@@ -110,7 +109,10 @@ function TaskOperationForm({ onSubmit, passedData, isEdit=false }) {
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
                 </select>
-            {!isEdit && (
+                </>
+                )}                
+
+            {!editForm && (
             <>
                 <label className="form-check-label">Schedule for me?</label>
                 <input className="form-check-input"
@@ -134,7 +136,7 @@ function TaskOperationForm({ onSubmit, passedData, isEdit=false }) {
 
 
             <button className="btn btn-success" type="submit">
-                {isEdit ? 'Update' : 'Add'} Task
+                {editForm ? 'Update' : 'Add'} Task
             </button>
           </form>
 

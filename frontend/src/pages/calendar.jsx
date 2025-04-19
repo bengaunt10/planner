@@ -38,7 +38,7 @@ function Calendar() {
   const deleteTask = async () => {
     try {
       await TaskServices.deleteTask(TaskSelected.id, Token, deleteRepeat);
-      await setOpenDeleteModal(false);
+      setOpenDeleteModal(false);
     }catch(error){
       console.error("Error deleting task:", error);
     }
@@ -125,10 +125,7 @@ function Calendar() {
         <button className="btn btn-primary addTaskButtonCalendar" onClick={() => setOpenAddModal(true)}>
           Add task
         </button>
-
       </div>
-
-
 
     {openAddModal && (
         <Modal onClose={() => setOpenAddModal(false)} title="Add Task">

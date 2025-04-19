@@ -52,15 +52,15 @@
    }
 
    .tab.active {
-    background-color: rgb(95, 151, 123, 1) !important; /* Change background to grey */
-    color: white !important; /* Change text color if needed */
+    background-color: rgb(95, 151, 123, 1) !important; 
+    color: white !important; 
   }
   .tab{
     color: white !important;
-    background-color: rgb(95, 151, 123, 0.1) !important; /* Change background to grey */
-    border: 1px solid rgba(44, 41, 41, 0.5) !important; /* Adjust border color if necessary */
+    background-color: rgb(95, 151, 123, 0.1) !important; 
+    border: 1px solid rgba(44, 41, 41, 0.5) !important; 
   }
   .tab:hover {
-    background-color: rgb(95, 151, 123, 0.5) !important;/* Change background to grey */
+    background-color: rgb(95, 151, 123, 0.5) !important;
     transition: ease-in-out 0.3s;
   }

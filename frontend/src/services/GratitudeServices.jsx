@@ -3,7 +3,7 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 class GratitudeServices {
     static async fetch_Gratitude (Token) {
         try {
-          const response = await fetch(`${baseUrl}/retrieve`, {
+          const response = await fetch(`${baseUrl}/retrievegratitude`, {
             headers: {
               Authorization: `Bearer ${Token}`,
             },
@@ -22,7 +22,7 @@ class GratitudeServices {
       
       static async add_gratitudes(gratitudeData, Token){
         try {
-          const response = await fetch(`${baseUrl}/add/`, {
+          const response = await fetch(`${baseUrl}/addgratitude/`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -45,7 +45,7 @@ class GratitudeServices {
 
       static async deleteGratitude(gratitudeID, Token) {
         try {
-          const response = await fetch(`${baseUrl}/delete/${gratitudeID}/`, {
+          const response = await fetch(`${baseUrl}/deletegratitude/${gratitudeID}/`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -64,7 +64,7 @@ class GratitudeServices {
 
       static async editGratitude(gratitudeID, Token, gratitudeData) {
         try {
-          const response = await fetch(`${baseUrl}/edit/${gratitudeID}/`, {
+          const response = await fetch(`${baseUrl}/editgratitude/${gratitudeID}/`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",

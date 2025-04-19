@@ -9,6 +9,6 @@ urlpatterns = [
     path("edit/<int:taskID>/", editTask, name="edit_task"),
     path("addgratitude/", addGratitude, name="add_gratitude"),
     path("retrievegratitude", getGratitude, name="get_gratitude"),
-    path("deletegratitude/<int:taskID>/", deleteGratitude, name="delete_gratitude"),
-    path("editgratitude/<int:taskID>/", editGratitude, name="edit_gratitude"),
+    path("deletegratitude/<int:gratitudeID>/", deleteGratitude, name="delete_gratitude"),
+    path("editgratitude/<int:gratitudeID>/", editGratitude, name="edit_gratitude"),
 ]

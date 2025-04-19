@@ -136,8 +136,8 @@ def getGratitude(request):
 def addGratitude(request):
         serializer = GratitudeSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            taskSaving = serializer.save(user=request.user)
-            taskSaving.save()
+            gratitudeSaving = serializer.save(user=request.user)
+            gratitudeSaving.save()
             return Response(serializer.data)
         else:
             print(f"Serializer errors: {serializer.errors}")
@@ -148,11 +148,10 @@ def addGratitude(request):
 def deleteGratitude(request, gratitudeID):
     try: 
         gratitudeToDelete = Gratitudes.objects.get(id=gratitudeID, user=request.user)
-        deleteRepeat = request.data.get("deleteRepeat") in ["true", "True", True]
         gratitudeToDelete.delete()
-        return Response({"Backend: gratitude deleted"})
+        return Response({"Gratitude deleted"})
     except:
-        return Response({"Backend: Can't delete gratitude"})
+        return Response({"Can't delete gratitude"})
 
 
 @api_view(["PUT"])
@@ -161,7 +160,7 @@ def editGratitude(request, gratitudeID):
     try: 
         gratitude = Gratitudes.objects.get(id=gratitudeID, user=request.user)
     except Gratitudes.DoesNotExist:
-        return Response({"Backend: Task not found"}, status=404)
+        return Response({"Gratitude not found"}, status=404)
     serializer = GratitudeSerializer(gratitude, data=request.data)
     if serializer.is_valid():
         serializer.save()

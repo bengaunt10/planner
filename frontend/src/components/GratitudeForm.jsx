@@ -1,0 +1,87 @@
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
+import "../Styling/gratitudes.css";
+
+function GratitudeForm({ onSubmit, passedData, editForm=false }) {
+    const [gratitudeData, setGratitudeData] = useState({
+        newGratitudes: "",
+        newDoneToday: "",
+        newBestPartToday: "",
+    });
+
+    useEffect(() => {
+        if (passedData) {
+            setGratitudeData({
+                newGratitudes: passedData.gratitudes,
+                newDoneToday: passedData.doneToday,
+                newBestPartToday: passedData.bestPartToday,
+            });
+        }
+    }
+    , [passedData]);
+
+    const Submission = (e) => {
+        e.preventDefault();
+    
+        onSubmit({
+          gratitudes: gratitudeData.newGratitudes,
+          doneToday: gratitudeData.newDoneToday,
+          bestPartToday: gratitudeData.newBestPartToday,
+        });
+    };
+
+
+  return (
+    <div>
+        <form onSubmit={Submission}>
+            <div className="form-group">
+              <label> What are your gratitudes for today? </label>
+              <textarea className="form-control"
+                type="text"
+                value={gratitudeData.newGratitudes}
+                onChange={(e) =>
+                  setGratitudeData({ ...gratitudeData, newGratitudes: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label> What have you completed today? </label>
+              <textarea className="form-control"
+                type="text"
+                value={gratitudeData.newDoneToday}
+                onChange={(e) =>
+                  setGratitudeData({
+                    ...gratitudeData,
+                    newDoneToday: e.target.value,
+                  })
+                }
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label> Reflect on the best parts of your day </label>
+              <textarea className="form-control"
+                type="text"
+                value={gratitudeData.newBestPartToday}
+                onChange={(e) =>
+                  setGratitudeData({
+                    ...gratitudeData,
+                    newBestPartToday: e.target.value,
+                  })
+                }
+                required
+              />
+            </div>
+
+
+            <button className="btn btn-success" type="submit">
+                {editForm ? 'Update' : 'Add'} Entry
+            </button>
+          </form>
+
+    </div>
+  )
+}
+
+export default GratitudeForm
