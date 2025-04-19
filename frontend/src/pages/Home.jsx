@@ -10,6 +10,10 @@ import TaskServices from "../services/TaskServices";
 import TaskOperationForm from "../components/TaskOperationForm";
 import DeleteEvent from "../components/DeleteEvent";
 import NextTask from "../components/NextTask";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquarePlus,faStopwatch } from "@fortawesome/free-solid-svg-icons";
+
+
 
 function Home() {
   const [Tasks, setTasks] = useState([]);
@@ -85,18 +89,16 @@ function Home() {
         </div>
         <div className="HomeBox">
           <h2 className="HomeBoxTitle">NextTask</h2>
-          <NextTask Tasks={Tasks} setOpenDeleteModal={setOpenDeleteModal} setTaskToDelete={setTaskToDelete} setOpenEditModal={setOpenEditModal} setEventSelect={setTaskSelected}/>
+          <NextTask Tasks={Tasks} setOpenDeleteModal={setOpenDeleteModal} setTaskToDelete={setTaskToDelete} setOpenEditModal={setOpenEditModal} setTaskSelected={setTaskSelected}/>
         </div>
       </div>
         <h1 className="homeTitle">{username}'s<br /> Dashboard</h1>
         <div className="buttonHolders">
           <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
-            Add task
+          <FontAwesomeIcon icon={faSquarePlus} /> Add task
           </button>          
-          <Link className="btn btn-primary homeButton" to="/study"> Focus </Link>
-          <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
-            button
-          </button>      
+          <Link className="btn btn-primary homeButton" to="/study"> <FontAwesomeIcon icon={faStopwatch} /> Focus </Link> 
+
         </div>
         <p className="homeQuote">
           “Take each day as it comes, keep balance and stay calm, You've got this!”
@@ -111,7 +113,8 @@ function Home() {
 
         {openDeleteModal && taskToDelete && (
           <Modal onClose={() => setOpenDeleteModal(false)}>
-            <DeleteEvent deleteTask={deleteTask} eventSelect={taskToDelete} deleteRepeat={deleteRepeat} setDeleteRepeat={setDeleteRepeat} setOpenDeleteModal={setOpenDeleteModal}/>
+            <h3>You are about to delete this task! Are you sure you want to do this?</h3>
+            <DeleteEvent deleteTask={deleteTask} taskSelected={taskToDelete} deleteRepeat={deleteRepeat} setDeleteRepeat={setDeleteRepeat} setOpenDeleteModal={setOpenDeleteModal}/>
           </Modal>
         )}
         {openEditModal && taskSelected && (

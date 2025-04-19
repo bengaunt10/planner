@@ -3,8 +3,10 @@ import Navbar from "../components/Navbar";
 import BreathingTimer from "../components/BreathingTimer";
 import GratitudeJournal from "../components/GratitudeJournal";
 import ResourceCard from "../components/ResourceCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookOpen, faHandHoldingHeart, faLungs } from "@fortawesome/free-solid-svg-icons";
 
-function Breathing() {
+function WellBeing() {
   return (
     <>
       <Navbar />
@@ -17,7 +19,7 @@ function Breathing() {
             aria-selected="true"
             type="button"
           >
-            Resources
+            <FontAwesomeIcon icon={faBookOpen} /> Resources
           </button>
         </li>
         <li className="nav-item">
@@ -28,7 +30,7 @@ function Breathing() {
             aria-selected="false"
             type="button"
           >
-            Gratitude Journal
+            <FontAwesomeIcon icon={faHandHoldingHeart} /> Gratitude Journal
           </button>
         </li>
         <li className="nav-item">
@@ -39,7 +41,7 @@ function Breathing() {
             aria-selected="false"
             type="button"
           >
-            Breathing Timer
+            <FontAwesomeIcon icon={faLungs} /> Breathing Timer
           </button>
         </li>
       </ul>
@@ -119,4 +121,4 @@ function Breathing() {
   );
 }
 
-export default Breathing;
+export default WellBeing;

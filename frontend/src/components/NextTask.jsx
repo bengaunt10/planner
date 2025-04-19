@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal, setTaskSelected}) {
 
 
@@ -32,13 +32,13 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
     return (
         <li className="nextTask"key={nextTask.id}>
           <button
-            className="btn btn-primary HomeBoxButton"
+            className="btn btn-info HomeBoxButton"
             onClick={() => {
               setOpenDeleteModal(true);
               setTaskToDelete(nextTask);
             }}
           >
-            Remove Task
+            <FontAwesomeIcon icon={faTrash} />
           </button>
           <h2 className="HomeBoxTask">{nextTask.name}</h2>
           <p className="HomeBoxDescriptionn">{nextTask.description}</p>
@@ -54,7 +54,7 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
               setTaskSelected(nextTask);
             }}
           >
-            Edit Task<FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
+            <FontAwesomeIcon icon={faPenToSquare}/>
           </button>
         </li>
       )

@@ -89,7 +89,28 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
                 min="0"
                 required
               />
-            </div>
+            </div>            
+            {!editForm && (
+            <>
+                <label className="form-check-label">Schedule for me?</label>
+                <input className="form-check-input"
+                  type="checkbox"
+                  checked={taskData.scheduleForMe}
+                  onChange={(e) => setTaskData({...taskData, scheduleForMe: e.target.checked})}
+                />
+                <br />
+                {taskData.scheduleForMe && (
+                  <>
+                    <label>Date Due</label>
+                    <input className="form-control"
+                      type="datetime-local"
+                      value={taskData.dueDate.toString().substring(0, 16)}
+                      onChange={(e) => setTaskData({...taskData, dueDate: e.target.value})}
+                    />
+                  </>
+                )}
+            </>
+            )}
             {!taskData.scheduleForMe && (
                   <>
                     <label> Start Time:</label>
@@ -112,27 +133,7 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
                 </>
                 )}                
 
-            {!editForm && (
-            <>
-                <label className="form-check-label">Schedule for me?</label>
-                <input className="form-check-input"
-                  type="checkbox"
-                  checked={taskData.scheduleForMe}
-                  onChange={(e) => setTaskData({...taskData, scheduleForMe: e.target.checked})}
-                />
-                <br />
-                {taskData.scheduleForMe && (
-                  <>
-                    <label>Date Due</label>
-                    <input className="form-control"
-                      type="datetime-local"
-                      value={taskData.dueDate.toString().substring(0, 16)}
-                      onChange={(e) => setTaskData({...taskData, dueDate: e.target.value})}
-                    />
-                  </>
-                )}
-            </>
-            )}
+
 
 
             <button className="btn btn-success" type="submit">

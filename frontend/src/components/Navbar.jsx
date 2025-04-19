@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom"
 import "../Styling/navbar.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faStopwatch, faHeartCirclePlus, faCalendar, faHouse, faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
+
 
 function Navbar() {
   return (
@@ -13,19 +16,19 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                     <Link className="nav-link" to="/">Home</Link>
+                     <Link className="nav-link" to="/"><FontAwesomeIcon icon={faHouse} /> Home</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/calendar">Calendar</Link>
+                    <Link className="nav-link" to="/calendar"><FontAwesomeIcon icon={faCalendar} /> Calendar</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/breathing">Wellbeing</Link>
+                    <Link className="nav-link" to="/wellbeing"><FontAwesomeIcon icon={faHeartCirclePlus}/> Wellbeing</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/study"> Study</Link>
+                    <Link className="nav-link" to="/study"><FontAwesomeIcon icon={faStopwatch} /> Study</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="btn btn-info logoutButton" to="/logout">Logout</Link>
+                    <Link className="btn btn-info logoutButton" to="/logout"><FontAwesomeIcon icon={faRightFromBracket} /> Logout</Link>
                 </li>
 
             </ul>

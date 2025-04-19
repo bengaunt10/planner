@@ -125,14 +125,21 @@
     position: absolute;
     bottom: 2.5vh;
     left:2vw;
-    padding:1vw;
+    font-size: 2vw;
   }
   .HomeBoxEdit{
     position: absolute;
     bottom: 2.5vh;
     right:2vw;
-    padding:1vw;
+    font-size: 2vw;
   }
+  .HomeBoxButton:hover{
+    color:#d4d4d4;
+  }
+  .HomeBoxEdit:hover{
+    color:#d4d4d4;
+  }
+  
   .HomeBoxTitle{
     position: absolute;
     font-size: 3vw;

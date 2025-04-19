@@ -2,7 +2,8 @@ import { useState, useEffect } from "react"
 import GratitudeServices from "../services/GratitudeServices"
 import GratitudeForm from "./GratitudeForm"
 import Modal from "./Modal"
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPenToSquare, faTrash, faSquarePlus} from '@fortawesome/free-solid-svg-icons';
 import "../Styling/gratitudes.css"
 
 function GratitudeJournal() {
@@ -59,7 +60,7 @@ function GratitudeJournal() {
   return (
     <div className="gratitudeContainer">
       <button className="btn btn-primary addGratitudeButton" onClick={() => setOpenAddModal(true)}>
-          Add Entry
+      <FontAwesomeIcon icon={faSquarePlus} /> Add Entry
       </button>
 
       <div className="gratitude_list">
@@ -77,11 +78,11 @@ function GratitudeJournal() {
               <button className="btn btn-info " onClick={() => {
                 setOpenEditModal(true);
                 setGratitudeSelected(gratitude);
-              }}>Edit</button>   
+              }}><FontAwesomeIcon icon={faPenToSquare}/></button>   
               <button className="btn btn-primary" onClick={() => {
                 setOpenDeleteModal(true);
                 setGratitudeSelected(gratitude);
-              }}>Delete</button>         
+              }}><FontAwesomeIcon icon={faTrash} /></button>         
             </div> 
           </div>
           <p>Gratitudes: <span className="entryinfo">{gratitude.gratitudes}</span></p>
