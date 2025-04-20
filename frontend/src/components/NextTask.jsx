@@ -32,7 +32,7 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
     return (
         <li className="nextTask"key={nextTask.id}>
           <button
-            className="btn btn-info HomeBoxButton"
+            className="btn btn-danger HomeBoxButton"
             onClick={() => {
               setOpenDeleteModal(true);
               setTaskToDelete(nextTask);
@@ -48,7 +48,7 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
             {new Date(nextTask.start_time).toLocaleDateString("en-us", {month: 'long', day: 'numeric'})}
           </p> 
           <button
-            className="btn btn-info HomeBoxEdit"
+            className="btn btn-warning HomeBoxEdit"
             onClick={() => {
               setOpenEditModal(true);
               setTaskSelected(nextTask);

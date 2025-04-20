@@ -1,15 +1,16 @@
 .gratitudeCard{
-    background-color: rgb(95, 151, 123, 0.7);
+    background-color: rgb(95, 151, 123, 0.45);
     border-radius: 8px;
     padding: 16px;
     width:60%;
     margin-top: 1vh;
     font-weight: bold;
-    
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .gratitude_list{
-    background: rgb(194, 194, 194, 0.4);
+   
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,10 +20,11 @@
     border-radius: 10px;
     height: 75vh;
     overflow: scroll;
-    background: rgba(130, 163, 175, 0.3);
+    background: rgba(130, 163, 175, 0.2);
     font-size: 0.9vw;
-    backdrop-filter: blur(30px);
-
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    
 }
 
 .gratitudeCardHead{
@@ -30,15 +32,24 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2vh;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .gratitudeButtons{
     display: flex;
     gap:1vw;
+    margin-bottom: 1%;
 }
 .entryinfo{
+    background: rgba(255, 255, 255, 0.1);
     font-weight: normal;
     color: rgb(33, 33, 33);
-    font-size: 0.7vw;
+    font-size: 0.9vw;
+    display: block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.7vw;
+
+    border-radius: 8px;
+    margin-top: 0.5rem;
 }
 .noGratitude{
     margin: auto;

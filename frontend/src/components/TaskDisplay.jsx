@@ -1,24 +1,28 @@
 /* eslint-disable react/prop-types */
-
+import "../Styling/calendar.css"
 
 function TaskDisplay({taskSelected, setTaskSelected, setOpenEditModal, setOpenDeleteModal, setOpenTaskModal}) {
   return (
-    <>
-        <h2>Task</h2>
-        <div className="form-group">
-        <label>Task Name: {taskSelected.name}</label>
+    <div className="task-display">
+        <label>Task Name: </label>
+        <div className="form-control">
+        {taskSelected.name}
         </div>
-        <div className="form-group">
-        <label>Description: {taskSelected.description}</label>
+        <label>Description: </label>
+        <div className="form-control">
+        {taskSelected.description}
         </div>
-        <div className="form-group">
-        <label>Duration: {taskSelected.duration}</label>
+        <label>Duration: </label>
+        <div className="form-control">
+            {taskSelected.duration} Hours
         </div>
-        <div className="form-group">
-        <label>Start Time: {taskSelected.start_time}</label>
+        <label>Start Time: </label>
+        <div className="form-control">
+            {new Date(taskSelected.start_time).toLocaleString("en-US", {dateStyle:"long", timeStyle:"short"} )}
         </div>
-        <div className="form-group">
-        <label>End Time: {taskSelected.end_time}</label>
+        <label>End Time: </label>
+        <div className="form-control">
+            {new Date(taskSelected.end_time).toLocaleString("en-US", {dateStyle:"long", timeStyle:"short"} )}
         </div>
         <div className="taskDisplayButtons">
         <button
@@ -50,7 +54,7 @@ function TaskDisplay({taskSelected, setTaskSelected, setOpenEditModal, setOpenDe
         Delete
     </button>
     </div>
-  </>
+  </div>
   )
   
 }

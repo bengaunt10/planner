@@ -156,7 +156,7 @@ function Calendar() {
       )}
       {openEditModal && TaskSelected && (
         <Modal onClose={() => setOpenEditModal(false)} title="Edit Task">
-          <TaskOperationForm onSubmit={editTask} passedData={TaskSelected} isEdit={true}/>
+          <TaskOperationForm onSubmit={editTask} passedData={TaskSelected} editForm={true}/>
       </Modal>
 
 

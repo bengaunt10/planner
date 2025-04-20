@@ -81,8 +81,9 @@ function Home() {
   return (
     <div className="homePage">
       <Navbar />
-
+      <h1 className="homeTitle">{username}'s<br /> Dashboard</h1>
       <div className="HomeBoxContainer">
+        
         <div className="sideBar">
         <h2 className="dashDate">{currentDate}</h2>
           <h2 className="dashTime">{currentTime}</h2>
@@ -92,7 +93,7 @@ function Home() {
           <NextTask Tasks={Tasks} setOpenDeleteModal={setOpenDeleteModal} setTaskToDelete={setTaskToDelete} setOpenEditModal={setOpenEditModal} setTaskSelected={setTaskSelected}/>
         </div>
       </div>
-        <h1 className="homeTitle">{username}'s<br /> Dashboard</h1>
+        
         <div className="buttonHolders">
           <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
           <FontAwesomeIcon icon={faSquarePlus} /> Add task
@@ -101,15 +102,14 @@ function Home() {
 
         </div>
         <p className="homeQuote">
-          “Take each day as it comes, keep balance and stay calm, You've got this!”
+          “Take each day as it comes, keep balanced and stay calm. You've got this!”
         </p>
 
         {openAddModal && (
         <Modal onClose={() => setOpenAddModal(false)} title="Add Task">
-          {/* My adding new task form - Children to be passed into component   */}
-          <TaskOperationForm onSubmit={addTask} />
+          <TaskOperationForm onSubmit={addTask}  />
         </Modal>
-      )}
+        )}
 
         {openDeleteModal && taskToDelete && (
           <Modal onClose={() => setOpenDeleteModal(false)}>
@@ -119,7 +119,7 @@ function Home() {
         )}
         {openEditModal && taskSelected && (
           <Modal onClose={() => setOpenEditModal(false)} title="Edit Task">
-            <TaskOperationForm onSubmit={editTask} passedData={taskSelected} isEdit={true}/>
+            <TaskOperationForm onSubmit={editTask} passedData={taskSelected} editForm={true}/>
           </Modal>
       )}
     </div>

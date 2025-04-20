@@ -14,8 +14,6 @@ function Modal({onClose,title, children}) {
           <div className="modal-body">
             {children}
           </div>
-           <div className="modal-footer"> {/*put buttons in here */}
-          </div>
         </div>
       </div>
     </div>

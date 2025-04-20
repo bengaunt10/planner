@@ -75,11 +75,11 @@ function GratitudeJournal() {
           <div className="gratitudeCardHead">
             <h4>Posted {new Date(gratitude.created).toLocaleDateString()}</h4>
             <div className="gratitudeButtons">
-              <button className="btn btn-info " onClick={() => {
+              <button className="btn btn-warning " onClick={() => {
                 setOpenEditModal(true);
                 setGratitudeSelected(gratitude);
               }}><FontAwesomeIcon icon={faPenToSquare}/></button>   
-              <button className="btn btn-primary" onClick={() => {
+              <button className="btn btn-danger" onClick={() => {
                 setOpenDeleteModal(true);
                 setGratitudeSelected(gratitude);
               }}><FontAwesomeIcon icon={faTrash} /></button>         
@@ -96,8 +96,7 @@ function GratitudeJournal() {
 
 
     {openAddModal && (
-        <Modal onClose={() => setOpenAddModal(false)} title="Add Task">
-          <h2> Add a new task</h2>
+        <Modal onClose={() => setOpenAddModal(false)} title="Add Entry">
           <GratitudeForm onSubmit={addGratitude} /> 
         </Modal>
       )}
@@ -110,7 +109,7 @@ function GratitudeJournal() {
         </Modal>
       )}
       {openEditModal && GratitudeSelected && (
-        <Modal onClose={() => setOpenEditModal(false)} title="Edit Task">
+        <Modal onClose={() => setOpenEditModal(false)} title="Edit Entry">
           <GratitudeForm onSubmit={editGratitude} passedData={GratitudeSelected} editForm={true}/>
       </Modal>
 

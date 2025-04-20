@@ -11,7 +11,7 @@
 }
 .modal-content {
     background-color: #9b809d !important;
-    color: white;
+    color: #264d58;
     padding: 20px;
     border-radius: 8px;
     width:100%;
@@ -22,9 +22,19 @@
   }
   
   .form-control {
-    max-width: 100%; /* Prevents it from expanding beyond the modal */
+    max-width: 100%; 
     width: 100%;
     margin-bottom: 5%;
-    
+    color: #264d58;
   }
-  
+  label{
+    font-size: 1vw;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+  }
+  .btn-warning {
+    background: rgb(179, 179, 120);
+  }
+  .btn-danger{
+    background: rgb(179, 120, 120);
+  }

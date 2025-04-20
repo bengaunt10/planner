@@ -35,7 +35,6 @@ body{
     --fc-highlight-color: rgba(188, 232, 241, 0.3);
     --fc-today-bg-color: rgba(2, 20, 32, 0.15);
     --fc-now-indicator-color: red;
-    /* --fc-event-bg-color: #24634f; */
    
 }
 .fc-direction-ltr {
@@ -44,15 +43,14 @@ body{
     }
 
     .fc-col-header-cell a {
-        color: white !important;  /* Change to your desired color */
+        color: white !important; 
         text-decoration: none !important;
     }
     
-    
-    /* Change color of day numbers */
+
 .fc-daygrid-day-number {
-    color: white !important; /* Change to desired color */
-    text-decoration: none !important; /* Prevents them from looking like links */
+    color: white !important; 
+    text-decoration: none !important; 
 }
 .fc-daygrid-event, .fc-daygrid-event a {
     color: white !important;
@@ -74,3 +72,4 @@ body{
     margin-top: 1vh;
     margin-bottom: 4vh;
 }
+

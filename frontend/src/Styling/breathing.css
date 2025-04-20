@@ -64,3 +64,6 @@
     background-color: rgb(95, 151, 123, 0.5) !important;
     transition: ease-in-out 0.3s;
   }
+.resourcesContainer{
+  overflow: scroll;
+}

@@ -120,16 +120,19 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
                       onChange={(e) => setTaskData({...taskData, newStartTime: e.target.value})}
                       required
                     />
-                  
-                <label>Repeat: </label>
-                <select className="form-control"
-                  value={taskData.newRepeat}
-                  onChange={(e) => setTaskData({...taskData, newRepeat: e.target.value})}
-                >
-                  <option value="none">No</option>
-                  <option value="daily">Daily</option>
-                  <option value="weekly">Weekly</option>
-                </select>
+                {!editForm && (
+                  <>
+                  <label>Repeat: </label>
+                  <select className="form-control"
+                    value={taskData.newRepeat}
+                    onChange={(e) => setTaskData({...taskData, newRepeat: e.target.value})}
+                  >
+                    <option value="none">No</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                  </select>
+                </>
+                )}
                 </>
                 )}                
 

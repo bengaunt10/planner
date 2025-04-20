@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom"
 import "../Styling/navbar.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faStopwatch, faHeartCirclePlus, faCalendar, faHouse, faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
-
-
+import { faStopwatch, faHeartCirclePlus, faCalendar, faHouse, faRightFromBracket, faCircleQuestion } from "@fortawesome/free-solid-svg-icons"
+import Modal from "./Modal"
+import { useState } from "react"
 function Navbar() {
+
+    const [openGratitudeModal, setOpenGratitudeModal] = useState(false)
+
   return (
     <>
     <header>    
         <Link className="nav-link" to="/"><h1>CalmDay</h1></Link>   
+                      <button className="HelpButton btn" onClick={() => {
+                        setOpenGratitudeModal(true);
+                      }}><FontAwesomeIcon icon={faCircleQuestion} /></button>   
         <nav className="custom-nav navbar navbar-expand-lg navbar-dark ">
         <button className="navbar-toggler toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -34,6 +40,11 @@ function Navbar() {
             </ul>
         </div>
         </nav>
+        {openGratitudeModal && (
+        <Modal onClose={() => setOpenGratitudeModal(false)} title="Help">
+          <p>Welcome to Calm Day!!</p>
+        </Modal>
+      )}
     </header>
 
     </>

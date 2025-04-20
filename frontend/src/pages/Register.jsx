@@ -7,7 +7,7 @@ function Register() {
   return (
     // <div className="registerContainer">
     <>
-    <h1 className="title">CALENDAR THINGY</h1>
+    <h1 className="title">CALM DAY</h1>
       <div className="lines">
         <div className="line"></div>
         <div className="line"></div>

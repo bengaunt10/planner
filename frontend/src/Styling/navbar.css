@@ -16,14 +16,11 @@
     margin-bottom: 1vh;
   }
   
-  
-  
   .custom-nav a {
     color: white;
     text-decoration: none;
     margin-left: 1vw;
-    font-size: 1.3vw;
-    
+    font-size: 1.3vw; 
   }
   
   .navbar-toggler {
@@ -31,11 +28,10 @@
     border: none;
   }
   
-  
   .custom-nav a:hover {
-    color: rgb(18, 86, 78) !important;
-    font-style: italic;
-    transition: 0.3s ease;
+    transition: 0.3s ease-out;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
   }
   
 .logoutButton{

@@ -39,6 +39,7 @@ function GratitudeForm({ onSubmit, passedData, editForm=false }) {
               <textarea className="form-control"
                 type="text"
                 value={gratitudeData.newGratitudes}
+                placeholder="I am grateful for..."
                 onChange={(e) =>
                   setGratitudeData({ ...gratitudeData, newGratitudes: e.target.value })
                 }
@@ -50,6 +51,7 @@ function GratitudeForm({ onSubmit, passedData, editForm=false }) {
               <textarea className="form-control"
                 type="text"
                 value={gratitudeData.newDoneToday}
+                placeholder="Today I have..."
                 onChange={(e) =>
                   setGratitudeData({
                     ...gratitudeData,
@@ -63,6 +65,7 @@ function GratitudeForm({ onSubmit, passedData, editForm=false }) {
               <label> Reflect on the best parts of your day </label>
               <textarea className="form-control"
                 type="text"
+                placeholder="The best parts were..."
                 value={gratitudeData.newBestPartToday}
                 onChange={(e) =>
                   setGratitudeData({
