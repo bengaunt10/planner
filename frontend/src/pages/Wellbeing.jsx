@@ -55,7 +55,7 @@ function WellBeing() {
         </div>
         <div className="tab-pane fade show active" id="resources">
           <div className="resourcesContainer">
-            <h2>WellBeing Resources</h2>
+            
             <div className="row resourceCards">
 
             <ResourceCard 

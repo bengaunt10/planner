@@ -14,8 +14,13 @@
     backdrop-filter: blur(30px);
     max-height: 9vh;
     margin-bottom: 1vh;
+    
   }
   
+  header h1{
+    font-size: 2vw;
+  }
+
   .custom-nav a {
     color: white;
     text-decoration: none;
@@ -36,4 +41,19 @@
   
 .logoutButton{
     color: rgba(64, 64, 64, 1) !important;
+  
+}
+.HelpButton {
+  font-size: 2vw;
+}
+
+.logo {
+  width: 6.8vw;
+  height: 13vh;
+  margin-left: 1rem;
+  background-image: url("../assets/mascot.PNG");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
 }

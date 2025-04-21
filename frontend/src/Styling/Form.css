@@ -1,12 +1,5 @@
 body {
-  background: linear-gradient(
-    191deg,
-    #2a5d61 20.63%,
-    #2c5256 26.84%,
-    #2e2e3a 49.56%,
-    #33365a 72.73%,
-    #34385e 73.06%,
-    #3c3c46 85.87%
+  background: linear-gradient(191deg,#2a5d61 20.63%, #2c5256 26.84%, #2e2e3a 49.56%, #33365a 72.73%, #34385e 73.06%, #3c3c46 85.87%
   );
   background-color: #123c32;
   background-image: url("../assets/wallpaper5.jpg");
@@ -86,7 +79,7 @@ body {
     top: 110%;
   }
 }
-/* Line animation adapted from https://codepen.io/osorina/pen/PQdMOO */
+/* Animation adapted from https://codepen.io/osorina/pen/PQdMOO */
 
 .title {
   margin-top: 5vh;
@@ -94,6 +87,7 @@ body {
   letter-spacing: 1vw;
 }
 .loginForm {
+
   width: fit-content;
   height: 70vh;
   max-width: 50vw;
@@ -113,6 +107,8 @@ body {
   padding: 5vw;
   color: white;
   transition: all 0.2s ease-in-out;
+
+  
 }
 
 .loginForm:hover {
@@ -126,17 +122,20 @@ h1 {
 }
 
 .form-control {
-  width: 25vw;
   padding: 10px;
   margin-top: 20px;
   border-radius: 2px;
   border: none;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.1);
-
+  background: rgba(255, 255, 255, 0.15);
+  
   outline: none;
 
   font-weight: 1000;
+}
+.auth-form-control{
+  width: 25vw;
+  font-size: 0.8vw !important;
 }
 
 .formButton {
@@ -152,6 +151,7 @@ h1 {
   font-weight: bold;
   cursor: pointer;
   background-color: #156757;
+  font-size: 0.9vw;
 }
 
 .formButton:hover {
@@ -169,11 +169,13 @@ h1 {
   display: flex;
   justify-content: center;
   margin-top: 10%;
+  font-size: 0.9vw;
 }
 .otherFormMessage {
   display: flex;
   justify-content: center;
   margin-top: 10%;
+  font-size: 0.9vw;
 }
 
 .otherFormMessage .nav-link {
@@ -189,4 +191,20 @@ h1 {
   display: flex;
   justify-content: center;
   margin-top: 5%;
+}
+
+.login-logo {
+  
+  background-image: url("../assets/mascot.PNG");
+  background-size: contain;
+
+  background-repeat: no-repeat;
+ 
+  position: absolute;
+  top: 25vh;
+  left: 5vw;
+  width: 50vw;
+  height: 50vh;
+ 
+
 }

@@ -60,7 +60,7 @@ function GratitudeJournal() {
   return (
     <div className="gratitudeContainer">
       <button className="btn btn-primary addGratitudeButton" onClick={() => setOpenAddModal(true)}>
-      <FontAwesomeIcon icon={faSquarePlus} /> Add Entry
+      <FontAwesomeIcon icon={faSquarePlus} /> 
       </button>
 
       <div className="gratitude_list">
@@ -73,13 +73,13 @@ function GratitudeJournal() {
       Gratitudes.sort((a, b) => new Date(b.created) - new Date(a.created)) .map((gratitude) =>
         <div key={gratitude.id} className="gratitudeCard">
           <div className="gratitudeCardHead">
-            <h4>Posted {new Date(gratitude.created).toLocaleDateString()}</h4>
+            <h4 className="postedTitle">Posted {new Date(gratitude.created).toLocaleDateString()}</h4>
             <div className="gratitudeButtons">
-              <button className="btn btn-warning " onClick={() => {
+              <button className="btn btn-warning gratButton" onClick={() => {
                 setOpenEditModal(true);
                 setGratitudeSelected(gratitude);
               }}><FontAwesomeIcon icon={faPenToSquare}/></button>   
-              <button className="btn btn-danger" onClick={() => {
+              <button className="btn btn-danger gratButton" onClick={() => {
                 setOpenDeleteModal(true);
                 setGratitudeSelected(gratitude);
               }}><FontAwesomeIcon icon={faTrash} /></button>         

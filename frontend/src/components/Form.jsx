@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+// Authentication system understood and adapted from https://www.youtube.com/watch?v=WuyKxdLcw3w&list=WL&index=3&t=2233s
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "../Styling/Form.css"
@@ -65,14 +66,14 @@ function Form({route, result}) {
     <div className="loginForm form-group">
     <form onSubmit={handleSubmission}>
         <h1 className="formTitle">{what}</h1>
-        <input className="form-control"
+        <input className="form-control auth-form-control"
           type="text"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           placeholder="UserName"
           required
         />
-        <input className="form-control"
+        <input className="form-control auth-form-control"
           type="password"
           value={userPassword}
           onChange={(e) => setUserPassword(e.target.value)}
@@ -80,7 +81,7 @@ function Form({route, result}) {
           required
         />
         {result === "register" && (
-          <input className="form-control"
+          <input className="form-control auth-form-control"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}

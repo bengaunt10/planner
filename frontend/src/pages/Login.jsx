@@ -7,6 +7,7 @@ function Login() {
     // <div className="registerContainer">
     <>
       <h1 className="title">CALM DAY</h1>
+      <div className="login-logo"></div>
       <div className="lines">
         <div className="line"></div>
         <div className="line"></div>

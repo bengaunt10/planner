@@ -8,8 +8,7 @@ import TaskOperationForm from "../components/TaskOperationForm";
 import CalendarComponent from "../components/CalendarComponent";
 import TaskDisplay from "../components/TaskDisplay";
 import DeleteEvent from "../components/DeleteEvent";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+
 
 function Calendar() {
   const [Tasks, setTasks] = useState([]);
@@ -123,15 +122,14 @@ function Calendar() {
     <>      
       <div className="cal">
         <Navbar />
-        <CalendarComponent Tasks={Tasks} onEventClick={onEventClick} dropDate={dropDate} onResize={onResize} handleDateClick={handleDateClick}/>
-        <button className="btn btn-primary addTaskButtonCalendar" onClick={() => setOpenAddModal(true)}>
-        <FontAwesomeIcon icon={faSquarePlus} /> Add task 
-        </button>
+
+        <CalendarComponent Tasks={Tasks} onEventClick={onEventClick} dropDate={dropDate} onResize={onResize} handleDateClick={handleDateClick} setOpenAddModal={setOpenAddModal}/>
+
       </div>
 
     {openAddModal && (
         <Modal onClose={() => setOpenAddModal(false)} title="Add Task">
-          <h2> Add a new task</h2>
+          
           <TaskOperationForm onSubmit={addTask} /> 
         </Modal>
       )}

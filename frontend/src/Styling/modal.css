@@ -7,16 +7,15 @@
     font-size: 2rem;
     font-weight: 700;
     margin: auto;
-  
 }
 .modal-content {
     background-color: #9b809d !important;
     color: #264d58;
     padding: 20px;
     border-radius: 8px;
-    width:100%;
     width: 100%;
-    
+    transform: scale(0.8);
+    transform-origin: top;
     box-shadow: 0 0 10px 0 #542858;
   
   }
@@ -25,10 +24,11 @@
     max-width: 100%; 
     width: 100%;
     margin-bottom: 5%;
-    color: #264d58;
+    color: #05181d;
+    font-size: 1vw !important;
   }
   label{
-    font-size: 1vw;
+   font-size: 1.15vw;
     font-weight: 700;
     color: rgb(255, 255, 255);
   }
@@ -38,3 +38,4 @@
   .btn-danger{
     background: rgb(179, 120, 120);
   }
+  

@@ -3,8 +3,10 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import "../Styling/calendar.css";
+function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateClick, setOpenAddModal}) {
 
-function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateClick}) {
+
   return (
     <FullCalendar
     plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
@@ -15,6 +17,12 @@ function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateC
     editable={true} 
     droppable={true} 
     weekends={true}
+    customButtons={{
+      addTask: {
+      text: "+ Add Task",
+      click: () => {setOpenAddModal(true);},
+      },
+    }}
     eventDidMount={(info) => {
       const now = new Date();
       const eventStart = new Date(info.event.start);
@@ -29,10 +37,10 @@ function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateC
       return eventStart >= now;
     }}
     auto={true}
-    height={880}
+    height={window.innerHeight * 0.88}
     nowIndicator={true}
     headerToolbar={{
-      left: "prev,next today",
+      left: "prev,next today addTask",
       center: "title",
       right: "dayGridMonth,timeGridWeek,timeGridDay",
     }}

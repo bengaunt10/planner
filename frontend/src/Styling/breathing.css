@@ -1,4 +1,8 @@
+/* Adapted from https://vmar76.medium.com/using-css-animations-to-visualize-breathing-techniques-7a20ee0aed5a */
+
 .anim-circle {
+    transform: scale(0.8);
+    transform-origin: top;
     text-align: center;
     padding: 2vw;
     color: black;
@@ -36,19 +40,42 @@
     font-size: 1vw;
     font-weight: 5000;
     margin-top: 5vh;
+    margin-bottom: -5vh;;
    }
 
    .card{
-    width:20vw;
-    margin-bottom: 10vh;
-    background-color: rgb(95, 151, 123, 0.6);
-    color: white;
-     box-shadow: 3px 8px 10px rgba(0, 0, 0, 0.5);
+      width:22vw;
+      margin-bottom: 7vh;
+      background-color: rgb(95, 151, 123, 0.6);
+      color: white;
+     box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.5);
    }
+   .card-title {
+    font-size: 1.2vw;
+  }
+  
+  .card-subtitle {
+    font-size: 1vw;
+  }
+  
+  .card-text {
+    font-size: 0.9vw;
+  }
+  
+  .card-link {
+    font-size: 0.9vw;
+    color: #3d4f72;
+    font-weight: 800;
 
+  }
+  .card-link:hover {
+    color: #4e9f91;
+    
+    text-decoration: none;
+  }
    .resourceCards{
     
-    margin-left: 10vw;
+    margin-left: 8vw;
    }
 
    .tab.active {
@@ -59,11 +86,17 @@
     color: white !important;
     background-color: rgb(95, 151, 123, 0.1) !important; 
     border: 1px solid rgba(44, 41, 41, 0.5) !important; 
+    font-size: 1.2vw !important;
+    padding: 0.2vw !important;
   }
   .tab:hover {
     background-color: rgb(95, 151, 123, 0.5) !important;
     transition: ease-in-out 0.3s;
   }
 .resourcesContainer{
-  overflow: scroll;
+  overflow-y: auto;
+  margin-top: 2vh;
+  max-height: 85vh;
+  
 }
+

@@ -62,14 +62,43 @@ body{
     background: linear-gradient(180deg, #2C3E50 0%, #1B263B 100%);    
     background: #264d58;
     height:100vh;
+    font-size: 1vw;
+    
+    
 }
-.addTaskButtonCalendar{
-    position: absolute;
-    top: 10.2vh;
-    left: 11vw;
-}
+
 .taskDisplayButtons{
     margin-top: 1vh;
     margin-bottom: 4vh;
 }
 
+.calendarComponent{
+    height:80vh;
+}
+.scheduling-option {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border: 1px solid var(--fc-border-color);
+    border-radius: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.scheduling-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.scheduling-option .form-text {
+    display: block;
+    margin-top: 0.25rem;
+    margin-left: 1.5rem;
+}
+.fc-addTask-button {
+    background-color: rgb(95, 151, 123) !important; 
+  }
+  
+  .fc-addTask-button:hover {
+    background-color: rgb(60, 142, 100)!important; 
+  }

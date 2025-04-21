@@ -1,6 +1,6 @@
 
 .pomodoroContainer{
-    
+
     color:white; 
     height:100vh;
     display: flex;
@@ -12,7 +12,7 @@
 }
 .timerWriting{
     margin-top: -20vh;
-    font-size: 2vw;
+    font-size: 1.8vw;
     margin-bottom: 0.5em;
     min-height:1.3em;
     color: rgb(174, 124, 58);
@@ -20,8 +20,9 @@
 .timer{
     margin-top: 5vh;
     text-align: center;
-    padding:50px;
+    padding:3vw;
     width:30vw;
     border: 1px solid white;
     border-radius: 100px;
+    font-size: 6vw;
 }

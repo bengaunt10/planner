@@ -81,6 +81,7 @@ function Home() {
   return (
     <div className="homePage">
       <Navbar />
+      {/* <button className="HelpButton btn" onClick={() => {setOpenHelpModal(true);}}><FontAwesomeIcon icon={faCircleQuestion} /></button>   */}
       <h1 className="homeTitle">{username}'s<br /> Dashboard</h1>
       <div className="HomeBoxContainer">
         

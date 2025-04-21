@@ -1,3 +1,5 @@
+// Adapted from: https://www.youtube.com/watch?v=9z1qBcFwdXg&list=WL&index=2&t=11s
+
 import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 import "../Styling/study.css";
@@ -52,5 +54,5 @@ function Study() {
 
 export default Study;
 
-// Pomodoro timer code inspired and adapted from: https://www.youtube.com/watch?v=9z1qBcFwdXg&list=WL&index=2&t=11s
+
 

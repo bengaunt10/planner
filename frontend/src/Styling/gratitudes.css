@@ -1,7 +1,7 @@
 .gratitudeCard{
     background-color: rgb(95, 151, 123, 0.45);
     border-radius: 8px;
-    padding: 16px;
+    padding: 0.8vw;
     width:60%;
     margin-top: 1vh;
     font-weight: bold;
@@ -10,21 +10,19 @@
 }
 
 .gratitude_list{
-   
     display: flex;
     flex-direction: column;
     align-items: center;
     width:90vw;
+    height: 80vh;
     margin: auto;
     margin-top: 2vh;
     border-radius: 10px;
-    height: 75vh;
     overflow: scroll;
     background: rgba(130, 163, 175, 0.2);
     font-size: 0.9vw;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    
 }
 
 .gratitudeCardHead{
@@ -47,10 +45,38 @@
     display: block;
     background: rgba(255, 255, 255, 0.1);
     padding: 0.7vw;
-
     border-radius: 8px;
     margin-top: 0.5rem;
+    font-size: 0.8vw !important;
 }
 .noGratitude{
     margin: auto;
 }
+.postedTitle{
+    font-size: 1.4vw;
+}
+.gratButton{
+    font-size: 0.8vw;
+}
+.addGratitudeButton{
+    position: fixed;
+    left: 11.5vw;
+    top: 50vh;
+    width: 6vw;
+    height: 6vw;
+    border-radius: 50%;
+    transition: 0.2s ease;
+    background-color: rgb(95, 151, 123, 0.8) !important;
+    border: none;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5vw;
+}
+
+.addGratitudeButton:hover {
+    background-color: rgb(68, 115, 92) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
