@@ -94,11 +94,11 @@ function Home() {
           <NextTask Tasks={Tasks} setOpenDeleteModal={setOpenDeleteModal} setTaskToDelete={setTaskToDelete} setOpenEditModal={setOpenEditModal} setTaskSelected={setTaskSelected}/>
         </div>
       </div>
-        
+
         <div className="buttonHolders">
           <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
           <FontAwesomeIcon icon={faSquarePlus} /> Add task
-          </button>          
+          </button>
           <Link className="btn btn-primary homeButton" to="/study"> <FontAwesomeIcon icon={faStopwatch} /> Focus </Link> 
 
         </div>

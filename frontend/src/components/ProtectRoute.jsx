@@ -59,7 +59,6 @@ function ProtectRoute({children}) {
     }
 
     if (isAuth === null) {
-        // return <div>Loading...</div>
         return <div className="refreshLoader"><Loading /></div>
     }
 

@@ -115,8 +115,8 @@ def editTask(request, taskID):
     serializer = TaskSerializer(task, data=request.data)
     if serializer.is_valid():
         taskStartTime = serializer.validated_data['start_time']
-        taskEndTime = serializer.validated_data['duration']
-        if overlap_checker(taskStartTime, taskEndTime, taskID, user=request.user):
+        durationofTask = serializer.validated_data['duration']
+        if overlap_checker(taskStartTime, durationofTask, taskID, user=request.user):
             return Response({"OVERLAP": "This task will overlap with an existing task. Please choose a different time."}, status=400)
         serializer.save()
         return Response(serializer.data)

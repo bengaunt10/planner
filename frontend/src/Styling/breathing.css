@@ -1,55 +1,72 @@
-/* Adapted from https://vmar76.medium.com/using-css-animations-to-visualize-breathing-techniques-7a20ee0aed5a */
-
 .anim-circle {
-    transform: scale(0.8);
-    transform-origin: top;
-    text-align: center;
-    padding: 2vw;
-    color: black;
-    margin: auto;
-    margin-top: 30vh;
-    margin-right: 45vw;
-    margin-bottom: 55vh;
-   
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: rgba(188, 237, 243, 0.889);
-    animation: breathe 10s linear infinite;
-  }
+  transform: scale(0.8);
+  transform-origin: top;
+  text-align: center;
+  padding: 2vw;
+  color: black;
+  margin: auto;
+  margin-top: 30vh;
   
-  @keyframes breathe {
-    0% {
-   box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 65px rgba(188, 237, 243, 0.3), 0 0 0 80px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3);
-    }
-    50% {
-   box-shadow: 0 0 0 35px rgba(188, 237, 243, 0.3), 0 0 0 70px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3), 0 0 0 120px rgba(188, 237, 243, 0.3), 0 0 0 145px rgba(188, 237, 243, 0.3);
-    }
-    100% {
-   box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 65px rgba(188, 237, 243, 0.3), 0 0 0 80px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3);
-    }
-   }
-   .breathingTitle{
-    text-align: center;
-    font-size: 2.5vw;
-    font-weight: 8000;
-    margin-top: 5vh;
-   }
-   .breathingInstructions{
-    text-align: center;
-    font-size: 1vw;
-    font-weight: 5000;
-    margin-top: 5vh;
-    margin-bottom: -5vh;;
-   }
+  margin-bottom: 55vh;
+  
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(188, 237, 243, 0.9);
+  animation: breathe 10s linear infinite;
+}
 
-   .card{
-      width:22vw;
-      margin-bottom: 7vh;
-      background-color: rgb(95, 151, 123, 0.6);
-      color: white;
-     box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.5);
-   }
+@keyframes breathe {
+  0% {
+  box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 65px rgba(188, 237, 243, 0.3), 0 0 0 80px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3);
+  }
+  50% {
+  box-shadow: 0 0 0 35px rgba(188, 237, 243, 0.3), 0 0 0 70px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3), 0 0 0 120px rgba(188, 237, 243, 0.3), 0 0 0 145px rgba(188, 237, 243, 0.3);
+  }
+  100% {
+  box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3), 0 0 0 65px rgba(188, 237, 243, 0.3), 0 0 0 80px rgba(188, 237, 243, 0.3), 0 0 0 95px rgba(188, 237, 243, 0.3);
+  }
+  }
+
+
+.breathingTitle{
+  text-align: center;
+  font-size: 2.5vw;
+  font-weight: 500;
+  margin-top: 5vh;
+}
+.breathingInstructions{
+  text-align: center;
+  margin: auto;
+  font-size: 1vw;
+  font-weight:400;
+  margin-top: 4.5vh;
+  margin-bottom: -10.5vh;;
+  width:35vw;
+  padding: 1.5vw;
+  border-radius: 3vw;
+  font-size: 1.3vw;
+  background: rgb(95, 151, 123,0.4);
+}
+
+.breathing-logo {
+  position: fixed;
+  left:69vw;
+  top: 37vh;  
+  background-image: url("../assets/mascotThinking.PNG");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20vw;
+  height: 25vw;
+}
+  
+.card{
+  width:22vw;
+  margin-bottom: 7vh;
+  background-color: rgb(95, 151, 123, 0.5);
+  color: white;
+  box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.5);
+}
    .card-title {
     font-size: 1.2vw;
   }

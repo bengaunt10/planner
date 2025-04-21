@@ -36,18 +36,21 @@ function Study() {
       <Navbar />
       <h1>Pomodoro timer</h1>
       <div className="pomodoroContainer">
+        
         <div >
           {displayWriting && (
-            <div className="timerWriting">Take a break, your next session starts in: </div>
+            <div className="timerWriting">Take a well earned 5 minute break, relaxxx! </div>
           )}
           {!displayWriting && (
-            <div className="timerWriting">Keep studying, you got this!!</div>
+            <div className="timerWriting">Keep studying, its not for long, you got this!</div>
           )}
         </div>
         <div className="timer">
           {minutesDisplay}:{secondsDisplay}
         </div>
+        <div className="study-logo"></div>
       </div>
+      
     </div>
   );
 }

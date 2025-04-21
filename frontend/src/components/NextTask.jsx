@@ -43,9 +43,9 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
           <h2 className="HomeBoxTask">{nextTask.name}</h2>
           <p className="HomeBoxDescriptionn">{nextTask.description}</p>
     
-          <p className="HomeBoxTime">{new Date(nextTask.start_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'})}- {new Date(nextTask.end_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'})}
+          <p className="HomeBoxTime">{new Date(nextTask.start_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit', timeZone: "UTC"})}- {new Date(nextTask.end_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit', timeZone: "UTC"})}
             <br />
-            {new Date(nextTask.start_time).toLocaleDateString("en-us", {month: 'long', day: 'numeric'})}
+            {new Date(nextTask.start_time).toLocaleDateString("en-us", {month: 'long', day: 'numeric', timeZone: "UTC"})}
           </p> 
           <button
             className="btn btn-warning HomeBoxEdit"
