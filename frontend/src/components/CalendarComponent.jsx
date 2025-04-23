@@ -11,7 +11,7 @@ function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateC
     <FullCalendar
     plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
     dateClick={handleDateClick}
-    initialView="timeGridWeek"
+    initialView="timeGridDay"
     themeSystem="standard"
     timeZone="UTC"
     editable={true} 
@@ -44,7 +44,6 @@ function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateC
       center: "title",
       right: "dayGridMonth,timeGridWeek,timeGridDay",
     }}
-    //here I will get it to loop through my events in my database and display all. handleevent change function when i drop it down. does a PUT to backend. reload the state change.
     events={Tasks.map((task) => ({
       id: task.id,
       title: task.name,

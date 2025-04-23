@@ -76,30 +76,14 @@
     padding: 0.5vw;
     margin: 2.5vw;
     border-radius: 10px;
-    width:15vw;
-    /* background-color: #1B263B; */
+    width:17vw;
     border: none;
-    position: absolute;  /* Absolute positioning to place it anywhere */
-    top: 45vh;  /* Distance from the top */
-    right: 5vw; /* Distance from the right */
-    text-align: left; /* Align text to the right */
+    position: absolute;  
+    top: 68vh; 
+    right: 3vw; 
+    text-align: left; 
   }
-  .homeButton{
 
-    font-size: 2vw;
-    padding: 0.5vw;
-    margin: 2.5vw;
-    border-radius: 10px;
-    background-color: #1B263B;
-    background: rgb(95, 151, 123);
-    color: #242424;
-    font-weight: 600;
-    border: none;
-    
-  }
-  .homeButton:hover{
-    background: rgb(35, 80, 58);
-  }
   .HomeBoxButton{
     background: none;
     color: #242424;
@@ -116,16 +100,33 @@
     font-size: 1.7vw;
   }
   .buttonHolders{
+    position:absolute;
+    right:9.5vw;
+    top:21vh;
     display: flex;
-    width:70vw;
-    justify-content: space-between;
-    margin: -1vw;
+    flex-direction: column;
     
   }
-  .HomeBoxButton:hover{
-    color:#d4d4d4;
+  .homeButton{
+    
+    font-size: 3.5vw;
+    padding: 0.5vw;
+    margin: 2.5vw;
+    border-radius: 30%;
+    width:6vw;
+    height:6vw;
+    background-color: #1B263B;
+    background: rgb(95, 151, 123);
+    color: #242424;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    margin-top: 0vh;
   }
-
+  .homeButton:hover{
+    background-color: rgb(68, 115, 92);
+    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.5);
+  }
   
   .HomeBoxTitle{
     position: absolute;
@@ -154,13 +155,11 @@
     margin: auto;
   }
   .homeTitle {
-    font-size: 4.5vw;
+    font-size: 3vw;
     letter-spacing: 4px;
     color: white;
-    position: absolute;  /* Absolute positioning to place it anywhere */
-    top: 8vh;  /* Distance from the top */
-    right: 3vw; /* Distance from the right */
-    text-align: left; /* Align text to the right */
+    margin-left: -65vw;
+    margin-bottom: 1vw;    
     
 }
   /* .homeTitle {
@@ -181,4 +180,10 @@
 }
 h2{
   font-size: 2vw;
+}
+.HelpButton{
+  position: absolute;
+  left: auto;
+  right: 0vw;
+  top: 8vh
 }

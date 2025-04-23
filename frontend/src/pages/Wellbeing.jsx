@@ -13,10 +13,10 @@ function WellBeing() {
       <ul className="nav nav-pills nav-fill">
         <li className="nav-item">
           <button
-            className="nav-link active tab"
+            className="nav-link tab"
             data-bs-toggle="tab"
             data-bs-target="#resources"
-            aria-selected="true"
+            aria-selected="false"
             type="button"
           >
             <FontAwesomeIcon icon={faBookOpen} /> Resources
@@ -24,10 +24,10 @@ function WellBeing() {
         </li>
         <li className="nav-item">
           <button
-            className="nav-link tab"
+            className="nav-link active tab"
             data-bs-toggle="tab"
             data-bs-target="#gratitudes"
-            aria-selected="false"
+            aria-selected="true"
             type="button"
           >
             <FontAwesomeIcon icon={faHandHoldingHeart} /> Gratitude Journal
@@ -50,10 +50,10 @@ function WellBeing() {
         <div className="tab-pane fade" id="breathing">
           <BreathingTimer />
         </div>
-        <div className="tab-pane fade" id="gratitudes">
+        <div className="tab-pane fade show active" id="gratitudes">
           <GratitudeJournal />
         </div>
-        <div className="tab-pane fade show active" id="resources">
+        <div className="tab-pane fade" id="resources">
           <div className="resourcesContainer">
             
             <div className="row resourceCards">

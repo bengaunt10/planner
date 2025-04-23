@@ -11,8 +11,9 @@ import TaskOperationForm from "../components/TaskOperationForm";
 import DeleteEvent from "../components/DeleteEvent";
 import NextTask from "../components/NextTask";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquarePlus,faStopwatch } from "@fortawesome/free-solid-svg-icons";
-
+import { faSquarePlus,faStopwatch, faHandHoldingHeart, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
+import GratitudeForm from "../components/GratitudeForm";
+import GratitudeServices from "../services/GratitudeServices";
 
 
 function Home() {
@@ -20,11 +21,11 @@ function Home() {
 
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false); //make a delete modal. option to delete all repeating tasks. send option through request body. if option is yes, delete all with same repeating_id. Gonna want to change the view aswell so that the first task created takes the same repeating_id as the rest of the tasks created.default = id?
-  // const [openEditModal, setOpenEditModal] = useState(false);
+  const [openAddGratitude, setOpenAddGratitude] = useState(false);
   const [deleteRepeat, setDeleteRepeat] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
-
+  const [openHelpModal, setOpenHelpModal] = useState(false);
   const [taskSelected, setTaskSelected] = useState(null);
 
   const Token = localStorage.getItem("access");
@@ -78,11 +79,20 @@ function Home() {
     setTaskSelected(null);
   };
 
+  const addGratitude = async (gratitudeData) => {
+    try {
+      await GratitudeServices.add_gratitudes(gratitudeData, Token);
+    }catch (error){
+      console.error("Error adding task:", error);
+    }
+    setOpenAddGratitude(false);
+  }
+
   return (
     <div className="homePage">
       <Navbar />
-      {/* <button className="HelpButton btn" onClick={() => {setOpenHelpModal(true);}}><FontAwesomeIcon icon={faCircleQuestion} /></button>   */}
-      <h1 className="homeTitle">{username}'s<br /> Dashboard</h1>
+       <button className="HelpButton btn" onClick={() => {setOpenHelpModal(true);}}><FontAwesomeIcon icon={faCircleQuestion} /></button>   
+      <h1 className="homeTitle">{username}'s Dashboard</h1>
       <div className="HomeBoxContainer">
         
         <div className="sideBar">
@@ -97,10 +107,12 @@ function Home() {
 
         <div className="buttonHolders">
           <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
-          <FontAwesomeIcon icon={faSquarePlus} /> Add task
+          <FontAwesomeIcon icon={faSquarePlus} />
           </button>
-          <Link className="btn btn-primary homeButton" to="/study"> <FontAwesomeIcon icon={faStopwatch} /> Focus </Link> 
-
+          <Link className="btn btn-primary homeButton" to="/study"> <FontAwesomeIcon icon={faStopwatch} /></Link> 
+          <button className="btn btn-primary homeButton" onClick={() => setOpenAddGratitude(true)}>
+          <FontAwesomeIcon icon={faHandHoldingHeart} />
+          </button>
         </div>
         <p className="homeQuote">
           “Take each day as it comes, keep balanced and stay calm. You've got this!”
@@ -122,6 +134,16 @@ function Home() {
           <Modal onClose={() => setOpenEditModal(false)} title="Edit Task">
             <TaskOperationForm onSubmit={editTask} passedData={taskSelected} editForm={true}/>
           </Modal>
+      )}
+        {openAddGratitude && (
+          <Modal onClose={() => setOpenAddGratitude(false)} title="Add Entry">
+            <GratitudeForm onSubmit={addGratitude} />
+          </Modal>
+      )}
+      {openHelpModal && (
+        <Modal onClose={() => setOpenHelpModal(false)} title="Help">
+          <p>Welcome to Calm Day!!</p>
+        </Modal>
       )}
     </div>
   );

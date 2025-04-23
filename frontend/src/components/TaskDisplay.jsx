@@ -48,6 +48,7 @@ function TaskDisplay({taskSelected, setTaskSelected, setOpenEditModal, setOpenDe
         className="btn btn-danger position-absolute end-0"
         onClick={() => {
         setOpenDeleteModal(true);
+        
         }}
     >
         {" "}

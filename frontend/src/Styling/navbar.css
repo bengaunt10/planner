@@ -1,9 +1,12 @@
 .custom-nav{
     width: 100vw;
+
+   
   }
   
   header {
     background-color: rgb(24, 24, 24,);
+    position: relative;
     width: 100%;
     color: white;
     display: flex;
@@ -14,6 +17,7 @@
     backdrop-filter: blur(30px);
     max-height: 9vh;
     margin-bottom: 1vh;
+    z-index: 1050;
     
   }
   
@@ -31,6 +35,8 @@
   .navbar-toggler {
     background-color: transparent !important;
     border: none;
+    margin-left: auto;
+   
   }
   
   .custom-nav a:hover {
@@ -56,4 +62,28 @@
   background-position: center;
   background-repeat: no-repeat;
   vertical-align: middle;
+}
+
+@media (max-width: 991px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(64, 64, 64, 0.95);
+    padding: 10px;
+  }
+  header h1 {
+    font-size: 5vw; 
+  }
+  .logo{
+    width:15vw;
+    height: 10vh;
+  }
+  .custom-nav a {
+    display: block;
+    margin: 5px 0;
+    font-size: 2vw;
+  }
+  
 }

@@ -67,7 +67,7 @@ function GratitudeJournal() {
       {Gratitudes.length === 0 ? (
         <div className="noGratitude">
           <h2> No Gratitude Entries Yet!</h2>
-          <p>Click the button above to add your first entry.</p>
+          <p>Click the + button on the left to add your first entry</p>
         </div>
       ) : (
       Gratitudes.sort((a, b) => new Date(b.created) - new Date(a.created)) .map((gratitude) =>

@@ -80,3 +80,53 @@
     background-color: rgb(68, 115, 92) !important;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
   }
+
+
+  @media (max-width: 768px) {
+    .gratitudeCard {
+      width: 90%;
+      padding: 15px;
+   
+    }
+  
+    .gratitude_list {
+      width: 95vw;
+      height: 75vh;
+      font-size: 3vw;
+    }
+  
+    .entryinfo {
+      font-size: 3vw !important;
+      padding: 2vw;
+      margin-top: 1vh;
+    }
+  
+    .postedTitle {
+      font-size: 4vw;
+    }
+  
+    .gratButton {
+      font-size: 3vw;
+    }
+  
+    .addGratitudeButton {
+      position: fixed;
+        left: auto;
+      right: 5vw;
+      bottom: 5vh;
+      top: auto;
+      width: 15vw;
+      height: 15vw;
+      font-size: 7vw;
+    }
+  
+    .noGratitude h2 {
+      font-size: 5vw;
+      text-align: center;
+    }
+  
+    .noGratitude p {
+      font-size: 3.5vw;
+      text-align: center;
+    }
+  }

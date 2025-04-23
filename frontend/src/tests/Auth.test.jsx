@@ -4,7 +4,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Form from '../components/Form';
+import Form from "../components/Form"
 import { MemoryRouter } from 'react-router-dom';
 
 // Mock the fetch function
@@ -48,28 +48,21 @@ describe('Form Component - Register and Login tests', () => {
       access: 'test-access-token',
       refresh: 'test-refresh-token'
     };
-    
-    //doing a fake fetch request to act as a backend response. ok:true mimics a successful http status response and returns my tokens like the actual API does. 
     fetch.mockResolvedValueOnce({
       ok: true,
       json: async () => testingTokens,
     });
-
     setup('login');
     const user = userEvent.setup();
-    
     const testingUsername = 'testingtheusername';
     const testingPassword = 'testingthepassword';
-
     await user.type(screen.getByPlaceholderText('UserName'), testingUsername);
     await user.type(screen.getByPlaceholderText('Password'), testingPassword);
     await user.click(screen.getByRole('button', { name: 'Login' }));
-
     await waitFor(() => {
       expect(localStorage.getItem('access')).toBe(testingTokens.access);
       expect(localStorage.getItem('refresh')).toBe(testingTokens.refresh);
       expect(localStorage.getItem('username')).toBe(testingUsername);
-      
       expect(mockingNavigation).toHaveBeenCalledWith('/');
     });
   });
@@ -137,5 +130,3 @@ it('Register Successful Test', async () => {
 });
 
 });
-
-//inspired fro, deepseek

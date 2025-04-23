@@ -117,3 +117,59 @@
   
 }
 
+.nav-item {
+    margin: 5px 0;
+  
+    text-align: center;
+    justify-content: center;
+  }
+
+@media (max-width: 768px) {
+    .breathingTitle {
+      font-size: 6vw;
+    }
+  
+    .breathingInstructions {
+      font-size: 3vw;
+      width: 80vw;
+    
+    }
+  
+    .anim-circle {
+      margin-top: 35vh;
+    }
+  
+    .breathing-logo {
+      display: none; /* Hide mascot on mobile */
+    }
+  
+    .resourceCards {
+      margin-left: 0;
+    }
+    .card {
+      width: 90vw;
+      margin: auto;
+      margin-top: 10px;
+    }
+  
+    .card-title {
+      font-size: 4vw;
+    }
+  
+    .card-subtitle {
+      font-size: 3.5vw;
+    }
+  
+    .card-text {
+      font-size: 3vw;
+    }
+  
+    .card-link {
+      font-size: 3vw;
+    }
+  
+    .tab {
+      font-size: 3vw !important;
+      padding: 1vw !important;
+    }
+  }

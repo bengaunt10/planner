@@ -54,9 +54,11 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
     <div>
         <form onSubmit={preSubmission}>
             <div className="form-group">
-              <label> Task Name: </label>
+              <label htmlFor="name"> Task Name: </label>
               <input className="form-control"
+                id="name"
                 type="text"
+                placeholder="Enter Name..."
                 value={taskData.newName}
                 onChange={(e) =>
                   setTaskData({ ...taskData, newName: e.target.value })
@@ -65,9 +67,11 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
               />
             </div>
             <div className="form-group">
-              <label> Description: </label>
+              <label htmlFor="description"> Description: </label>
               <textarea className="form-control"
+                id="description"
                 type="text"
+                placeholder="Enter Description..."
                 value={taskData.newDescription}
                 onChange={(e) =>
                   setTaskData({
@@ -79,9 +83,11 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
               />
             </div>
             <div className="form-group">
-              <label> duration:</label>
+              <label htmlFor="duration"> duration:</label>
               <input className="form-control"
+                id="duration"
                 type="number"
+                placeholder="Enter Duration..."
                 value={taskData.newDuration}
                 onChange={(e) =>
                   setTaskData({ ...taskData, newDuration: e.target.value })
@@ -92,29 +98,37 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
             </div>            
             {!editForm && (
             <>
-                <label className="form-check-label">Schedule for me?</label>
-                <input className="form-check-input"
-                  type="checkbox"
-                  checked={taskData.scheduleForMe}
-                  onChange={(e) => setTaskData({...taskData, scheduleForMe: e.target.checked})}
-                />
-                <br />
+              <div className="form-group chooseToSchedule">
+                <div className ="chooseScheduleBox">
+                  <label className="form-check-label " htmlFor="schedule">Schedule for me?</label>
+                  <input className="form-check-input"
+                    id="schedule"
+                    type="checkbox"
+                    checked={taskData.scheduleForMe}
+                    onChange={(e) => setTaskData({...taskData, scheduleForMe: e.target.checked})}
+                  />
+                </div>
+               <small>Let CalmDay find the best slot to schedule your task! Just check the box above and enter a Due Date! </small>
+                <br></br>
                 {taskData.scheduleForMe && (
                   <>
-                    <label>Date Due</label>
+                    <label htmlFor="due" >Date Due</label>
                     <input className="form-control"
+                      id="due"
                       type="datetime-local"
                       value={taskData.dueDate.toString().substring(0, 16)}
                       onChange={(e) => setTaskData({...taskData, dueDate: e.target.value})}
                     />
                   </>
                 )}
+              </div>
             </>
             )}
             {!taskData.scheduleForMe && (
                   <>
-                    <label> Start Time:</label>
+                    <label htmlFor="start"> Start Time:</label>
                     <input className="form-control"
+                      id="start"
                       type="datetime-local"
                       value={taskData.newStartTime.toString().substring(0, 16)}
                       onChange={(e) => setTaskData({...taskData, newStartTime: e.target.value})}
@@ -122,8 +136,9 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
                     />
                 {!editForm && (
                   <>
-                  <label>Repeat: </label>
+                  <label htmlFor="repeat">Repeat: </label>
                   <select className="form-control"
+                    id="repeat"
                     value={taskData.newRepeat}
                     onChange={(e) => setTaskData({...taskData, newRepeat: e.target.value})}
                   >

@@ -35,8 +35,9 @@ function GratitudeForm({ onSubmit, passedData, editForm=false }) {
     <div>
         <form onSubmit={Submission}>
             <div className="form-group">
-              <label> What are your gratitudes for today? </label>
+              <label htmlFor="grats"> What are your gratitudes for today? </label>
               <textarea className="form-control"
+              id="grats"
                 type="text"
                 value={gratitudeData.newGratitudes}
                 placeholder="I am grateful for..."
@@ -47,8 +48,9 @@ function GratitudeForm({ onSubmit, passedData, editForm=false }) {
               />
             </div>
             <div className="form-group">
-              <label> What have you completed today? </label>
+              <label htmlFor="completed"> What have you completed today? </label>
               <textarea className="form-control"
+              id="completed"
                 type="text"
                 value={gratitudeData.newDoneToday}
                 placeholder="Today I have..."
@@ -62,8 +64,9 @@ function GratitudeForm({ onSubmit, passedData, editForm=false }) {
               />
             </div>
             <div className="form-group">
-              <label> Reflect on the best parts of your day </label>
+              <label htmlFor="reflect"> Reflect on the best parts of your day </label>
               <textarea className="form-control"
+              id="reflect"
                 type="text"
                 placeholder="The best parts were..."
                 value={gratitudeData.newBestPartToday}

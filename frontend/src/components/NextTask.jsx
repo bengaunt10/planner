@@ -26,7 +26,7 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
 
     if (!nextTask) {
       return (
-        <h2>No tasks. Add a new task below</h2>
+        <h2>You have no tasks! Click the + button to add a new task</h2>
       );
     }
     return (
