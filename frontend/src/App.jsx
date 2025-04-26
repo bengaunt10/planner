@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Calendar from './pages/calendar'
-import WellBeing from './pages/WellBeing'
+import WellBeing from "./pages/Wellbeing"
 import Study from './pages/Study'
 import Login from "./pages/Login"
 import Register from "./pages/Register"
