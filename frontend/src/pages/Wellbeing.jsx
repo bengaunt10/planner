@@ -1,4 +1,4 @@
-import "../styling/breathing.css";
+import "../Styling/breathing.css";
 import Navbar from "../components/Navbar";
 import BreathingTimer from "../components/BreathingTimer";
 import GratitudeJournal from "../components/GratitudeJournal";
