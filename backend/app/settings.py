@@ -82,6 +82,7 @@ MIDDLEWARE = [
     # Add my production frontend URL when i deploy
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  
+    "https://calmday.netlify.app",
 ]
 
 
