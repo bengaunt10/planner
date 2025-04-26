@@ -1,10 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState, useEffect } from "react";
 import Modal from "../components/Modal";
-
 import Navbar from "../components/Navbar";
 import "../Styling/home.css"
-
 import { Link } from "react-router-dom";
 import TaskServices from "../services/TaskServices";
 import TaskOperationForm from "../components/TaskOperationForm";
@@ -14,22 +12,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus,faStopwatch, faHandHoldingHeart, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import GratitudeForm from "../components/GratitudeForm";
 import GratitudeServices from "../services/GratitudeServices";
-
+import HelpGuide from "../components/HelpGuide";
 
 function Home() {
   const [Tasks, setTasks] = useState([]);
-
   const [openAddModal, setOpenAddModal] = useState(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false); //make a delete modal. option to delete all repeating tasks. send option through request body. if option is yes, delete all with same repeating_id. Gonna want to change the view aswell so that the first task created takes the same repeating_id as the rest of the tasks created.default = id?
+  const [openDeleteModal, setOpenDeleteModal] = useState(false); 
   const [openAddGratitude, setOpenAddGratitude] = useState(false);
   const [deleteRepeat, setDeleteRepeat] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openHelpModal, setOpenHelpModal] = useState(false);
   const [taskSelected, setTaskSelected] = useState(null);
-
   const Token = localStorage.getItem("access");
-
   const username = localStorage.getItem("username") || "Guest";
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'}));
   const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString("en-us", {month: 'long', day: 'numeric'}));
@@ -57,7 +52,6 @@ function Home() {
   const deleteTask = async () => {
     await TaskServices.deleteTask(taskToDelete.id, Token, deleteRepeat);
     setOpenDeleteModal(false);
-   
     fetchTasks();
   };
 
@@ -100,7 +94,7 @@ function Home() {
           <h2 className="dashTime">{currentTime}</h2>
         </div>
         <div className="HomeBox">
-          <h2 className="HomeBoxTitle">NextTask</h2>
+          <h2 className="HomeBoxTitle">Next Task:</h2>
           <NextTask Tasks={Tasks} setOpenDeleteModal={setOpenDeleteModal} setTaskToDelete={setTaskToDelete} setOpenEditModal={setOpenEditModal} setTaskSelected={setTaskSelected}/>
         </div>
       </div>
@@ -108,8 +102,10 @@ function Home() {
         <div className="buttonHolders">
           <button className="btn btn-primary homeButton" onClick={() => setOpenAddModal(true)}>
           <FontAwesomeIcon icon={faSquarePlus} />
+          
           </button>
           <Link className="btn btn-primary homeButton" to="/study"> <FontAwesomeIcon icon={faStopwatch} /></Link> 
+
           <button className="btn btn-primary homeButton" onClick={() => setOpenAddGratitude(true)}>
           <FontAwesomeIcon icon={faHandHoldingHeart} />
           </button>
@@ -141,9 +137,7 @@ function Home() {
           </Modal>
       )}
       {openHelpModal && (
-        <Modal onClose={() => setOpenHelpModal(false)} title="Help">
-          <p>Welcome to Calm Day!!</p>
-        </Modal>
+        <HelpGuide onClose={() => setOpenHelpModal(false)} > </HelpGuide>
       )}
     </div>
   );

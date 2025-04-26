@@ -13,10 +13,10 @@ class TaskServices{
             let data = await response.json();
             return data;
           } else {
-            console.error("failed to fetch data", response.status);
+            console.error("Could not fetch the tasks", response.status);
           }
         } catch (error) {
-          console.error("error fetching tasks", error);
+          console.error("error when fetching the tasks", error);
         }
       };
       
@@ -39,7 +39,7 @@ class TaskServices{
             }
           }
         } catch (error) {
-          console.error("Error posting task:", error);
+          console.error("error when posting the task", error);
         }
       };
 
@@ -56,10 +56,10 @@ class TaskServices{
           if (response.ok) {
             return response.json();
           } else {
-            console.error("Failed to delete task");
+            console.error("Task wasn't able to be deleted", response.status);
           }
         } catch (error) {
-          console.error("error: ", error);
+          console.error("error when deleting! ", error);
         }
       };
 
@@ -82,7 +82,7 @@ class TaskServices{
             }
           }
         } catch (error) {
-          console.error("Error editing task:", error);
+          console.error("Error editing the task:", error);
         }
       };
     

@@ -13,10 +13,10 @@ class GratitudeServices {
             let data = await response.json();
             return data;
           } else {
-            console.error("failed to fetch gratitudes", response.status);
+            console.error("Couldnt fetch gratitudes :(", response.status);
           }
         } catch (error) {
-          console.error("error fetching gratitudes", error);
+          console.error("Gratitudes cannot be fetched because", error);
         }
       };
       
@@ -39,7 +39,7 @@ class GratitudeServices {
             }
           }
         } catch (error) {
-          console.error("Error posting task:", error);
+          console.error("The task couldn't be posted because", error);
         }
       };
 
@@ -55,10 +55,10 @@ class GratitudeServices {
           if (response.ok) {
             return response.json();
           } else {
-            console.error("Failed to delete task");
+            console.error("Task couldn't be deleted", response.status);
           }
         } catch (error) {
-          console.error("error: ", error);
+          console.error("Deleting gratitudes led to an error: ", error);
         }
       };
 
@@ -75,10 +75,10 @@ class GratitudeServices {
           if (response.ok) {
             return response.json();
           } else {
-            console.error("failed to edit gratitude")
+            console.error("Couldn't edit the grattitude", response.status);
           }
         } catch (error) {
-          console.error("Error editing gratitude:", error);
+          console.error("Error editing the gratitude: ", error);
         }
       };
 }

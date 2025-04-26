@@ -15,7 +15,7 @@ class TaskSerializer(serializers.ModelSerializer):
             user = request.user
             due_date= data.get("due_date")
             task_duration = data.get("duration")
-            # print(f"Task due Time: {due_date}") 
+
             newStartTime = calculate(task_duration, due_date, user=user)
             if not newStartTime:
                 raise serializers.ValidationError("Unable to find a suitable time for the task.")
@@ -37,5 +37,5 @@ class GratitudeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gratitudes
         fields = "__all__"
-        extra_kwargs = {"user": {"read_only": True}, #read who author is but can't write who author is. SET BY BACKEND
+        extra_kwargs = {"user": {"read_only": True}, 
         }

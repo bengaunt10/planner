@@ -42,3 +42,30 @@
     width: 25vw;
     height: 30vw;
   }
+
+  @media (max-width: 768px) {
+    .timerWriting {
+      font-size: 4vw;
+      padding: 4vw;
+        border-radius: 5vw;
+        margin-top: -12vh;
+    }
+  
+    .timer {
+      width: 70vw;
+      font-size: 10vw;
+      padding: 4vw;
+      position: absolute;
+      top: 25vh; 
+      left: 45vw;
+     
+    }
+  
+    .study-logo {
+      width: 60vw;
+      height: 80vw;
+      top: 60vh;
+      left: 40vw;
+    }
+  }
+  

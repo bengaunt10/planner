@@ -66,7 +66,7 @@ function WellBeing() {
             />
             
             <ResourceCard 
-              title="Stress tips"
+              title="Stress Tips"
               subtitle="Stress Management"
               text="Effective methods to manage stress and build resilience"
               link="https://www.mind.org.uk/information-support/types-of-mental-health-problems/stress/managing-stress-and-building-resilience/"
@@ -90,19 +90,19 @@ function WellBeing() {
             link="https://www.forbes.com/sites/vanessaloder/2016/04/15/10-scientifically-proven-tips-for-beating-procrastination/"
             />
             <ResourceCard
-            title="Autism Guide"
+            title="Autism Support"
             subtitle="Autism"
             text="Advice and guidance for daily life, needs and support"
             link="https://www.autism.org.uk/advice-and-guidance"
             />
             <ResourceCard 
-            title="ADHD Management"
+            title="ADHD Support"
             subtitle="ADHD"
             text="Tips for managing ADHD in daily life such as organisation, routines focus"
             link="https://www.helpguide.org/mental-health/adhd/managing-adult-adhd"
             />
             <ResourceCard
-            title="Study tips"
+            title="Study Tips"
             subtitle="Academic"
             text="Techniques to study effectively and improve learning"
             link="https://summer.harvard.edu/blog/top-10-study-tips-to-study-like-a-harvard-student/#5-Find-Your-Learning-Style"

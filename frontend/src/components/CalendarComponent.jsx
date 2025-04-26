@@ -12,11 +12,13 @@ function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateC
     plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
     dateClick={handleDateClick}
     initialView="timeGridDay"
+
     themeSystem="standard"
-    timeZone="UTC"
+    timeZone="local"
     editable={true} 
     droppable={true} 
     weekends={true}
+    allDaySlot={false}
     customButtons={{
       addTask: {
       text: "+ Add Task",
@@ -30,13 +32,13 @@ function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateC
         info.el.style.backgroundColor = "#6c757d"; 
       }
     }}
-    eventAllow={(dropInfo, draggedEvent) => {
-      const eventStart = new Date(draggedEvent.start);
-      const now = new Date();
+    // eventAllow={(dropInfo, draggedEvent) => {
+    //   const eventStart = new Date(draggedEvent.start);
+    //   const now = new Date();
     
-      return eventStart >= now;
-    }}
-    auto={true}
+    //   return eventStart >= now;
+    // }}
+    
     height={window.innerHeight * 0.88}
     nowIndicator={true}
     headerToolbar={{

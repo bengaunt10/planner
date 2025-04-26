@@ -5,7 +5,6 @@ function Register() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   return (
-    // <div className="registerContainer">
     <>
     <h1 className="title">CALM DAY</h1>
       <div className="lines">
@@ -17,7 +16,6 @@ function Register() {
       </div>
       <Form route={`${baseUrl}/user/create/`} result="register" />
     </>
-    // </div>
   );
 }
 

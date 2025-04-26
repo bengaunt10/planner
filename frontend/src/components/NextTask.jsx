@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal, setTaskSelected}) {
 
 
@@ -10,8 +10,9 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
     }
     const currentTime = new Date();
     const nextTasks = Tasks.filter((task) => {
-      const taskTime = new Date(task.start_time);
-      return taskTime > currentTime;
+    const taskTime = new Date(task.start_time);
+    const taskEnd = new Date(task.end_time);
+    return (taskTime <= currentTime && currentTime <= taskEnd) || taskTime > currentTime;
     });
     if (nextTasks.length === 0) {
       return null;
@@ -26,7 +27,7 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
 
     if (!nextTask) {
       return (
-        <h2>You have no tasks! Click the + button to add a new task</h2>
+        <h2 className='noTaskAlert'>You have no tasks! Click the <FontAwesomeIcon icon={faSquarePlus} /> button to add a new task</h2>
       );
     }
     return (
@@ -40,12 +41,12 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
           >
             <FontAwesomeIcon icon={faTrash} />
           </button>
-          <h2 className="HomeBoxTask">{nextTask.name}</h2>
+          <h2 className="HomeBoxTask" >{nextTask.name}</h2>
           <p className="HomeBoxDescriptionn">{nextTask.description}</p>
     
-          <p className="HomeBoxTime">{new Date(nextTask.start_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit', timeZone: "UTC"})}- {new Date(nextTask.end_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit', timeZone: "UTC"})}
+          <p className="HomeBoxTime">{new Date(nextTask.start_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'})}- {new Date(nextTask.end_time).toLocaleTimeString("en-us", {hour: '2-digit', minute:'2-digit'})}
             <br />
-            {new Date(nextTask.start_time).toLocaleDateString("en-us", {month: 'long', day: 'numeric', timeZone: "UTC"})}
+            {new Date(nextTask.start_time).toLocaleDateString("en-us", {month: 'long', day: 'numeric'})}
           </p> 
           <button
             className="btn btn-warning HomeBoxEdit"

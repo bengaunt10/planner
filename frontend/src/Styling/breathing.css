@@ -127,20 +127,23 @@
 @media (max-width: 768px) {
     .breathingTitle {
       font-size: 6vw;
+      margin-top: 2vh;
     }
   
     .breathingInstructions {
-      font-size: 3vw;
+      font-size: 4vw;
       width: 80vw;
-    
+      margin-top: 7vh;
     }
   
     .anim-circle {
-      margin-top: 35vh;
+      margin-top: 40vh;
     }
   
     .breathing-logo {
-      display: none; /* Hide mascot on mobile */
+      width:25vw;
+      height: 30vw;
+      top:35vh;
     }
   
     .resourceCards {

@@ -18,8 +18,8 @@ function Calendar() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false); 
   const [openEditModal, setOpenEditModal] = useState(false);
   const [deleteRepeat, setDeleteRepeat] = useState(false);
-  const [TaskSelected, setTaskSelected] = useState(null);
-
+  const [taskSelected, setTaskSelected] = useState(null);
+  const [clickedStartTime, setClickedStartTime] = useState("");
 
   const Token = localStorage.getItem("access");
 
@@ -28,7 +28,7 @@ function Calendar() {
     if (response) {
       setTasks(response);
     } else {
-      console.error("Failed to fetch tasks");
+      console.error("Tasks can't be fetched");
     }
   };
 
@@ -37,30 +37,31 @@ function Calendar() {
   }, []);
 
   const deleteTask = async () => {
-    try {
-      await TaskServices.deleteTask(TaskSelected.id, Token, deleteRepeat);
+    const response = await TaskServices.deleteTask(taskSelected.id, Token, deleteRepeat);
+    if(response){
       setOpenDeleteModal(false);
-    }catch(error){
-      console.error("Error deleting task:", error);
+      setOpenTaskModal(false);
+      setTaskSelected(null);
+      fetchTasks();
+    }else{
+      console.error("There was an error when deleting the task!");
     }
-    setOpenTaskModal(false);
-    setTaskSelected(null);
-    fetchTasks();
   };
 
   const addTask = async (taskData) => {
-    try {
-    await TaskServices.addTask(taskData, Token);
-    await fetchTasks();
-    }catch (error){
-      console.error("Error adding task:", error);
+    const response = await TaskServices.addTask(taskData, Token);
+    if (response) {
+      setOpenAddModal(false);
+      setClickedStartTime("");
+      fetchTasks();
+    } else {
+      console.error("Error when adding task!")
     }
-    setOpenAddModal(false);
+
   };
 
   const editTask = async (taskData) => {
-    
-    await TaskServices.editTask(TaskSelected.id, Token, taskData);
+    TaskServices.editTask(taskSelected.id, Token, taskData);
     fetchTasks();
     setOpenEditModal(false)
     setOpenTaskModal(false)
@@ -68,7 +69,8 @@ function Calendar() {
   };
 
   const handleDateClick = (arg) => {
-    alert(arg.dateStr);
+    setClickedStartTime(arg.dateStr);
+    setOpenAddModal(true);
   };
 
   const onEventClick = (info) => {
@@ -82,21 +84,23 @@ function Calendar() {
   const dropDate = async (info) => {
     const eventMovedId = info.event.id;
     const eventMovedStart = info.event.start.toISOString();
+    const eventMovedEnd = info.event.end.toISOString();
     const eventMoved = Tasks.find(
+
       (task) => String(task.id) === String(eventMovedId)
     );
-    const currentTime = new Date().toISOString().substring(0, 16);
 
-    if (eventMovedStart < currentTime) {
-      alert("Start time cannot be before current time");
-      info.revert();
-      return;
-    }
     const edittedTask = {
       ...eventMoved,
       start_time: eventMovedStart,
     };
     await TaskServices.editTask(eventMovedId, Token, edittedTask);
+    const now = new Date().toISOString();
+    if (eventMovedEnd < now) {
+      info.el.style.backgroundColor = "#6c757d"; 
+    } else {
+      info.el.style.backgroundColor = "rgb(95, 151, 123)"; 
+    }
     fetchTasks();
   };
 
@@ -106,9 +110,7 @@ function Calendar() {
     const newEndTime = info.event.end;
 
     const duration = (newEndTime - newStartTime) / 3600000;
-    const eventResized = Tasks.find(
-      (task) => String(task.id) === String(eventResizedId)
-    );
+    const eventResized = Tasks.find( (task) => String(task.id) === String(eventResizedId) );
     const resizedTask = {
       ...eventResized,
       duration: duration,
@@ -122,39 +124,30 @@ function Calendar() {
     <>      
       <div className="cal">
         <Navbar />
-
         <CalendarComponent Tasks={Tasks} onEventClick={onEventClick} dropDate={dropDate} onResize={onResize} handleDateClick={handleDateClick} setOpenAddModal={setOpenAddModal}/>
-
       </div>
 
-    {openAddModal && (
-        <Modal onClose={() => setOpenAddModal(false)} title="Add Task">
-          
-          <TaskOperationForm onSubmit={addTask} /> 
+      {openAddModal && (
+        <Modal onClose={() => {setOpenAddModal(false); setClickedStartTime("")}} title="Add Task">
+          <TaskOperationForm onSubmit={addTask} start={clickedStartTime} /> 
         </Modal>
       )}
 
       {openTaskModal && (
-        <Modal
-          onClose={() => {
-            setOpenTaskModal(false);
-            setTaskSelected(null);
-            }}
-            title="Task Details"
-          >
-          <TaskDisplay taskSelected={TaskSelected} setTaskSelected={setTaskSelected} setOpenEditModal={setOpenEditModal} setOpenDeleteModal={setOpenDeleteModal} setOpenTaskModal={setOpenTaskModal}/>
+        <Modal onClose={() => { setOpenTaskModal(false); setTaskSelected(null); }} title="Task Details">
+          <TaskDisplay taskSelected={taskSelected} setTaskSelected={setTaskSelected} setOpenEditModal={setOpenEditModal} setOpenDeleteModal={setOpenDeleteModal} setOpenTaskModal={setOpenTaskModal}/>
         </Modal>
       )}
-      {openDeleteModal && TaskSelected && (
+      {openDeleteModal && taskSelected && (
         <Modal onClose={() => setOpenDeleteModal(false)} title="Delete Task?">
-          <DeleteEvent deleteTask={deleteTask} taskSelected={TaskSelected} deleteRepeat={deleteRepeat} setDeleteRepeat={setDeleteRepeat} setOpenDeleteModal={setOpenDeleteModal}/>
+          <DeleteEvent deleteTask={deleteTask} taskSelected={taskSelected} deleteRepeat={deleteRepeat} setDeleteRepeat={setDeleteRepeat} setOpenDeleteModal={setOpenDeleteModal}/>
         </Modal>
 
     
       )}
-      {openEditModal && TaskSelected && (
+      {openEditModal && taskSelected && (
         <Modal onClose={() => setOpenEditModal(false)} title="Edit Task">
-          <TaskOperationForm onSubmit={editTask} passedData={TaskSelected} editForm={true}/>
+          <TaskOperationForm onSubmit={editTask} passedData={taskSelected} editForm={true}/>
       </Modal>
 
 

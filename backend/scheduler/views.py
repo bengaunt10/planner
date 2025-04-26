@@ -14,7 +14,7 @@ from .helper import calculate
 
 
 @api_view(["POST"])
-@permission_classes([AllowAny]) #anyone..even if not authenticated can call this function - as it is to create a new user 
+@permission_classes([AllowAny]) 
 def user_create(request):
     username = request.data.get("username")
     if User.objects.filter(username=username).exists():

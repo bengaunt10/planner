@@ -4,7 +4,6 @@ import "../Styling/Form.css";
 function Login() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   return (
-    // <div className="registerContainer">
     <>
       <h1 className="title">CALM DAY</h1>
       <div className="login-logo"></div>
@@ -17,7 +16,6 @@ function Login() {
       </div>
       <Form route={`${baseUrl}/token/`} result="login" />
     </>
-    // </div>
   );
 }
 

@@ -11,7 +11,6 @@ body {
   overflow: hidden;
 }
 
-/* make slower, more frequent, 2 more of them. this is calming vibe. like rainfall. can link to anything? */
 .line {
   position: absolute;
   width: 2px;

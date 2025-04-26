@@ -9,8 +9,8 @@ function Study() {
   const [displayWriting, setDisplayWriting] = useState(false);
 
   useEffect(() => {
-    let callAt = setInterval(() => {
-      clearInterval(callAt);
+    let get_at = setInterval(() => {
+      clearInterval(get_at);
       if (secondsLeft === 0) {
         if (minutesLeft !== 0) {
           setSecondsLeft(59);

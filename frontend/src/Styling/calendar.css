@@ -1,40 +1,15 @@
 body{ 
-    /* check what tf --fc is and make sure only aaffecting this and not rest of code */
-    
-    --fc-small-font-size: .85em;
-    --fc-page-bg-color: #fff;
+   
+  
     --fc-neutral-bg-color: rgba(15, 38, 57, 0.3);
-    --fc-neutral-text-color: #808080;
     --fc-border-color: #777777;
-  
-    --fc-button-text-color: #fff;
-    --fc-button-bg-color: #2C3E50;
+    --fc-button-bg-color: #4d889f;
     --fc-button-border-color: #2C3E50;
-    --fc-button-hover-bg-color: #1e2b37;
-    --fc-button-hover-border-color: #1a252f;
-    --fc-button-active-bg-color: #1a252f;
-    --fc-button-active-border-color: #151e27;
-  
-    /* --fc-event-bg-color: #1f3d5a; */
-    --fc-event-bg-color: #3d5a74;
+    --fc-button-hover-bg-color: #34536f;
     --fc-event-bg-color: rgb(95, 151, 123);
     --fc-event-border-color: #d6ded8;
-    --fc-event-text-color: #fff;
-    --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
-  
-    --fc-more-link-bg-color: #d0d0d0;
-    --fc-more-link-text-color: inherit;
-  
-    --fc-event-resizer-thickness: 8px;
-    --fc-event-resizer-dot-total-width: px;
-    --fc-event-resizer-dot-border-width: 1px;
-  
-    --fc-non-business-color: rgba(215, 215, 215, 0.3);
-    --fc-bg-event-color: rgb(143, 223, 130);
-    --fc-bg-event-opacity: 0.3;
-    --fc-highlight-color: rgba(188, 232, 241, 0.3);
     --fc-today-bg-color: rgba(2, 20, 32, 0.15);
-    --fc-now-indicator-color: red;
+    --fc-now-indicator-color: rgb(192, 37, 37);
    
 }
 .fc-direction-ltr {
@@ -42,12 +17,11 @@ body{
       margin-right: 1vw;
     }
 
-    .fc-col-header-cell a {
-        color: white !important; 
-        text-decoration: none !important;
-    }
+.fc-col-header-cell a {
+    color: white !important; 
+    text-decoration: none !important;
+}
     
-
 .fc-daygrid-day-number {
     color: white !important; 
     text-decoration: none !important; 
@@ -62,8 +36,7 @@ body{
     background: linear-gradient(180deg, #2C3E50 0%, #1B263B 100%);    
     background: #264d58;
     height:100vh;
-    font-size: 1vw;
-    
+    font-size: 0.95vw;
     
 }
 
@@ -102,3 +75,27 @@ body{
   .fc-addTask-button:hover {
     background-color: rgb(60, 142, 100)!important; 
   }
+
+  @media (max-width: 768px) {
+    .cal {
+      font-size: 4vw; 
+    }
+  
+    .fc {
+      font-size: 3.5vw !important; 
+    }
+  
+    .fc-toolbar-title {
+      font-size: 5vw !important;
+    }
+  
+    .fc-button {
+      font-size: 3vw !important;
+    }
+  
+    .fc-addTask-button {
+      font-size: 4vw !important;
+      
+    }
+  }
+  

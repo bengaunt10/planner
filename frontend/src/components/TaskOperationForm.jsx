@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 
-function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
+function TaskOperationForm({ onSubmit, passedData, editForm=false, start="" }) {
     const [taskData, setTaskData] = useState({
         newName: "",
         newDescription: "",
         newDuration: 0,
-        newStartTime: "",
+        newStartTime: start,
         newRepeat: "none",
         scheduleForMe: false,
         dueDate: "",
@@ -29,12 +29,7 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
 
     const preSubmission = (e) => {
         e.preventDefault();
-        const currentTime = new Date().toISOString().substring(0, 16);
-        
-        if (!taskData.scheduleForMe && taskData.ewStartTime < currentTime) {
-          alert("Start time cannot be before current time");
-          return;
-        }
+
     
         onSubmit({
           name: taskData.newName,
@@ -73,6 +68,7 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false }) {
                 type="text"
                 placeholder="Enter Description..."
                 value={taskData.newDescription}
+                maxLength={170}
                 onChange={(e) =>
                   setTaskData({
                     ...taskData,

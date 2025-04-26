@@ -23,7 +23,8 @@ def calculate(taskDuration, dueDate, user=None):
         return False
 
     taskDuration = timedelta(hours=taskDuration)
-    currentTime = now()
+    currentTime = timezone.localtime()
+    print("Current Time: ", currentTime)
     twoWeeksBefore = dueDate - timedelta(weeks=2)
     startLoopDate = max(currentTime, twoWeeksBefore)
     tasks = Task.objects.filter(user=user, start_time__date__gte=startLoopDate.date(), start_time__date__lte=dueDate.date())
@@ -53,6 +54,7 @@ def calculate(taskDuration, dueDate, user=None):
                 newTime = make_aware(datetime.combine(dayOn.date(), time(hour=earliestHour)))
             while newTime + taskDuration <= make_aware(datetime.combine(dayOn.date(), time(hour=latestHour))): 
                 if not overlap_checker(newTime, taskDuration, user=user):
+                    print("Found time: ", newTime)
                     return newTime + timedelta(hours=0.25) 
                 newTime += timedelta(hours=1) 
 

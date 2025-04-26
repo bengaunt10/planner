@@ -55,3 +55,70 @@
       margin-bottom: 0.5rem;
   }
   
+
+
+  .help-content{
+    background-color: hsla(160, 11%, 78%, 0.8) !important;
+    border-radius: 4vw;
+    padding: 1vw;
+    width: 40svw;
+    margin-left: -2.1vw;
+    font-weight: 700;
+    box-shadow: none;
+
+  }
+
+  .helpLogo{
+    background-image: url("../assets/mascotThinking.PNG");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30vw;
+    height: 35vw;
+    position: fixed;
+    left: 40vw;
+    top: 60vh;
+}
+@media (max-width: 768px) {
+
+  .modal-dialog {
+    width: 90vw;
+  }
+
+  .modal-content {
+    border-radius: 3vw;
+  }
+
+  .modal-title {
+    font-size: 6vw;
+    text-align: center;
+  }
+
+  .modal .form-control {
+    font-size: 3vw !important;
+    padding: 2vw;
+  }
+
+  .modal label {
+    font-size: 3.5vw;
+  }
+
+  .chooseToSchedule {
+    padding: 4vw;
+    margin-bottom: 2vh;
+  }
+  small{
+    font-size: 3vw;
+  }
+  .help-content {
+    width: 90vw;
+    font-size: 3.5vw;
+  }
+
+  .helpLogo {
+    width: 60vw;
+    height: 70vw;
+    left: 25vw;
+    top: 107vh;
+
+  }
+}

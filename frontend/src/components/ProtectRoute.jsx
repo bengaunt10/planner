@@ -7,7 +7,7 @@ import Loading from "./Loading"
 // eslint-disable-next-line react/prop-types
 function ProtectRoute({children}) {
 
-    const baseUrl = import.meta.env.BASE_URL;
+    const baseUrl = import.meta.env.VITE_BASE_URL;
     const [isAuth, setIsAuth] = useState(null)
 
     useEffect(() => {

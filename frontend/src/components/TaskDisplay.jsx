@@ -18,11 +18,11 @@ function TaskDisplay({taskSelected, setTaskSelected, setOpenEditModal, setOpenDe
         </div>
         <label>Start Time: </label>
         <div className="form-control">
-            {new Date(taskSelected.start_time).toLocaleString("en-US", {dateStyle:"long", timeStyle:"short", timeZone: "UTC"} )}
+            {new Date(taskSelected.start_time).toLocaleString("en-US", {dateStyle:"long", timeStyle:"short"} )}
         </div>
         <label>End Time: </label>
         <div className="form-control">
-            {new Date(taskSelected.end_time).toLocaleString("en-US", {dateStyle:"long", timeStyle:"short", timeZone: "UTC"} )}
+            {new Date(taskSelected.end_time).toLocaleString("en-US", {dateStyle:"long", timeStyle:"short"} )}
         </div>
         <div className="taskDisplayButtons">
         <button

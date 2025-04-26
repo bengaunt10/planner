@@ -1,6 +1,5 @@
 //Copilot assisted file. All code was reviewed, tested, and modified by me 
 
-
 import { describe, it, expect, vi,beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -215,9 +214,7 @@ describe('Gratitude Operations Tests', () => {
     
     await user.clear(screen.getByLabelText(/What are your gratitudes/i));
     await user.type(screen.getByLabelText(/What are your gratitudes/i), 'Updated Gratitude');
-    
     await user.click(screen.getByRole('button', { name: /Update Entry/i }));
-
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
         gratitudes: 'Updated Gratitude'

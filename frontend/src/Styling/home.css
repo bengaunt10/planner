@@ -46,23 +46,21 @@
   color: white;
  }
  .dashTime{
-  margin-bottom: 150%;
-  width:90%;
+  margin-bottom: 120%;
+  width:85%;
   padding:1.5vw;
   border-radius:20px;
   background-color: #264d58;
-  font-size: 1.2vw;
+  font-size: 2vw;
   text-align: center;
   font-weight: 1000;
   background: #82A3AF;
-  
   color: #434343;
- 
  }
  
  .dashDate{
   font-size: 1.5vw;
-  margin-top: 10%;
+  margin-top: 21%;
   color: #82A3AF;
   font-weight: 1000;
  }
@@ -72,21 +70,23 @@
   }
 
   .homeQuote{
-    font-size: 1.5vw;
+    font-size: 1.3vw;
     padding: 0.5vw;
     margin: 2.5vw;
     border-radius: 10px;
     width:17vw;
     border: none;
     position: absolute;  
-    top: 68vh; 
+    top: 71vh; 
     right: 3vw; 
     text-align: left; 
+    font-style: italic;
   }
 
   .HomeBoxButton{
     background: none;
     color: #242424;
+   
     position: absolute;
     bottom: 2.5vh;
     left:2vw;
@@ -102,7 +102,7 @@
   .buttonHolders{
     position:absolute;
     right:9.5vw;
-    top:21vh;
+    top:23vh;
     display: flex;
     flex-direction: column;
     
@@ -117,7 +117,7 @@
     height:6vw;
     background-color: #1B263B;
     background: rgb(95, 151, 123);
-    color: #242424;
+    color: rgb(43, 43, 43);
     font-weight: 600;
     border: none;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
@@ -130,16 +130,17 @@
   
   .HomeBoxTitle{
     position: absolute;
-    font-size: 3vw;
+    font-size: 2.5vw;
     top:3.5vh;
     left:3vw;
+    font-weight: 400;
 
   }
   .HomeBoxTask{
     position: absolute;
     font-weight: 800;
     font-size: 3vw;
-    top:21vh;
+    top:18vh;
     margin: auto;
   }
   .HomeBoxDescriptionn{
@@ -147,43 +148,158 @@
     font-size: 1.5vw;
     top:33vh;
     margin: auto;
+    height:auto;
+    /* overflow:scroll; */
+    margin-top: -4vh;
+    padding:1vw;
+    width: 45vw;
+    border-radius: 20px;
+    
   }
   .HomeBoxTime{
     position: absolute;
     font-size: 1.5vw;
     top:45vh;
     margin: auto;
+    background-color: rgb(201, 201, 201, 0.05);
+    padding:1vw;
+    width: 20vw;
+    border-radius: 20px;
+    /* font-style: italic; */
+    font-weight: 600;
+    margin-top: 2vh;
   }
   .homeTitle {
-    font-size: 3vw;
+   
+    margin-top: 1vw;
+    font-size: 2.5vw;
     letter-spacing: 4px;
     color: white;
-    margin-left: -65vw;
-    margin-bottom: 1vw;    
+    margin-left: -70vw;
+    margin-bottom: 1.5vw;  
+   
     
 }
-  /* .homeTitle {
-    font-size: 50px;
-    letter-spacing: 3px;
-    color: white;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    text-align: left; /* Text aligns to the left within the container 
-    display: flex;
-    flex-direction: column;
-} ''*/
+
 
 .nextTask{
   list-style: none; 
+  
 
 }
 h2{
   font-size: 2vw;
 }
 .HelpButton{
+  color: rgb(198, 216, 204);
   position: absolute;
   left: auto;
-  right: 0vw;
-  top: 8vh
+  right: 0.5vw;
+  top: 9vh;
+}
+
+@media (max-width: 768px) {
+  .HomeBoxContainer {
+    flex-direction: column;
+    width: 95vw;
+    margin: auto;
+    height: auto;
+    border-radius: 20px;
+   
+    
+  }
+
+  .sideBar {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding: 3vw;
+  }
+
+  .dashDate, .dashTime {
+    font-size: 4vw;
+    margin: 0;
+    padding: 2vw;
+    width: auto;
+  }
+
+  .HomeBox {
+    width: 100%;
+    padding: 2vw;
+    border-radius: 0px 0px 0px 0px;
+    height: 50vh;
+  }
+
+  .HomeBoxTitle {
+    font-size: 5vw;
+    top: 2vh;
+    left: 33vw;
+  }
+
+  .HomeBoxTask {
+    font-size: 6vw;
+    top: 17vw;
+    left: 36vw;
+  }
+
+  .HomeBoxDescriptionn {
+    font-size: 4vw;
+    top: 42vw;
+    left: 5vw;
+    width: 90%;
+   
+  }
+
+  .HomeBoxTime {
+    font-size: 4vw;
+    width: 80%;
+    text-align: center;
+    top: 63vw;
+    left: 10vw;
+  }
+
+  .HomeBoxButton, .HomeBoxEdit {
+    font-size: 5vw;
+  }
+
+  .buttonHolders {
+    flex-direction: row;
+    width: 90%;
+    top: 77vh;
+    left: 5vw;
+    justify-content: space-between;
+  }
+
+  .homeButton {
+    width: 17vw;
+    height: 17vw;
+    font-size: 9.5vw;
+   
+  }
+
+  .homeQuote {
+    width: 90%;
+    font-size: 4vw;
+    text-align: center;
+    top: 88vh;
+
+  }
+
+  .homeTitle {
+    margin-left: 0;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+    text-align: center;
+    font-size: 5vw;
+  }
+
+  .HelpButton {
+    top: 8.5vh;
+    right: 90vw;
+    font-size: 5vw;
+  }
+  .noTaskAlert{
+    font-size: 4vw;
+    text-align: center;
+  }
 }
