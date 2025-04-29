@@ -16,7 +16,7 @@ class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=400)
-    duration = models.IntegerField()    
+    duration = models.FloatField()    
     start_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(blank=True, null=True) 
     due_date = models.DateTimeField(null=True, blank=True)

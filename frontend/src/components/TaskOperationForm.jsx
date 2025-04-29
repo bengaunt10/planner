@@ -79,7 +79,7 @@ function TaskOperationForm({ onSubmit, passedData, editForm=false, start="" }) {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="duration"> duration:</label>
+              <label htmlFor="duration"> Duration:</label>
               <input className="form-control"
                 id="duration"
                 type="number"

@@ -15,8 +15,8 @@ function HelpGuide({onClose}) {
         </div>
         <div className="modal-body">
         <div className="helpBox">
-            <p>Welcome to Calm Day! Here are some tips to help get you started:</p>
-            <p>Use the navigation bar above to navigate Calm Day. You are currently on the <strong>Dashboard</strong>.</p>
+            <p>Welcome to CalmDay! Here are some tips to help get you started:</p>
+            <p>Use the navigation bar above to navigate CalmDay. You are currently on the <strong>Dashboard</strong>.</p>
             <ul>
                 <li>Click the <FontAwesomeIcon icon={faSquarePlus} /> button to add a new task. You can choose your preffered start time or let Calm Day schedule the task for you!</li>
                 <li>Click the <FontAwesomeIcon icon={faStopwatch} /> button to begin a study session</li>
@@ -26,7 +26,8 @@ function HelpGuide({onClose}) {
             <p><strong>Calendar Page </strong></p>
             <ul>
                 <li>Click the calendar in the navigation bar to view your tasks in a calendar format. You can add, edit, and delete tasks from this page as well.</li>
-                <li>Click on a task to view its details or delete/edit the task. Resize tasks to change duration and drag and drop tasks to reschedule them.</li>
+                <li>Click on a task to view its details or delete/edit the task. </li>
+                <li>Drag to resize your tasks and change duration with ease and drag and drop tasks to easily reschedule them. Also, just click anywhere on the calendar to schedule a task at that position!</li>
             </ul>
             <p><strong>Wellbeing Page </strong></p>
             <ul>

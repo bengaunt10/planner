@@ -61,11 +61,16 @@ function Calendar() {
   };
 
   const editTask = async (taskData) => {
-    TaskServices.editTask(taskSelected.id, Token, taskData);
-    fetchTasks();
-    setOpenEditModal(false)
-    setOpenTaskModal(false)
-    setTaskSelected(null)
+    const response = await TaskServices.editTask(taskSelected.id, Token, taskData);
+    if(response) {
+      setOpenEditModal(false)
+      setOpenTaskModal(false)
+      setTaskSelected(null)
+      fetchTasks();
+    }
+    else {
+      console.error("Error when editing the task!")
+    }
   };
 
   const handleDateClick = (arg) => {

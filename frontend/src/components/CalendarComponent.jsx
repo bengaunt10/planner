@@ -19,6 +19,8 @@ function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateC
     droppable={true} 
     weekends={true}
     allDaySlot={false}
+    slotDuration={"00:30:00"} 
+    scrollTime={"06:00:00"}
     customButtons={{
       addTask: {
       text: "+ Add Task",

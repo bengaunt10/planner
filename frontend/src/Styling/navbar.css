@@ -1,7 +1,5 @@
 .custom-nav{
     width: 100vw;
-
-
   }
   
   header {
@@ -17,7 +15,6 @@
     max-height: 9vh;
     margin-bottom: 1vh;
     z-index: 1050;
-    
   }
   
   header h1{

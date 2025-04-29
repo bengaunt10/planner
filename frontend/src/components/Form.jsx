@@ -42,7 +42,7 @@ function Form({route, result}) {
     }
       else{
         if (response.status === 401) {
-          setErrorReason("Login Failed");
+          setErrorReason("Login Failed.");
         } else {
           setErrorReason(data.reason || "Unknown error occurred");
         }
@@ -93,7 +93,12 @@ function Form({route, result}) {
         <button  className="formButton btn btn-success" type = "submit"> {what} </button>
 
         {errorReason && (
-        <div className="errorReason">{errorReason}</div>
+          <>
+            <div className="errorReason">{errorReason}</div>
+              {errorReason === "Login Failed." && (
+                <div className="reminder">Reminder: Username and Password are case sensitive</div>
+              )}
+          </>
         )}
 
         <p className="otherFormMessage">Click to <Link className="nav-link" to={link}>{text} </Link> here</p>

@@ -13,7 +13,7 @@
   height: 150px;
   border-radius: 50%;
   background: rgba(188, 237, 243, 0.9);
-  animation: breathe 10s linear infinite;
+  animation: breathe 8s linear infinite;
 }
 
 @keyframes breathe {
