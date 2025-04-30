@@ -32,8 +32,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*'] #render url to go here
-
+ALLOWED_HOSTS = ['*'] 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -78,8 +77,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-#My local react frontend
-    # Add my production frontend URL when i deploy
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  
     "https://calmday.netlify.app",
@@ -124,14 +122,11 @@ DATABASES = {
             'PORT': os.environ["PGPORT"],
         }
 
-    }
+     }
 
 
 
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {

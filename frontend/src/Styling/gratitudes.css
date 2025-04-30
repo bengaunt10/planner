@@ -82,7 +82,7 @@
   }
 
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     .gratitudeCard {
       width: 90%;
       padding: 15px;

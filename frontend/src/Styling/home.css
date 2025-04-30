@@ -198,7 +198,7 @@ h2{
   top: 9vh;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .HomeBoxContainer {
     flex-direction: column;
     width: 95vw;

@@ -76,7 +76,7 @@ body{
     background-color: rgb(60, 142, 100)!important; 
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     .cal {
       font-size: 4vw; 
     }

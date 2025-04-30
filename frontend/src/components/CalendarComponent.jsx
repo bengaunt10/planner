@@ -12,7 +12,6 @@ function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateC
     plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
     dateClick={handleDateClick}
     initialView="timeGridDay"
-
     themeSystem="standard"
     timeZone="local"
     editable={true} 

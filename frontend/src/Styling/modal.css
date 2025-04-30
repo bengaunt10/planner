@@ -78,7 +78,7 @@
     left: 40vw;
     top: 60vh;
 }
-@media (max-width: 768px) {
+@media (max-width: 600px) {
 
   .modal-dialog {
     width: 90vw;

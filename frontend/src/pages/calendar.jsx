@@ -49,9 +49,9 @@ function Calendar() {
   };
 
   const addTask = async (taskData) => {
+    setOpenAddModal(false);
     const response = await TaskServices.addTask(taskData, Token);
     if (response) {
-      setOpenAddModal(false);
       setClickedStartTime("");
       fetchTasks();
     } else {
