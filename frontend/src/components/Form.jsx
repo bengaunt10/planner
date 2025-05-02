@@ -42,7 +42,7 @@ function Form({route, result}) {
     }
       else{
         if (response.status === 401) {
-          setErrorReason("Login Failed.");
+          setErrorReason("Login Failed");
         } else {
           setErrorReason(data.reason || "Unknown error occurred");
         }
@@ -71,6 +71,7 @@ function Form({route, result}) {
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           placeholder="UserName"
+          maxLength={40}
           required
         />
         <input className="form-control auth-form-control"
@@ -95,7 +96,7 @@ function Form({route, result}) {
         {errorReason && (
           <>
             <div className="errorReason">{errorReason}</div>
-              {errorReason === "Login Failed." && (
+              {errorReason === "Login Failed" && (
                 <div className="reminder">Reminder: Username and Password are case sensitive</div>
               )}
           </>

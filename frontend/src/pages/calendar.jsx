@@ -12,7 +12,6 @@ import DeleteEvent from "../components/DeleteEvent";
 
 function Calendar() {
   const [Tasks, setTasks] = useState([]);
-
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openTaskModal, setOpenTaskModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false); 
@@ -37,9 +36,9 @@ function Calendar() {
   }, []);
 
   const deleteTask = async () => {
+    setOpenDeleteModal(false);
     const response = await TaskServices.deleteTask(taskSelected.id, Token, deleteRepeat);
     if(response){
-      setOpenDeleteModal(false);
       setOpenTaskModal(false);
       setTaskSelected(null);
       fetchTasks();
@@ -61,9 +60,9 @@ function Calendar() {
   };
 
   const editTask = async (taskData) => {
+    setOpenEditModal(false)
     const response = await TaskServices.editTask(taskSelected.id, Token, taskData);
     if(response) {
-      setOpenEditModal(false)
       setOpenTaskModal(false)
       setTaskSelected(null)
       fetchTasks();

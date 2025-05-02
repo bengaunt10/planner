@@ -32,18 +32,18 @@ function GratitudeJournal() {
 
   const addGratitude = async (gratitudeData) => {
     try {
+      setOpenAddModal(false);
       await GratitudeServices.add_gratitudes(gratitudeData, Token);
     }catch (error){
       console.error("Error adding task:", error);
     }
-    setOpenAddModal(false);
     fetchGratitudes();
   }
 
   const deleteGratitude = async () => {
     try {
-      await GratitudeServices.deleteGratitude(GratitudeSelected.id, Token);
       setOpenDeleteModal(false);
+      await GratitudeServices.deleteGratitude(GratitudeSelected.id, Token);
     }catch(error){
       console.error("Error deleting task:", error);
     }
@@ -52,8 +52,8 @@ function GratitudeJournal() {
   };
 
   const editGratitude = async (taskData) => {
-    await GratitudeServices.editGratitude(GratitudeSelected.id, Token, taskData);
     setOpenEditModal(false)
+    await GratitudeServices.editGratitude(GratitudeSelected.id, Token, taskData);
     fetchGratitudes();
   };
 

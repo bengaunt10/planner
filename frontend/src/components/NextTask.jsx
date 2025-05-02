@@ -10,9 +10,9 @@ function NextTask({Tasks, setOpenDeleteModal, setTaskToDelete, setOpenEditModal,
     }
     const currentTime = new Date();
     const nextTasks = Tasks.filter((task) => {
-    const taskTime = new Date(task.start_time);
-    const taskEnd = new Date(task.end_time);
-    return (taskTime <= currentTime && currentTime <= taskEnd) || taskTime > currentTime;
+      const taskTime = new Date(task.start_time);
+      const taskEnd = new Date(task.end_time);
+      return (taskTime <= currentTime && currentTime <= taskEnd) || taskTime > currentTime;
     });
     if (nextTasks.length === 0) {
       return null;
