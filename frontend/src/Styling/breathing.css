@@ -125,9 +125,6 @@
   }
 
 @media (max-width: 600px) {
-  .wellbeingContainer{
-    overflow-y: auto;
-  }
     .breathingTitle {
       font-size: 6vw;
       margin-top: 2vh;

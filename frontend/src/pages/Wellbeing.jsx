@@ -8,7 +8,7 @@ import { faBookOpen, faHandHoldingHeart, faLungs } from "@fortawesome/free-solid
 
 function WellBeing() {
   return (
-    <div className="wellbeingContainer">
+    <>
       <Navbar />
       <ul className="nav nav-pills nav-fill">
         <li className="nav-item">
@@ -120,7 +120,7 @@ function WellBeing() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

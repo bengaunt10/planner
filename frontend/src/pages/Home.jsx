@@ -55,7 +55,7 @@ function Home() {
     fetchTasks();
   };
 
-  
+
 
   useEffect(() => {
     fetchTasks();

@@ -200,9 +200,7 @@ h2{
 }
 
 @media (max-width: 600px) {
-  .homePage {
-    overflow-y: auto;
-  }
+
   .HomeBoxContainer {
     flex-direction: column;
     width: 95vw;
