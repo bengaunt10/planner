@@ -68,8 +68,7 @@
       left: 40vw;
     }
     .studyPage{
-      height: auto;
-      overflow: scroll;
+      overflow-y: auto;
     }
   }
   
