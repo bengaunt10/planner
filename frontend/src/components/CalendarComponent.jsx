@@ -6,7 +6,6 @@ import interactionPlugin from "@fullcalendar/interaction";
 import "../Styling/calendar.css";
 function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateClick, setOpenAddModal}) {
 
-
   return (
     <FullCalendar
     plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}

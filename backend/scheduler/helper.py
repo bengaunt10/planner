@@ -3,6 +3,7 @@ from datetime import timedelta, datetime, date, time
 from django.utils.timezone import now, make_aware
 from django.utils import timezone
 
+#overlap checker function:
 def overlap_checker(taskStart, duration, taskID = None, user=None):
     if user is None:
         return False
@@ -17,6 +18,7 @@ def overlap_checker(taskStart, duration, taskID = None, user=None):
             return True
     return False
 
+#Self scheduling function:
 def calculate(taskDuration, dueDate, user=None):
 
     if user is None:
@@ -24,7 +26,6 @@ def calculate(taskDuration, dueDate, user=None):
 
     taskDuration = timedelta(hours=taskDuration)
     currentTime = timezone.localtime()
-    print("Current Time: ", currentTime)
     twoWeeksBefore = dueDate - timedelta(weeks=2)
     startLoopDate = max(currentTime, twoWeeksBefore)
     tasks = Task.objects.filter(user=user, start_time__date__gte=startLoopDate.date(), start_time__date__lte=dueDate.date())
@@ -46,7 +47,7 @@ def calculate(taskDuration, dueDate, user=None):
     for dayOn in OrderedDays:
         if dayHours[dayOn] + taskDuration.total_seconds() / 3600 <= maxHoursInDay:
             if dayOn.date() == currentTime.date():
-                newTime = currentTime + timedelta(minutes=30)
+                newTime = currentTime + timedelta(minutes=15)
                 newTime = newTime.replace(second=0, microsecond=0)
                 if newTime.hour < earliestHour:
                     newTime = make_aware(datetime.combine(dayOn.date(), time(hour=earliestHour)))
@@ -54,7 +55,6 @@ def calculate(taskDuration, dueDate, user=None):
                 newTime = make_aware(datetime.combine(dayOn.date(), time(hour=earliestHour)))
             while newTime + taskDuration <= make_aware(datetime.combine(dayOn.date(), time(hour=latestHour))): 
                 if not overlap_checker(newTime, taskDuration, user=user):
-                    print("Found time: ", newTime)
                     return newTime + timedelta(hours=0.25) 
                 newTime += timedelta(hours=1) 
 
@@ -63,8 +63,11 @@ def calculate(taskDuration, dueDate, user=None):
             newTime = make_aware(datetime.combine(dayOn.date(), time(hour=earliestHour)))
             while newTime + taskDuration <= make_aware(datetime.combine(dayOn.date(), time(hour=latestHour))):
                 if not overlap_checker(newTime, taskDuration, user=user):
-                    return newTime
+                    return newTime + timedelta(hours=0.25) 
                 newTime += timedelta(hours=1)
+
+    return None
+
 
 # def scheduleAll(): --> schedule for week periods. 
     #for the week clicked on.... 
@@ -76,6 +79,6 @@ def calculate(taskDuration, dueDate, user=None):
     # dynamic programming to balance tasks throughout week.
 
 
-    # later algorithms:
-        # add priority flags. Reshuffle tasks based on priority.
-        # add full reshuffling algorithm using dynamic programming to find optimal order of tasks to complete in a day.
+# later algorithms:
+    # add priority flags. Reshuffle tasks based on priority.
+    # add full reshuffling algorithm using dynamic programming to find optimal order of tasks to complete in a day.

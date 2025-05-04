@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 import Form from "../components/Form"
 import { MemoryRouter } from 'react-router-dom';
 
-// Mock the fetch function
+
 global.fetch = vi.fn();
 
 const mockingNavigation = vi.fn();

@@ -12,3 +12,7 @@ urlpatterns = [
     path("deletegratitude/<int:gratitudeID>/", deleteGratitude, name="delete_gratitude"),
     path("editgratitude/<int:gratitudeID>/", editGratitude, name="edit_gratitude"),
 ]
+
+
+
+   

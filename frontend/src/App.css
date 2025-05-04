@@ -2,24 +2,11 @@
 body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;  /* Adjust weight as needed */
+  font-weight: 400;  
   font-style: normal;
   color: white;
-  /* font-size: small; */
+
 }
-
-
-
-/* .cal{
-  margin: auto;
-  margin-top: 4vh;
-  width: 80vw;
-  background: rgba(132, 127, 188, 0.4);
-
-  max-width: 90vw;
-} */
-
- /* Code inspired by "Using CSS Animations to Visualise Breathing https://vmar76.medium.com/using-css-animations-to-visualize-breathing-techniques-7a20ee0aed5a */
 
  #addTaskModal{
   color: black;

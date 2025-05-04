@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-// Authentication system understood and adapted from https://www.youtube.com/watch?v=WuyKxdLcw3w&list=WL&index=3&t=2233s
+// Authentication system files and protect route understood and adapted from https://www.youtube.com/watch?v=WuyKxdLcw3w&list=WL&index=3&t=2233s
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "../Styling/Form.css"

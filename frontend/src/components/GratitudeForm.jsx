@@ -30,7 +30,6 @@ function GratitudeForm({ onSubmit, passedData, editForm=false }) {
         });
     };
 
-
   return (
     <div>
         <form onSubmit={Submission}>
@@ -79,7 +78,6 @@ function GratitudeForm({ onSubmit, passedData, editForm=false }) {
                 required
               />
             </div>
-
 
             <button className="btn btn-success" type="submit">
                 {editForm ? 'Update' : 'Add'} Entry

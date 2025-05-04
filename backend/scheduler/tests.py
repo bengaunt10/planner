@@ -9,8 +9,6 @@ from django.utils import timezone
 from datetime import timedelta
 from .views import user_create, getData, addTask, deleteTask, editTask
 
-
-
 class TestViews(TestCase):
     def setUp(self):
         self.client = APIClient()
@@ -145,17 +143,17 @@ class TestViews(TestCase):
             "name": "Automatically Scheduled Task",
             "description": "The system is scheduling thist task for the user.",
             "duration": 2,
-            "due_date": timezone.now() + timedelta(days=2),
+            "due_date": timezone.localtime() + timedelta(days=2),
             "repeat": "none"
         }
         response = self.client.post("/add/", scheduledTask)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         taskCreated = Task.objects.get(name="Automatically Scheduled Task")
-        task_hour = taskCreated.start_time.hour
+        task_hour = timezone.localtime(taskCreated.start_time).hour
         self.assertTrue(8 <= task_hour <= 22)
+        self.assertEqual(taskCreated.name, "Automatically Scheduled Task")
         self.assertTrue(
-            taskCreated.start_time + timedelta(hours=taskCreated.duration) 
-            <= scheduledTask["due_date"]
+            taskCreated.start_time + timedelta(hours=taskCreated.duration) <= scheduledTask["due_date"]
         )
 
 class TestGratitudeViews(TestCase):

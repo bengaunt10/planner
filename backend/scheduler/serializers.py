@@ -2,11 +2,12 @@ from rest_framework import serializers
 from .models import Task, Gratitudes
 from django.contrib.auth.models import User
 from .helper import calculate
+
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = "__all__"
-        extra_kwargs = {"user": {"read_only": True}, #read who author is but can't write who author is. SET BY BACKEND
+        extra_kwargs = {"user": {"read_only": True}, 
         }
 
     def validate(self, data):
@@ -15,7 +16,6 @@ class TaskSerializer(serializers.ModelSerializer):
             user = request.user
             due_date= data.get("due_date")
             task_duration = data.get("duration")
-
             newStartTime = calculate(task_duration, due_date, user=user)
             if not newStartTime:
                 raise serializers.ValidationError("Unable to find a suitable time for the task.")
@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "username", "password"]
-        extra_kwargs = {"password": {"write_only": True, "required": True}} #accept password but dont send back, no one should see it.
+        extra_kwargs = {"password": {"write_only": True, "required": True}} 
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)

@@ -1,4 +1,5 @@
 import "../Styling/modal.css"
+//Built using a BootStrap styling
 // eslint-disable-next-line react/prop-types
 function Modal({onClose,title, children}) {
   return (
