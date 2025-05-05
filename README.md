@@ -19,6 +19,7 @@ This project follows the development of a task management full stack web applica
     2. npm install
     3. npm run dev
 This should start the development server at localhost:5173.
+If you wish to run the tests, type npm run test in the frontend terminal and python manage.py test in the backend.
 
 # Technologies used:
 - Bootstrap: https://getbootstrap.com/
