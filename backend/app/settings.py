@@ -100,7 +100,7 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     
-    #Deployment Database(Railway)
+    # Deployment Database(Railway)
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ["PGDATABASE"],
@@ -110,8 +110,6 @@ DATABASES = {
             'PORT': os.environ["PGPORT"],
         }
      }
-
-
 
 
 

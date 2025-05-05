@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
+
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import "../Styling/calendar.css";
 function CalendarComponent({Tasks, onResize, onEventClick, dropDate, handleDateClick, setOpenAddModal}) {
-
+// Calendar from FullCalendar at https://fullcalendar.io/docs
   return (
     <FullCalendar
     plugins={[timeGridPlugin, interactionPlugin, dayGridPlugin]}
