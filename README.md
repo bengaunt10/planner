@@ -20,21 +20,21 @@ This project follows the development of a task management full stack web applica
     3. npm run dev
 This should start the development server at localhost:5173.
 
-#Technologies used:
-Bootstrap: https://getbootstrap.com/
-FullCalendar API: https://fullcalendar.io/
-Vite: https://vite.dev/
-React official documentation: https://react.dev/
-Django Rest Framework official documentation: https://www.django-rest-framework.org/
-Django official documentation: https://docs.djangoproject.com/en/5.1/
-Conda environment: https://anaconda.org/anaconda/conda
-VS Code: https://code.visualstudio.com/
-All code implemented by me, GitHub Copilot (integrated within visual studio), occasionally assisted with some syntax and scaffolding tests. All this was reviewed, understood and adapted by me.
-React Testing Library: https://testing-library.com/
-Vitest: https://vitest.dev/
-Icons: https://fontawesome.com/
-Authentication system understood and adapted from: https://www.youtube.com/watch?v=WuyKxdLcw3w&list=WL&index=3&t=2233s
-Background animation adapted from: https://codepen.io/osorina/pen/PQdMOO
-Breathing animation adapted from: https://vmar76.medium.com/using-css-animations-to-visualize-breathing-techniques-7a20ee0aed5a
-Pomodoro Timer adapted from: https://www.youtube.com/watch?v=9z1qBcFwdXg&list=WL&index=2&t=11s
-Loading animation in code adapted from: https://css-loaders.com/
+# Technologies used:
+- Bootstrap: https://getbootstrap.com/
+- FullCalendar API: https://fullcalendar.io/
+- Vite: https://vite.dev/
+- React official documentation: https://react.dev/
+- Django Rest Framework official documentation: https://www.django-rest-framework.org/
+- Django official documentation: https://docs.djangoproject.com/en/5.1/
+- Conda environment: https://anaconda.org/anaconda/conda
+- VS Code: https://code.visualstudio.com/
+- All code implemented by me, GitHub Copilot (integrated within visual studio), occasionally assisted with some syntax and scaffolding tests. All this was reviewed, understood and adapted by me.
+- React Testing Library: https://testing-library.com/
+- Vitest: https://vitest.dev/
+- Icons: https://fontawesome.com/
+- Authentication system understood and adapted from: https://www.youtube.com/watch?v=WuyKxdLcw3w&list=WL&index=3&t=2233s
+- Background animation adapted from: https://codepen.io/osorina/pen/PQdMOO
+- Breathing animation adapted from: https://vmar76.medium.com/using-css-animations-to-visualize-breathing-techniques-7a20ee0aed5a
+- Pomodoro Timer adapted from: https://www.youtube.com/watch?v=9z1qBcFwdXg&list=WL&index=2&t=11s
+- Loading animation in code adapted from: https://css-loaders.com/
